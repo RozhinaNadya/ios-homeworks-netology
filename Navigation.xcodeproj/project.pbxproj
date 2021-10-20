@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841337A5271F2E220016EDB7 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841337A4271F2E220016EDB7 /* View.swift */; };
 		841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B7F82271EC95700740CD5 /* AppDelegate.swift */; };
 		841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B7F84271EC95700740CD5 /* SceneDelegate.swift */; };
 		841B7F87271EC95700740CD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B7F86271EC95700740CD5 /* ViewController.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841337A4271F2E220016EDB7 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		841B7F7F271EC95700740CD5 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		841B7F82271EC95700740CD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		841B7F84271EC95700740CD5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				841B7F82271EC95700740CD5 /* AppDelegate.swift */,
 				841B7F84271EC95700740CD5 /* SceneDelegate.swift */,
 				841B7F86271EC95700740CD5 /* ViewController.swift */,
+				841337A4271F2E220016EDB7 /* View.swift */,
 				841B7F8B271EC95A00740CD5 /* Assets.xcassets */,
 				841B7F8D271EC95A00740CD5 /* LaunchScreen.storyboard */,
 				841B7F90271EC95A00740CD5 /* Info.plist */,
@@ -133,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841337A5271F2E220016EDB7 /* View.swift in Sources */,
 				841B7F87271EC95700740CD5 /* ViewController.swift in Sources */,
 				841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */,
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
