@@ -10,10 +10,12 @@ import UIKit
 class ViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
-    
-    init(_ color: UIColor) {
+
+    init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
+        self.title = title
+          
     }
     
     required init?(coder: NSCoder) {
@@ -21,15 +23,19 @@ class ViewController: UIViewController {
     }
     
     override func loadView() {
-        view = View()
+        let view = View()
+
+        self.view = view
         view.backgroundColor = backgroundColor
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+    
 
 
 }
