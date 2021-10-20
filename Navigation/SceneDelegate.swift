@@ -17,10 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-        let timelineNavController = UINavigationController(rootViewController: ViewController(.gray, title: "Лента"))
+        let timelineNavController = UINavigationController(rootViewController: FeedViewController(.gray, title: "Лента"))
         timelineNavController.tabBarItem = UITabBarItem(title: "Лента", image:UIImage(systemName: "house"), selectedImage: nil)
-        let profileNavController = UINavigationController(rootViewController: ViewController(.green, title: "Профиль"))
+        let profileNavController = UINavigationController(rootViewController: ProfileViewController(.green, title: "Профиль"))
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
+        
         window.rootViewController = TabBar(
             viewControllers: [
             timelineNavController,
