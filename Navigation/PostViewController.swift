@@ -1,5 +1,5 @@
 //
-//  FeedViewController.swift
+//  PostViewController.swift
 //  Navigation
 //
 //  Created by Надежда on 20.10.2021.
@@ -7,11 +7,12 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+class PostViewController: UIViewController {
     
-    var backgroundColor: UIColor = .clear
+    var backgroundColor: UIColor = .red
 
-    init(_ color: UIColor, title: String = "Title") {
+
+    init(_ color: UIColor, title: String = "Post") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
@@ -24,6 +25,9 @@ class FeedViewController: UIViewController {
     
     override func loadView() {
         let view = ViewFeed()
+        view.button.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onButtonTap))
+        view.shadowView.addGestureRecognizer(gesture)
         self.view = view
         view.backgroundColor = backgroundColor
         
@@ -31,9 +35,15 @@ class FeedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
-    var post = PostViewController.Post(title: "New Post")
+    @objc
+    func onButtonTap(){
+        print("button tapped")
+    }
     
+    struct Post {
+    var title: String
+    }
+
 }

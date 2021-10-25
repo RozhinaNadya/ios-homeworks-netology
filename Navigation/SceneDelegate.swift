@@ -17,15 +17,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
-        let timelineNavController = UINavigationController(rootViewController: FeedViewController(.gray, title: "Лента"))
-        timelineNavController.tabBarItem = UITabBarItem(title: "Лента", image:UIImage(systemName: "house"), selectedImage: nil)
+        let feedNavController = UINavigationController(rootViewController: FeedViewController(.gray, title: "Лента"))
+        feedNavController.tabBarItem = UITabBarItem(title: "Лента", image:UIImage(systemName: "house"), selectedImage: nil)
         let profileNavController = UINavigationController(rootViewController: ProfileViewController(.green, title: "Профиль"))
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
+        let postNavController = PostViewController(.red, title: "Post")
+       
+        
+        feedNavController.viewControllers = [postNavController]
         
         window.rootViewController = TabBar(
             viewControllers: [
-            timelineNavController,
-                profileNavController
+            feedNavController,
+            profileNavController
             ]
         )
         window.makeKeyAndVisible()
