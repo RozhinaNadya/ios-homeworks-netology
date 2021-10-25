@@ -17,6 +17,8 @@
 		841B7F87271EC95700740CD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B7F86271EC95700740CD5 /* ViewController.swift */; };
 		841B7F8C271EC95A00740CD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841B7F8B271EC95A00740CD5 /* Assets.xcassets */; };
 		841B7F8F271EC95A00740CD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841B7F8D271EC95A00740CD5 /* LaunchScreen.storyboard */; };
+		843CC42C27274CF200FB46B0 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42B27274CF200FB46B0 /* InfoViewController.swift */; };
+		843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42D272752C400FB46B0 /* ViewInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		841B7F8B271EC95A00740CD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841B7F8E271EC95A00740CD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841B7F90271EC95A00740CD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		843CC42B27274CF200FB46B0 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		843CC42D272752C400FB46B0 /* ViewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				841337A8272067BD0016EDB7 /* ProfileViewController.swift */,
 				841337AA27207CE90016EDB7 /* PostViewController.swift */,
 				841337AC272197C90016EDB7 /* ViewFeed.swift */,
+				843CC42B27274CF200FB46B0 /* InfoViewController.swift */,
+				843CC42D272752C400FB46B0 /* ViewInfo.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -152,6 +158,8 @@
 				841337A9272067BD0016EDB7 /* ProfileViewController.swift in Sources */,
 				841337A5271F2E220016EDB7 /* View.swift in Sources */,
 				841337AB27207CE90016EDB7 /* PostViewController.swift in Sources */,
+				843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */,
+				843CC42C27274CF200FB46B0 /* InfoViewController.swift in Sources */,
 				841B7F87271EC95700740CD5 /* ViewController.swift in Sources */,
 				841337A72720675D0016EDB7 /* FeedViewController.swift in Sources */,
 				841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */,

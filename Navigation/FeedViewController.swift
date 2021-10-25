@@ -15,7 +15,6 @@ class FeedViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-          
     }
     
     required init?(coder: NSCoder) {
@@ -24,15 +23,22 @@ class FeedViewController: UIViewController {
     
     override func loadView() {
         let view = ViewFeed()
+        view.button.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
         self.view = view
         view.backgroundColor = backgroundColor
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
+    
+    @objc
+    func onButtonTap(){
+        print("button tapped")
+        let vcPost = PostViewController(.yellow, title: "Новый пост")
+        self.navigationController?.pushViewController(vcPost, animated: false)
+    }
+
     
     var post = PostViewController.Post(title: "New Post")
     

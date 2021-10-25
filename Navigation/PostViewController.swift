@@ -9,14 +9,19 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+        
     var backgroundColor: UIColor = .red
+    
+    var postView: View = {
+        let view = View(frame: .zero)
+        return view
+    }()
 
 
     init(_ color: UIColor, title: String = "Post") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-          
     }
     
     required init?(coder: NSCoder) {
@@ -25,21 +30,21 @@ class PostViewController: UIViewController {
     
     override func loadView() {
         let view = ViewFeed()
-        view.button.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(onButtonTap))
-        view.shadowView.addGestureRecognizer(gesture)
         self.view = view
         view.backgroundColor = backgroundColor
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(clickedButton))
+        
+        postView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        view.addSubview(postView)
     }
     
-    @objc
-    func onButtonTap(){
-        print("button tapped")
+    @objc func clickedButton() {
+        let vcInfo = InfoViewController()
+        present(vcInfo, animated: true)
     }
     
     struct Post {

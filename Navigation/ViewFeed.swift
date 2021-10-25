@@ -10,47 +10,22 @@ import UIKit
 class ViewFeed: UIView {
     
     var button: UIButton = {
-        let button = UIButton(frame: .zero)
+        let button = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
+        button.translatesAutoresizingMaskIntoConstraints = true
         button.setTitle("Создать пост", for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = .brown
         return button
     }()
-    
-    var shadowView: UIView = {
-        let view = View()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemYellow
-        return view
-    }()
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(shadowView)
-        shadowView.addSubview(button)
-        configureLayout()
+        addSubview(button)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configureLayout() {
-        let views: [String: Any] = [
-            "superView": self,
-            "shadow": shadowView,
-            "button": button
-        ]
-        
-        var constrArray: [NSLayoutConstraint] = []
-        
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[shadow]-20-|", metrics: nil, views: views)
-        
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[shadow]-20-|", metrics: nil, views: views)
-        
-        NSLayoutConstraint.activate(constrArray)
-        
-    }
-    
 
 }
 
