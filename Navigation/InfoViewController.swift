@@ -37,6 +37,9 @@ class InfoViewController: UIViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
         NSLog("The \"OK\" alert occured.")
         }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Отмена", comment: "Default action"), style: .default, handler: { _ in
+        NSLog("The \"Отмена\" alert occured.")
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     

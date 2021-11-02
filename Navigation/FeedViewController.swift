@@ -36,7 +36,7 @@ class FeedViewController: UIViewController {
     func onButtonTap(){
         print("button tapped")
         let vcPost = PostViewController(.yellow, title: "Новый пост")
-        self.navigationController?.pushViewController(vcPost, animated: false)
+        self.navigationController?.pushViewController(vcPost, animated: true)
     }
 
     
