@@ -34,6 +34,7 @@ class TabBar: UITabBarController {
     init(viewControllers: [UINavigationController]){
         super.init(nibName: nil, bundle: nil)
         self.viewControllers = viewControllers
+        self.tabBar.backgroundColor = .white
 
     }
     

@@ -23,7 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileNavController = UINavigationController(rootViewController: ProfileViewController(.white, title: "Профиль"))
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
         
-        
         window.rootViewController = TabBar(
             viewControllers: [
             feedNavController,
@@ -32,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         )
         window.makeKeyAndVisible()
         self.window = window
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
