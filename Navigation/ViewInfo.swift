@@ -13,7 +13,8 @@ class ViewInfo: UIView {
         let buttonInfo = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
         buttonInfo.translatesAutoresizingMaskIntoConstraints = true
         buttonInfo.setTitle("Подробне", for: .normal)
-        buttonInfo.backgroundColor = .red
+        buttonInfo.backgroundColor = .systemBlue
+        buttonInfo.addShadow()
         return buttonInfo
     }()
 

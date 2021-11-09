@@ -34,8 +34,8 @@ class ProfileHeaderView: UIView {
         return avatarView
     }()
     
-    let statusText: UITextView = {
-        let status = UITextView(frame: CGRect(x: 125, y: 70, width: 175, height: 40))
+    let statusText: UITextField = {
+        let status = UITextField(frame: CGRect(x: 125, y: 70, width: 175, height: 40))
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.text = "Waiting for something..."
@@ -44,44 +44,29 @@ class ProfileHeaderView: UIView {
     }()
     
     var statusButton: UIButton = {
-        let view = View()
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemBlue
-        button.titleLabel?.textColor = .white
+        button.setTitleColor(.white, for: .normal)
         button.setTitle("Show status", for: .normal)
-        button.setTitle(button.textInputContextIdentifier, for: .application)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 4
-        button.layer.shadowOffset = .init(width: 4, height: 4)
-        button.layer.shadowRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.opacity = 0.7
+        button.addShadow()
         return button
         }()
     
-  /*  var shadowButton: UIView = {
-        let shadow = UIView(frame: CGRect(x: 125, y: 70, width: 175, height: 40))
-        shadow.backgroundColor = .black
-        shadow.layer.shadowOffset = .init(width: 4, height: 4)
-        shadow.layer.shadowRadius = 4
-        shadow.layer.shadowColor = UIColor.black.cgColor
-        shadow.layer.opacity = 0.7
-        return shadow
-    }()*/
-        
-    func configureLayout() {
+   func configureLayout() {
         let views: [String: Any] = [
             "superView": self,
-            "button": statusButton
+            "button": statusButton,
         ]
         var constrArray: [NSLayoutConstraint] = []
+       
         constrArray += NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[button]-16-|", metrics: nil, views: views)
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-144-[button]-462-|", metrics: nil, views: views)
+        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-135-[button(==50)]", metrics: nil, views: views)
+       
         NSLayoutConstraint.activate(constrArray)
     }
-
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,5 +87,13 @@ class ProfileHeaderView: UIView {
         statusText.text = statusText.text
     }
     
-    
+}
+
+extension UIView {
+  func addShadow() {
+    self.layer.shadowColor = UIColor.black.cgColor
+    self.layer.shadowOffset = .init(width: 4, height: 4)
+    self.layer.shadowRadius = 4
+    self.layer.shadowOpacity = 0.7
+  }
 }

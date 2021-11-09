@@ -10,7 +10,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    var backgroundColor: UIColor = .green
+    var backgroundColor: UIColor = .white
     
     var infoView: View = {
         let view = View(frame: .zero)

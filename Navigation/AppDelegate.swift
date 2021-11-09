@@ -35,13 +35,11 @@ class TabBar: UITabBarController {
         super.init(nibName: nil, bundle: nil)
         self.viewControllers = viewControllers
         self.tabBar.backgroundColor = .white
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
 }
 

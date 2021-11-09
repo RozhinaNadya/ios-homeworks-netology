@@ -37,9 +37,11 @@ class FeedViewController: UIViewController {
         print("button tapped")
         let vcPost = PostViewController(.yellow, title: "Новый пост")
         self.navigationController?.pushViewController(vcPost, animated: true)
+
     }
 
     
     var post = PostViewController.Post(title: "New Post")
     
+
 }

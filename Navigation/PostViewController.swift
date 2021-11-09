@@ -10,7 +10,7 @@ import UIKit
 class PostViewController: UIViewController {
     
         
-    var backgroundColor: UIColor = .red
+    var backgroundColor: UIColor = .clear
     
     var postView: View = {
         let view = View(frame: .zero)

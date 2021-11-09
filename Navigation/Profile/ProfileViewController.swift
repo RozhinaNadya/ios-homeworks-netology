@@ -35,11 +35,12 @@ class ProfileViewController: UIViewController {
     }
     
     
-    let profileHeaderView = ProfileHeaderView(frame: CGRect(x: 0, y: 100, width: 390, height: 656))
+    let profileHeaderView = ProfileHeaderView()
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.view.addSubview(profileHeaderView)
+        profileHeaderView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: view.frame.height)
     }
     
 }
