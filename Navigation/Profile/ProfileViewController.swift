@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    let viewProfile = View()
     
     var backgroundColor: UIColor = .clear
 
@@ -36,10 +35,11 @@ class ProfileViewController: UIViewController {
     }
     
     
-    let profileHeaderView = ProfileHeaderView(frame: CGRect(x: 0, y: 100, width: 414, height: 636))
+    let profileHeaderView = ProfileHeaderView(frame: CGRect(x: 0, y: 100, width: 390, height: 656))
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.view.addSubview(profileHeaderView)
     }
+    
 }

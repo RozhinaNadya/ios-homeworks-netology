@@ -45,11 +45,13 @@ class ProfileHeaderView: UIView {
     
     var statusButton: UIButton = {
         let view = View()
-        
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemBlue
+        button.titleLabel?.textColor = .white
         button.setTitle("Show status", for: .normal)
+        button.setTitle(button.textInputContextIdentifier, for: .application)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = .init(width: 4, height: 4)
         button.layer.shadowRadius = 4
@@ -57,6 +59,16 @@ class ProfileHeaderView: UIView {
         button.layer.opacity = 0.7
         return button
         }()
+    
+  /*  var shadowButton: UIView = {
+        let shadow = UIView(frame: CGRect(x: 125, y: 70, width: 175, height: 40))
+        shadow.backgroundColor = .black
+        shadow.layer.shadowOffset = .init(width: 4, height: 4)
+        shadow.layer.shadowRadius = 4
+        shadow.layer.shadowColor = UIColor.black.cgColor
+        shadow.layer.opacity = 0.7
+        return shadow
+    }()*/
         
     func configureLayout() {
         let views: [String: Any] = [
@@ -64,11 +76,9 @@ class ProfileHeaderView: UIView {
             "button": statusButton
         ]
         var constrArray: [NSLayoutConstraint] = []
-        
         constrArray += NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[button]-16-|", metrics: nil, views: views)
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-144-[button]-442-|", metrics: nil, views: views)
+        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-144-[button]-462-|", metrics: nil, views: views)
         NSLayoutConstraint.activate(constrArray)
-        
     }
 
     
@@ -86,5 +96,11 @@ class ProfileHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc func buttonPressed(){
+        print(statusText.text as Any)
+        statusText.text = statusText.text
+    }
+    
     
 }

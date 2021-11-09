@@ -12,8 +12,14 @@ class ViewFeed: UIView {
     var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
         button.translatesAutoresizingMaskIntoConstraints = true
+        button.titleLabel?.textColor = .white
         button.setTitle("Создать пост", for: .normal)
-        button.backgroundColor = .brown
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
+        button.layer.shadowOffset = .init(width: 4, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.opacity = 0.7
         return button
     }()
 
