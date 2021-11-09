@@ -34,12 +34,13 @@ class ProfileHeaderView: UIView {
         return avatarView
     }()
     
-    let statusText: UITextField = {
-        let status = UITextField(frame: CGRect(x: 125, y: 70, width: 175, height: 40))
+    let statusTextPublic: UITextField = {
+        let status = UITextField(frame: CGRect(x: 130, y: 60, width: 175, height: 40))
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.text = "Waiting for something..."
         status.backgroundColor = .lightGray
+        status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()
     
@@ -56,10 +57,11 @@ class ProfileHeaderView: UIView {
         }()
     
    func configureLayout() {
+       
         let views: [String: Any] = [
             "superView": self,
-            "button": statusButton,
-        ]
+            "button": statusButton]
+       
         var constrArray: [NSLayoutConstraint] = []
        
         constrArray += NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[button]-16-|", metrics: nil, views: views)
@@ -73,7 +75,7 @@ class ProfileHeaderView: UIView {
         backgroundColor = .lightGray
         addSubview(labelName)
         addSubview(avatar)
-        addSubview(statusText)
+        addSubview(statusTextPublic)
         addSubview(statusButton)
         configureLayout()
     }
@@ -83,10 +85,35 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func buttonPressed(){
-        print(statusText.text as Any)
-        statusText.text = statusText.text
+        print(statusTextPublic.text as Any)
+        statusTextPublic.resignFirstResponder()
+        statusTextPublic.text = statusText
     }
     
+    let myText: UITextField = {
+        let text = UITextField(frame: CGRect(x: 130, y: 90, width: 175, height: 40))
+        text.font = .systemFont(ofSize: 15, weight: .regular)
+        text.textColor = .black
+        text.backgroundColor = .white
+        text.layer.borderWidth = 1
+        text.layer.borderColor = UIColor.black.cgColor
+        text.layer.cornerRadius = 12
+        return text
+    }()
+    
+    private var statusText: String = "Text"
+    
+    @objc func statusTextChanged(_ textField: UITextField){
+        statusButton.setTitle("Set status", for: .normal)
+        
+        myText.text = statusTextPublic.text
+        
+        addSubview(myText)
+
+        statusText = myText.text ?? "Waiting for something..."
+        
+    }
+
 }
 
 extension UIView {
