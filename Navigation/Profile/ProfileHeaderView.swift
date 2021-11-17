@@ -9,24 +9,22 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    var view: View = {
-        let view = View(frame: .zero)
-        return view
-    }()
-    
-    var labelName: UILabel = {
-        let label = UILabel(frame: CGRect(x: 130, y: 27, width: 175, height: 40))
+    var fullNameLabel: UILabel = {
+       //let label = UILabel(frame: CGRect(x: 130, y: 27, width: 175, height: 40))
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = "Икскодер"
         return label
     }()
 
-    let avatar: UIImageView = {
+    var avatarImageView: UIImageView = {
         let imageName = "catImage.png"
         let avatarImage = UIImage(named: imageName)
         let avatarView = UIImageView(image: avatarImage)
-        avatarView.frame = CGRect(origin: CGPoint(x: 16, y: 16), size: CGSize(width: 100, height: 100))
+       // avatarView.frame = CGRect(origin: CGPoint(x: 16, y: 16), size: CGSize(width: 100, height: 100))
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.layer.borderColor = UIColor.white.cgColor
         avatarView.layer.borderWidth = 3
         avatarView.layer.cornerRadius = avatarView.bounds.height / 2
@@ -34,8 +32,10 @@ class ProfileHeaderView: UIView {
         return avatarView
     }()
     
-    let statusTextPublic: UITextField = {
-        let status = UITextField(frame: CGRect(x: 130, y: 60, width: 175, height: 40))
+    var statusTextField: UITextField = {
+       //let status = UITextField(frame: CGRect(x: 130, y: 60, width: 175, height: 40))
+        let status = UITextField()
+        status.translatesAutoresizingMaskIntoConstraints = false
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.text = "Waiting for something..."
@@ -44,7 +44,7 @@ class ProfileHeaderView: UIView {
         return status
     }()
     
-    var statusButton: UIButton = {
+    var setStatusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemBlue
@@ -56,42 +56,10 @@ class ProfileHeaderView: UIView {
         return button
         }()
     
-   func configureLayout() {
-       
-        let views: [String: Any] = [
-            "superView": self,
-            "button": statusButton]
-       
-        var constrArray: [NSLayoutConstraint] = []
-       
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[button]-16-|", metrics: nil, views: views)
-        constrArray += NSLayoutConstraint.constraints(withVisualFormat: "V:|-135-[button(==50)]", metrics: nil, views: views)
-       
-        NSLayoutConstraint.activate(constrArray)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .lightGray
-        addSubview(labelName)
-        addSubview(avatar)
-        addSubview(statusTextPublic)
-        addSubview(statusButton)
-        configureLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func buttonPressed(){
-        print(statusTextPublic.text as Any)
-        statusTextPublic.resignFirstResponder()
-        statusTextPublic.text = statusText
-    }
-    
-    let myText: UITextField = {
-        let text = UITextField(frame: CGRect(x: 130, y: 90, width: 175, height: 40))
+    var myText: UITextField = {
+       // let text = UITextField(frame: CGRect(x: 130, y: 90, width: 175, height: 40))
+        let text = UITextField()
+        text.translatesAutoresizingMaskIntoConstraints = false
         text.font = .systemFont(ofSize: 15, weight: .regular)
         text.textColor = .black
         text.backgroundColor = .white
@@ -103,17 +71,82 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String = "Text"
     
-    @objc func statusTextChanged(_ textField: UITextField){
-        statusButton.setTitle("Set status", for: .normal)
-        
-        myText.text = statusTextPublic.text
-        
-        addSubview(myText)
-
-        statusText = myText.text ?? "Waiting for something..."
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .lightGray
+        configureLayout()
     }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func buttonPressed(){
+        print(statusTextField.text as Any)
+        statusTextField.resignFirstResponder()
+        statusTextField.text = statusText
+    }
+    
+    @objc func statusTextChanged(_ textField: UITextField){
+        setStatusButton.setTitle("Set status", for: .normal)
+        myText.text = statusTextField.text
+        addSubview(myText)
+        let constrMyText: [NSLayoutConstraint] = [
+            myText.centerXAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 10),
+            myText.firstBaselineAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 10),
+            myText.heightAnchor.constraint(equalToConstant: 40),
+            myText.widthAnchor.constraint(equalToConstant: 175)
+        ]
+        NSLayoutConstraint.activate(constrMyText)
+        
+        statusText = myText.text ?? "Waiting for something..."
+    }
+    
+    func configureLayout() {
+        
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusTextField)
+        addSubview(setStatusButton)
+        
+        let constrArray: [NSLayoutConstraint] = [
+             
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+        //    avatarImageView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -16),
+         //   avatarImageView.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
 
+          //  avatarImageView.rightAnchor.constraint(equalTo: fullNameLabel.leftAnchor, constant: 16),
+
+           // avatarImageView.heightAnchor.constraint(equalToConstant: 100),
+         //   avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+             
+            //fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 10),
+            fullNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
+            fullNameLabel.widthAnchor.constraint(equalToConstant: 175),
+             
+            //statusTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 10),
+           
+            statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
+          //  statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
+           // statusTextField.firstBaselineAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 20),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            statusTextField.widthAnchor.constraint(equalToConstant: 175),
+            
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 34),
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+         ]
+        
+        NSLayoutConstraint.activate(constrArray)
+        
+      setNeedsLayout()
+      layoutIfNeeded()
+     }
 }
 
 extension UIView {

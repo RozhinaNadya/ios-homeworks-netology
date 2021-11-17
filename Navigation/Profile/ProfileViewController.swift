@@ -40,7 +40,21 @@ class ProfileViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.view.addSubview(profileHeaderView)
-        profileHeaderView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: view.frame.height)
+        configureLayoutHeaderView()
+
+        func configureLayoutHeaderView() {
+            self.view.addSubview(profileHeaderView)
+            profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+            let constrHeaderView : [NSLayoutConstraint] = [
+                profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                profileHeaderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+        ]
+            
+        NSLayoutConstraint.activate(constrHeaderView)
+
+        }
     }
-    
 }
