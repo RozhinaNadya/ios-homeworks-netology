@@ -10,7 +10,6 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
-       //let label = UILabel(frame: CGRect(x: 130, y: 27, width: 175, height: 40))
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -23,17 +22,14 @@ class ProfileHeaderView: UIView {
         let imageName = "catImage.png"
         let avatarImage = UIImage(named: imageName)
         let avatarView = UIImageView(image: avatarImage)
-       // avatarView.frame = CGRect(origin: CGPoint(x: 16, y: 16), size: CGSize(width: 100, height: 100))
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.layer.borderColor = UIColor.white.cgColor
         avatarView.layer.borderWidth = 3
-        
         avatarView.clipsToBounds = true
         return avatarView
     }()
     
     var statusTextField: UITextField = {
-       //let status = UITextField(frame: CGRect(x: 130, y: 60, width: 175, height: 40))
         let status = UITextField()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.font = .systemFont(ofSize: 14, weight: .regular)
@@ -57,7 +53,6 @@ class ProfileHeaderView: UIView {
         }()
     
     var myText: UITextField = {
-       // let text = UITextField(frame: CGRect(x: 130, y: 90, width: 175, height: 40))
         let text = UITextField()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.font = .systemFont(ofSize: 15, weight: .regular)
@@ -152,9 +147,8 @@ class ProfileHeaderView: UIView {
          ]
         
         NSLayoutConstraint.activate(constrArray)
-        
-      setNeedsLayout()
-      layoutIfNeeded()
+        setNeedsLayout()
+        layoutIfNeeded()
      }
 }
 

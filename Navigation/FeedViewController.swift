@@ -23,9 +23,12 @@ class FeedViewController: UIViewController {
     
     override func loadView() {
         let view = ViewFeed()
-        view.buttonPost.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+        view.buttonPost1.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+        view.buttonPost2.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
         self.view = view
         view.backgroundColor = backgroundColor
+        
+        
     }
 
     override func viewDidLoad() {

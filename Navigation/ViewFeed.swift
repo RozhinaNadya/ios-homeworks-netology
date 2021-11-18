@@ -9,31 +9,42 @@ import UIKit
 
 class ViewFeed: UIView {
     
-    var buttonPost: UIButton = {
-        //let button = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
+    var buttonPost1: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Создать пост", for: .normal)
+        button.setTitle("Создать пост №1", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 4
-        button.addShadow()
+        return button
+    }()
+    
+    var buttonPost2: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Создать пост №2", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(buttonPost)
         configureLayoutButtonPost()
+        goSteck()
     }
     
     func configureLayoutButtonPost() {
         
+        addSubview(feedStackView)
+        
         let constrButton : [NSLayoutConstraint] = [
-            buttonPost.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 200),
-            buttonPost.centerXAnchor.constraint(equalTo: centerXAnchor),
-            buttonPost.widthAnchor.constraint(equalToConstant: 200),
-            buttonPost.heightAnchor.constraint(equalToConstant: 50)
+            buttonPost1.heightAnchor.constraint(equalToConstant: 50),
+            buttonPost2.heightAnchor.constraint(equalToConstant: 50),
+            feedStackView.topAnchor.constraint(equalTo: topAnchor, constant: 300),
+            feedStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            feedStackView.widthAnchor.constraint(equalToConstant: 300),
         ]
         NSLayoutConstraint.activate(constrButton)
         setNeedsLayout()
@@ -43,5 +54,26 @@ class ViewFeed: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    var feedStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.layer.cornerRadius = 4
+        stackView.addShadow()
+        stackView.backgroundColor = .white
+        stackView.layer.borderColor = UIColor.white.cgColor
+        stackView.layer.borderWidth = 4
+        return stackView
+    }()
+    
+    func goSteck(){
+        [buttonPost1, buttonPost2]
+        .map { [weak self] in
+            var button = UIButton()
+            button = $0
+            self?.feedStackView.addArrangedSubview(button)
+        }
+    }
 }
