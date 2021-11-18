@@ -69,6 +69,17 @@ class ProfileHeaderView: UIView {
         return text
     }()
     
+    var newButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("New Button", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4
+        button.addShadow()
+        return button
+    }()
+    
     private var statusText: String = "Text"
     
     override init(frame: CGRect) {
@@ -94,7 +105,7 @@ class ProfileHeaderView: UIView {
         addSubview(myText)
         let constrMyText: [NSLayoutConstraint] = [
             myText.centerXAnchor.constraint(equalTo: statusTextField.centerXAnchor),
-            myText.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 5),
+            myText.topAnchor.constraint(equalTo: statusTextField.bottomAnchor),
             myText.heightAnchor.constraint(equalToConstant: 40),
             myText.widthAnchor.constraint(equalToConstant: 175)
         ]
@@ -110,6 +121,7 @@ class ProfileHeaderView: UIView {
         addSubview(fullNameLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+        addSubview(newButton)
         
         let constrArray: [NSLayoutConstraint] = [
              
@@ -120,25 +132,23 @@ class ProfileHeaderView: UIView {
 
              
             fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
-          //  fullNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
             fullNameLabel.widthAnchor.constraint(equalToConstant: 175),
-             
-            //statusTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 10),
            
             statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
-          //  statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
-           // statusTextField.firstBaselineAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 20),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.widthAnchor.constraint(equalToConstant: 175),
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
             
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
-           // setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 34),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            newButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            newButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: trailingAnchor)
          ]
         
         NSLayoutConstraint.activate(constrArray)

@@ -10,8 +10,9 @@ import UIKit
 class ViewInfo: UIView {
     
     var buttonInfo: UIButton = {
-        let buttonInfo = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
-        buttonInfo.translatesAutoresizingMaskIntoConstraints = true
+      //  let buttonInfo = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
+        let buttonInfo = UIButton()
+        buttonInfo.translatesAutoresizingMaskIntoConstraints = false
         buttonInfo.setTitle("Подробне", for: .normal)
         buttonInfo.backgroundColor = .systemBlue
         buttonInfo.addShadow()
@@ -22,6 +23,19 @@ class ViewInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(buttonInfo)
+        configureLayoutButtonInfo()
+    }
+    
+    func configureLayoutButtonInfo() {
+        let constrInfo: [NSLayoutConstraint] = [
+            buttonInfo.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 200),
+            buttonInfo.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonInfo.heightAnchor.constraint(equalToConstant: 50),
+            buttonInfo.widthAnchor.constraint(equalToConstant: 200)
+        ]
+        
+        NSLayoutConstraint.activate(constrInfo)
+        
     }
     
     required init?(coder: NSCoder) {
