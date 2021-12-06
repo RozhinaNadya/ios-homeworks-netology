@@ -10,7 +10,6 @@ import UIKit
 class ViewInfo: UIView {
     
     var buttonInfo: UIButton = {
-      //  let buttonInfo = UIButton(frame: CGRect(x: 95, y: 300, width: 200, height: 50))
         let buttonInfo = UIButton()
         buttonInfo.translatesAutoresizingMaskIntoConstraints = false
         buttonInfo.setTitle("Подробне", for: .normal)
@@ -18,7 +17,6 @@ class ViewInfo: UIView {
         buttonInfo.addShadow()
         return buttonInfo
     }()
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,13 +31,10 @@ class ViewInfo: UIView {
             buttonInfo.heightAnchor.constraint(equalToConstant: 50),
             buttonInfo.widthAnchor.constraint(equalToConstant: 200)
         ]
-        
         NSLayoutConstraint.activate(constrInfo)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

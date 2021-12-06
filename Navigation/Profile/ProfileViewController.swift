@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func loadView() {
-        let view = View()
+        let view = UIView()
         self.view = view
         view.backgroundColor = backgroundColor
     }

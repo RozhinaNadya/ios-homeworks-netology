@@ -9,15 +9,14 @@ import UIKit
 
 class PostViewController: UIViewController {
     
-        
     var backgroundColor: UIColor = .clear
     
-    var postView: View = {
-        let view = View(frame: .zero)
+    var postView: UIView = {
+        let view = UIView()
+        view.toAutoLayout()
         return view
     }()
-
-
+    
     init(_ color: UIColor, title: String = "Post") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
@@ -33,13 +32,20 @@ class PostViewController: UIViewController {
         self.view = view
         view.backgroundColor = backgroundColor
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(clickedButton))
         
-        postView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         view.addSubview(postView)
+        
+        let constrArrayPost: [NSLayoutConstraint] = [
+            postView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            postView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            postView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            postView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        ]
+        NSLayoutConstraint.activate(constrArrayPost)
     }
     
     @objc func clickedButton() {
@@ -48,7 +54,6 @@ class PostViewController: UIViewController {
     }
     
     struct Post {
-    var title: String
+        var title: String
     }
-
 }

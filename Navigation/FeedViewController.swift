@@ -10,7 +10,7 @@ import UIKit
 class FeedViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
-
+    
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
@@ -27,10 +27,8 @@ class FeedViewController: UIViewController {
         view.buttonPost2.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
         self.view = view
         view.backgroundColor = backgroundColor
-        
-        
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,9 +39,6 @@ class FeedViewController: UIViewController {
         let vcPost = PostViewController(.yellow, title: "Новый пост")
         self.navigationController?.pushViewController(vcPost, animated: true)
     }
-
     
     var post = PostViewController.Post(title: "New Post")
-    
-
 }

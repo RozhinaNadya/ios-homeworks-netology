@@ -70,10 +70,10 @@ class ViewFeed: UIView {
     
     func goSteck(){
         [buttonPost1, buttonPost2]
-        .map { [weak self] in
-            var button = UIButton()
-            button = $0
-            self?.feedStackView.addArrangedSubview(button)
-        }
+            .map { [weak self] in
+                var button = UIButton()
+                button = $0
+                self?.feedStackView.addArrangedSubview(button)
+            }
     }
 }
