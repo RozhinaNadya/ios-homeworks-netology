@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    
     var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
@@ -18,7 +17,7 @@ class ProfileHeaderView: UIView {
         label.text = "Икскотер"
         return label
     }()
-
+    
     var avatarImageView: UIImageView = {
         let imageName = "catImage.png"
         let avatarImage = UIImage(named: imageName)
@@ -51,7 +50,7 @@ class ProfileHeaderView: UIView {
         button.layer.cornerRadius = 4
         button.addShadow()
         return button
-        }()
+    }()
     
     var myText: UITextField = {
         let text = UITextField()
@@ -71,15 +70,14 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         backgroundColor = .lightGray
         configureLayout()
-        
     }
-        
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     @objc func buttonPressed(){
-        print(statusTextField.text as Any)
+        print(statusTextField.text ?? "Waiting for something...")
         statusTextField.resignFirstResponder()
         statusTextField.text = statusText
     }
@@ -95,59 +93,49 @@ class ProfileHeaderView: UIView {
             myText.widthAnchor.constraint(equalToConstant: 175)
         ]
         NSLayoutConstraint.activate(constrMyText)
-        
         statusText = myText.text ?? "Waiting for something..."
     }
     
-
     func configureLayout() {
         addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
         avatarImageView.layer.cornerRadius = 50
-
         let constrArray: [NSLayoutConstraint] = [
-            
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
-
-             
             fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
             fullNameLabel.widthAnchor.constraint(equalToConstant: 175),
-           
             statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.widthAnchor.constraint(equalToConstant: 175),
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
-            
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            
-         ]
-        
+        ]
         NSLayoutConstraint.activate(constrArray)
         setNeedsLayout()
         layoutIfNeeded()
-     }
+    }
 }
 
 extension UIView {
     
     func addShadow() {
-    self.layer.shadowColor = UIColor.black.cgColor
-    self.layer.shadowOffset = .init(width: 4, height: 4)
-    self.layer.shadowRadius = 4
-    self.layer.shadowOpacity = 0.7
-  }
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = .init(width: 4, height: 4)
+        self.layer.shadowRadius = 4
+        self.layer.shadowOpacity = 0.7
+    }
     
     func toAutoLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     func addSubviews(_ views: [UIView]) {
         views.forEach{ addSubview($0) }
     }

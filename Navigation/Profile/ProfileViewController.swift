@@ -9,14 +9,12 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
     var backgroundColor: UIColor = .clear
-
+    
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-          
     }
     
     required init?(coder: NSCoder) {
@@ -28,13 +26,12 @@ class ProfileViewController: UIViewController {
         self.view = view
         view.backgroundColor = backgroundColor
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     let profileHeaderView = ProfileHeaderView()
-    
     
     var newButton: UIButton = {
         let button = UIButton()
@@ -51,25 +48,21 @@ class ProfileViewController: UIViewController {
         super.viewWillLayoutSubviews()
         configureLayoutHeaderView()
     }
-
+    
     func configureLayoutHeaderView() {
         self.view.addSubviews([profileHeaderView, newButton])
         profileHeaderView.toAutoLayout()
-            
         let constrHeaderView : [NSLayoutConstraint] = [
-                profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-                profileHeaderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-                
-                newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-                newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            profileHeaderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ]
-            
         NSLayoutConstraint.activate(constrHeaderView)
-
-        }
     }
+}
 
