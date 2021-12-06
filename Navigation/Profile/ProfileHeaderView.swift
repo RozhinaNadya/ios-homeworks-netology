@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+    
     var fullNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +65,7 @@ class ProfileHeaderView: UIView {
         return text
     }()
     
-    var newButton: UIButton = {
+ /*   var newButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("New Button", for: .normal)
@@ -73,7 +74,7 @@ class ProfileHeaderView: UIView {
         button.layer.cornerRadius = 4
         button.addShadow()
         return button
-    }()
+    }() */
     
     private var statusText: String = "Text"
     
@@ -110,15 +111,16 @@ class ProfileHeaderView: UIView {
     }
     
     func configureLayout() {
-        
         addSubview(avatarImageView)
         avatarImageView.layer.cornerRadius = 50
         addSubview(fullNameLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
-        addSubview(newButton)
+     //   addSubview(newButton)
         
         let constrArray: [NSLayoutConstraint] = [
+            
+
              
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -141,9 +143,9 @@ class ProfileHeaderView: UIView {
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             
-            newButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+   /*         newButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             newButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: trailingAnchor)
+            newButton.trailingAnchor.constraint(equalTo: trailingAnchor) */
          ]
         
         NSLayoutConstraint.activate(constrArray)

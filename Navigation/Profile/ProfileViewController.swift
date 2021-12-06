@@ -37,24 +37,41 @@ class ProfileViewController: UIViewController {
     
     let profileHeaderView = ProfileHeaderView()
     
+    var newButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("New Button", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4
+        button.addShadow()
+        return button
+    }()
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.view.addSubview(profileHeaderView)
         configureLayoutHeaderView()
+    }
 
-        func configureLayoutHeaderView() {
-            self.view.addSubview(profileHeaderView)
-            profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-            let constrHeaderView : [NSLayoutConstraint] = [
+    func configureLayoutHeaderView() {
+        self.view.addSubview(profileHeaderView)
+        self.view.addSubview(newButton)
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+            
+        let constrHeaderView : [NSLayoutConstraint] = [
                 profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
                 profileHeaderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                 profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
                 profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+                profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+                
+                newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ]
             
         NSLayoutConstraint.activate(constrHeaderView)
 
         }
     }
-}
+
