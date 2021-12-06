@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.toAutoLayout()
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = "Икскотер"
@@ -23,7 +23,7 @@ class ProfileHeaderView: UIView {
         let imageName = "catImage.png"
         let avatarImage = UIImage(named: imageName)
         let avatarView = UIImageView(image: avatarImage)
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.toAutoLayout()
         avatarView.layer.borderColor = UIColor.white.cgColor
         avatarView.layer.borderWidth = 3
         avatarView.clipsToBounds = true
@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
     
     var statusTextField: UITextField = {
         let status = UITextField()
-        status.translatesAutoresizingMaskIntoConstraints = false
+        status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
         status.text = "Waiting for something..."
@@ -43,7 +43,7 @@ class ProfileHeaderView: UIView {
     
     var setStatusButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.toAutoLayout()
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Show status", for: .normal)
@@ -55,7 +55,7 @@ class ProfileHeaderView: UIView {
     
     var myText: UITextField = {
         let text = UITextField()
-        text.translatesAutoresizingMaskIntoConstraints = false
+        text.toAutoLayout()
         text.font = .systemFont(ofSize: 15, weight: .regular)
         text.textColor = .black
         text.backgroundColor = .white
@@ -64,17 +64,6 @@ class ProfileHeaderView: UIView {
         text.layer.cornerRadius = 12
         return text
     }()
-    
- /*   var newButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("New Button", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 4
-        button.addShadow()
-        return button
-    }() */
     
     private var statusText: String = "Text"
     
@@ -110,18 +99,13 @@ class ProfileHeaderView: UIView {
         statusText = myText.text ?? "Waiting for something..."
     }
     
+
     func configureLayout() {
-        addSubview(avatarImageView)
+        addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
         avatarImageView.layer.cornerRadius = 50
-        addSubview(fullNameLabel)
-        addSubview(statusTextField)
-        addSubview(setStatusButton)
-     //   addSubview(newButton)
-        
+
         let constrArray: [NSLayoutConstraint] = [
             
-
-             
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -143,9 +127,6 @@ class ProfileHeaderView: UIView {
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             
-   /*         newButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            newButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: trailingAnchor) */
          ]
         
         NSLayoutConstraint.activate(constrArray)
@@ -155,10 +136,19 @@ class ProfileHeaderView: UIView {
 }
 
 extension UIView {
-  func addShadow() {
+    
+    func addShadow() {
     self.layer.shadowColor = UIColor.black.cgColor
     self.layer.shadowOffset = .init(width: 4, height: 4)
     self.layer.shadowRadius = 4
     self.layer.shadowOpacity = 0.7
   }
+    
+    func toAutoLayout() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    func addSubviews(_ views: [UIView]) {
+        views.forEach{ addSubview($0) }
+    }
 }

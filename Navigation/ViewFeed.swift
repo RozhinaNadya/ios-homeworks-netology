@@ -11,7 +11,7 @@ class ViewFeed: UIView {
     
     var buttonPost1: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.toAutoLayout()
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Создать пост №1", for: .normal)
         button.backgroundColor = .systemBlue
@@ -21,7 +21,7 @@ class ViewFeed: UIView {
     
     var buttonPost2: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.toAutoLayout()
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Создать пост №2", for: .normal)
         button.backgroundColor = .systemBlue
@@ -57,7 +57,7 @@ class ViewFeed: UIView {
     
     var feedStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.toAutoLayout()
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.layer.cornerRadius = 4

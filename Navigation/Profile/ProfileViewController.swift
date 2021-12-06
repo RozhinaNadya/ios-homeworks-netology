@@ -31,14 +31,14 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-    
     
     let profileHeaderView = ProfileHeaderView()
     
+    
     var newButton: UIButton = {
         let button = UIButton()
+        button.toAutoLayout()
         button.setTitle("New Button", for: .normal)
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
@@ -53,10 +53,8 @@ class ProfileViewController: UIViewController {
     }
 
     func configureLayoutHeaderView() {
-        self.view.addSubview(profileHeaderView)
-        self.view.addSubview(newButton)
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        newButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubviews([profileHeaderView, newButton])
+        profileHeaderView.toAutoLayout()
             
         let constrHeaderView : [NSLayoutConstraint] = [
                 profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
