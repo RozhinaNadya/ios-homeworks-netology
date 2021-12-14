@@ -32,7 +32,7 @@ class ViewFeed: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayoutButtonPost()
-        goSteck()
+        goStack()
     }
     
     func configureLayoutButtonPost() {
@@ -68,7 +68,7 @@ class ViewFeed: UIView {
         return stackView
     }()
     
-    func goSteck(){
+    func goStack(){
         [buttonPost1, buttonPost2]
             .map { [weak self] in
                 var button = UIButton()
