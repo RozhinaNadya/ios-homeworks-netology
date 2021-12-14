@@ -9,14 +9,13 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    var backgroundColor: UIColor = .red
+    var backgroundColor: UIColor = .clear
     
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-      //  goStack()
-     //   configLayoutLogIn()
+
     }
     
     required init?(coder: NSCoder) {
@@ -57,7 +56,6 @@ class LogInViewController: UIViewController {
         password.toLogInText()
         password.toAutoLayout()
         password.text = "Password"
-        password.isSecureTextEntry = true
         return password
     }()
     
@@ -79,40 +77,29 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.isNormalAlpha()
-        
+     //   button.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
         //не получается альфа
         
         return button
     }()
     
-  /*  func configLayoutLogIn() {
-        view.addSubviews([iconVk, logInStackView, loginButton])
-        let constraintLogIn: [NSLayoutConstraint] = [
-            iconVk.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 120),
-            iconVk.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            
-            logInStackView.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 120),
-            logInStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            logInStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 16),
-            logInStackView.heightAnchor.constraint(equalToConstant: 100),
-            
-            loginButton.topAnchor.constraint(equalTo: logInStackView.bottomAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: logInStackView.trailingAnchor),
-            loginButton.leadingAnchor.constraint(equalTo: logInStackView.leadingAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 50)
-        ]
-        NSLayoutConstraint.activate(constraintLogIn)
-    }*/
+    @objc func logInButtonPress(){
+        let profile = ProfileViewController(.white, title: "Профиль")
+        self.navigationController?.pushViewController(profile, animated: true)
+    }
     
     override func loadView() {
         let view = UIView()
         self.view = view
         view.backgroundColor = backgroundColor
+        logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         goStack()
+        passwordText.isSecureTextEntry = true
+
         self.view.addSubviews([iconVk, logInStackView, logInButton])
         let constraintLogIn: [NSLayoutConstraint] = [
             iconVk.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 120),
@@ -149,7 +136,7 @@ extension UITextView {
         self.textColor = .black
         self.font = .systemFont(ofSize: 16)
         self.autocapitalizationType = .none
-        self.tintColor = UIColor(red: 72/255, green: 133/255, blue: 204/255, alpha: 1)
+        self.tintColor = UIColor(named: "#4885CC")
         self.backgroundColor = .systemGray6
 
     }
