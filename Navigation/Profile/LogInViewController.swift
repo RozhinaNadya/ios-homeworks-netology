@@ -22,6 +22,18 @@ class LogInViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var logInScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.toAutoLayout()
+        return scrollView
+    }()
+    
+    var contentView: UIView = {
+        let content = UIView()
+        content.toAutoLayout()
+        return content
+    }()
+    
     var iconVk: UIImageView = {
         let iconImage = UIImage(named: "logo.png")
         let icon = UIImageView(image: iconImage)
@@ -56,6 +68,7 @@ class LogInViewController: UIViewController {
         password.toLogInText()
         password.toAutoLayout()
         password.text = "Password"
+        password.isSecureTextEntry = true
         return password
     }()
     
@@ -71,15 +84,14 @@ class LogInViewController: UIViewController {
         let button = UIButton()
         button.toAutoLayout()
         button.setTitle("Log in", for: .normal)
-        button.setTitleColor(.white, for: .normal)
         let pixelImage = UIImage(named: "blue_pixel.png")
         button.setBackgroundImage(pixelImage, for: .normal)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.isNormalAlpha()
-     //   button.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
-        //не получается альфа
-        
+        button.setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
+        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .highlighted)
+        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
         return button
     }()
     
@@ -87,6 +99,32 @@ class LogInViewController: UIViewController {
         let profile = ProfileViewController(.white, title: "Профиль")
         self.navigationController?.pushViewController(profile, animated: true)
     }
+    
+    //не работает этот вариант 1
+    /*
+    func updateLoginButton() {
+        guard
+            let email = logInText.text, !email.isEmpty,
+            let password = passwordText.text, !password.isEmpty
+            else {
+                logInButton.isEnabled = false
+                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
+                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .highlighted)
+                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
+                return
+        }
+        logInButton.setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
+        logInButton.isEnabled = true
+        
+    }*/
+    
+    //не работает этот вариант 2
+    /*
+    @objc func tapText(){
+        if logInText.text.isEmpty == true {
+            logInButton.isEnabled = false
+        } else {logInButton.isEnabled = true}
+    }*/
     
     override func loadView() {
         let view = UIView()
@@ -98,18 +136,29 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         goStack()
-        passwordText.isSecureTextEntry = true
-
-        self.view.addSubviews([iconVk, logInStackView, logInButton])
+        self.view.addSubview(logInScrollView)
+        self.logInScrollView.addSubview(contentView)
+        self.contentView.addSubviews([iconVk, logInStackView, logInButton])
         let constraintLogIn: [NSLayoutConstraint] = [
-            iconVk.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 120),
-            iconVk.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            logInScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            logInScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            logInScrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            logInScrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            
+            contentView.leadingAnchor.constraint(equalTo: logInScrollView.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: logInScrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor),
+            contentView.trailingAnchor.constraint(equalTo: logInScrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: logInScrollView.widthAnchor),
+            
+            iconVk.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+            iconVk.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             iconVk.heightAnchor.constraint(equalToConstant: 100),
             iconVk.widthAnchor.constraint(equalToConstant: 100),
             
             logInStackView.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 120),
-            logInStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            logInStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            logInStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            logInStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInStackView.heightAnchor.constraint(equalToConstant: 100),
             logInText.heightAnchor.constraint(equalToConstant: 50),
             passwordText.heightAnchor.constraint(equalToConstant: 50),
@@ -124,9 +173,6 @@ class LogInViewController: UIViewController {
         self.view.layoutIfNeeded()
         self.navigationController?.navigationBar.isHidden = true
     }
-    
-    
-    
 }
 
 
@@ -136,19 +182,9 @@ extension UITextView {
         self.textColor = .black
         self.font = .systemFont(ofSize: 16)
         self.autocapitalizationType = .none
-        self.tintColor = UIColor(named: "#4885CC")
+        self.tintColor = UIColor(named: "AccentColor")
         self.backgroundColor = .systemGray6
-
     }
 }
 
-extension UIButton {
-    func isNormalAlpha(){
-        if self.alpha.isNormal == true {
-            self.alpha = 1
-        }
-        else {
-            self.alpha = 0.8
-        }
-    }
-}
+

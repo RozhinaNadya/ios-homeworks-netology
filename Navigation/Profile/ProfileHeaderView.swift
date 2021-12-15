@@ -64,7 +64,7 @@ class ProfileHeaderView: UIView {
         return text
     }()
     
-    private var statusText: String = "Text"
+    private var statusText: String = "Waiting for something..."
     
     override init(frame: CGRect) {
         super.init(frame: frame)
