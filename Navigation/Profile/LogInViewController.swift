@@ -166,7 +166,8 @@ class LogInViewController: UIViewController {
             logInButton.topAnchor.constraint(equalTo: logInStackView.bottomAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: logInStackView.trailingAnchor),
             logInButton.leadingAnchor.constraint(equalTo: logInStackView.leadingAnchor),
-            logInButton.heightAnchor.constraint(equalToConstant: 50)
+            logInButton.heightAnchor.constraint(equalToConstant: 50),
+            logInButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraintLogIn)
         self.view.setNeedsLayout()
