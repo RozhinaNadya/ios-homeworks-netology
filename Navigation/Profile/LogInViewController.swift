@@ -15,7 +15,6 @@ class LogInViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-
     }
     
     required init?(coder: NSCoder) {
@@ -55,26 +54,25 @@ class LogInViewController: UIViewController {
         return stackView
     }()
     
-    var logInText: UITextView = {
-        let text = UITextView()
+    var logInText: UITextField = {
+        let text = UITextField()
         text.toAutoLayout()
         text.toLogInText()
         text.text = "Email or phone"
         return text
     }()
     
-    var passwordText: UITextView = {
-        let password = UITextView()
+    var passwordText: UITextField = {
+        let password = UITextField()
         password.toLogInText()
         password.toAutoLayout()
         password.text = "Password"
-        password.isSecureTextEntry = true
         return password
     }()
     
     func goStack() {
         [logInText, passwordText].map {[weak self] in
-            var text = UITextView()
+            var text = UITextField()
             text = $0
             self?.logInStackView.addArrangedSubview(text)
         }
@@ -95,9 +93,13 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    @objc func logInButtonPress(){
+    @objc func logInButtonPress() {
         let profile = ProfileViewController(.white, title: "Профиль")
         self.navigationController?.pushViewController(profile, animated: true)
+    }
+    
+    @objc func tapText() {
+        passwordText.isSecureTextEntry = true
     }
     
     @objc func keyboardWillShow(notification: Notification) {
@@ -106,42 +108,18 @@ class LogInViewController: UIViewController {
             logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         }
     }
+    
     @objc func keyboardWillHide(notification: Notification) {
         logInScrollView.contentInset.bottom = .zero
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
-    
-    //не работает этот вариант 1
-    /*
-    func updateLoginButton() {
-        guard
-            let email = logInText.text, !email.isEmpty,
-            let password = passwordText.text, !password.isEmpty
-            else {
-                logInButton.isEnabled = false
-                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
-                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .highlighted)
-                logInButton.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
-                return
-        }
-        logInButton.setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
-        logInButton.isEnabled = true
-        
-    }*/
-    
-    //не работает этот вариант 2
-    /*
-    @objc func tapText(){
-        if logInText.text.isEmpty == true {
-            logInButton.isEnabled = false
-        } else {logInButton.isEnabled = true}
-    }*/
     
     override func loadView() {
         let view = UIView()
         self.view = view
         view.backgroundColor = backgroundColor
         logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
+        passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,8 +178,7 @@ class LogInViewController: UIViewController {
     }
 }
 
-
-extension UITextView {
+extension UITextField {
     
     func toLogInText() {
         self.textColor = .black
@@ -211,5 +188,3 @@ extension UITextView {
         self.backgroundColor = .systemGray6
     }
 }
-
-
