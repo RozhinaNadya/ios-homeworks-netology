@@ -100,6 +100,17 @@ class LogInViewController: UIViewController {
         self.navigationController?.pushViewController(profile, animated: true)
     }
     
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            logInScrollView.contentInset.bottom = keyboardSize.height
+            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    @objc func keyboardWillHide(notification: Notification) {
+        logInScrollView.contentInset.bottom = .zero
+        logInScrollView.verticalScrollIndicatorInsets = .zero
+    }
+    
     //не работает этот вариант 1
     /*
     func updateLoginButton() {
@@ -133,9 +144,22 @@ class LogInViewController: UIViewController {
         logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         goStack()
+        logInScrollView.keyboardDismissMode = .interactive
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(contentView)
         self.contentView.addSubviews([iconVk, logInStackView, logInButton])
