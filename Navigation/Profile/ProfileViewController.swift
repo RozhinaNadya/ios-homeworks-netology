@@ -45,23 +45,30 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
+    let postOne = PostView(author: "Google memes", descriptionn: "Eto ya после полугодового обучения", image: "gde_swift.jpg", like: 55, views: 100)
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         configureLayoutHeaderView()
     }
     
     func configureLayoutHeaderView() {
-        self.view.addSubviews([profileHeaderView, newButton])
+        self.view.addSubviews([profileHeaderView, postOne!])
         profileHeaderView.toAutoLayout()
+        postOne!.toAutoLayout()
         let constrHeaderView : [NSLayoutConstraint] = [
             profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             profileHeaderView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+       //     newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+       //     newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+       //     newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            postOne!.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
+            postOne!.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor),
+            postOne!.trailingAnchor.constraint(equalTo: profileHeaderView.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constrHeaderView)
     }
