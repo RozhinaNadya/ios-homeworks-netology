@@ -19,6 +19,7 @@
 		843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42D272752C400FB46B0 /* ViewInfo.swift */; };
 		8441F19727313A0C00E81713 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441F19627313A0B00E81713 /* ProfileHeaderView.swift */; };
 		844D8359276B7A2E00513017 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D8358276B7A2D00513017 /* PostView.swift */; };
+		844D835D277210F700513017 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D835C277210F700513017 /* TableViewCell.swift */; };
 		84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFEA8427660C2C00D2C240 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		843CC42D272752C400FB46B0 /* ViewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInfo.swift; sourceTree = "<group>"; };
 		8441F19627313A0B00E81713 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		844D8358276B7A2D00513017 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		844D835C277210F700513017 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		84FFEA8427660C2C00D2C240 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 				841337A8272067BD0016EDB7 /* ProfileViewController.swift */,
 				84FFEA8427660C2C00D2C240 /* LogInViewController.swift */,
 				844D8358276B7A2D00513017 /* PostView.swift */,
+				844D835C277210F700513017 /* TableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				841337A72720675D0016EDB7 /* FeedViewController.swift in Sources */,
 				841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */,
 				84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */,
+				844D835D277210F700513017 /* TableViewCell.swift in Sources */,
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
 				844D8359276B7A2E00513017 /* PostView.swift in Sources */,
 			);

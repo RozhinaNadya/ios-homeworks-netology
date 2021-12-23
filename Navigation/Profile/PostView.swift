@@ -18,8 +18,6 @@ import UIKit
 class PostView: UIView {
     
     init?(author: String, descriptionn: String, image: String, like: Int, views: Int) {
-        
-       // super.init(author: "Not found", descriptionn: "Not found", image: "not_found.png", like: 0, views: 0)
         super.init(frame: .zero)
         authorLabel.text = author
         descriptionLabel.text = descriptionn
@@ -82,9 +80,9 @@ class PostView: UIView {
             authorLabel.widthAnchor.constraint(equalTo: widthAnchor),
             
             imageView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.widthAnchor.constraint(equalTo: widthAnchor),
+            imageView.leadingAnchor.constraint(equalTo: authorLabel.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: authorLabel.trailingAnchor),
+            imageView.widthAnchor.constraint(equalTo: authorLabel.widthAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -106,3 +104,4 @@ class PostView: UIView {
     
 
 }
+
