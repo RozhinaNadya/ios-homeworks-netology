@@ -11,6 +11,14 @@ class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
     
+    let profileHeaderView = ProfileHeaderView()
+    
+    let tableView = UITableView.init(frame: .zero, style: .plain)
+    
+    let cellReuseID = "TableViewCell"
+    
+    var posts: [Post]!
+    
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
@@ -30,8 +38,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: cellReuseID)
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: cellReuseID)
+        posts = getPostData()
         tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     var profileScrollView: UIScrollView = {
@@ -46,18 +56,52 @@ class ProfileViewController: UIViewController {
         return content
     }()
     
-    let profileHeaderView = ProfileHeaderView()
-    
-    let tableView = UITableView.init(frame: .zero, style: .plain)
-    let cellReuseID = "TableViewCell"
-    let data = [
-        PostView(author: "Google memes", descriptionn: "Eto ya после полугодового обучения", image: "gde_swift.png", like: 55, views: 100),
-        PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
-        PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
-        PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70)
-    ]
+    func getPostData() -> [Post] {
+        var posts: [Post] = [Post]()
+        let myJsonData = """
+            [
+                {"author": "Google memes",
+                "description": "Eto ya после полугодового обучения",
+                "image": "gde_swift.png",
+                "like": 55,
+                views: 100},
 
-    
+                {"author": "test",
+                "description": "Eto ya после полугодового обучения",
+                "image": "not_found.png",
+                "like": 55,
+                "views": 100},
+
+                {"author": "test",
+                "description": "Eto ya после полугодового обучения",
+                "image": "not_found.png",
+                "like": 55,
+                "views": 100},
+
+                {"author": "test",
+                "description": "Eto ya после полугодового обучения",
+                "image": "not_found.png",
+                "like": 55,
+                "views": 100}
+            ]
+            """
+        if let jsonData = myJsonData.data(using: .utf8) {
+            let decoder = JSONDecoder()
+            do { posts = try decoder.decode([Post].self, from: jsonData)
+                for post in posts {
+                    print(post.author)
+                    print(post.image)
+                    print(post.description)
+                    print(post.like)
+                    print(post.views)
+                }
+            } catch {
+                
+            }
+        }
+        return posts
+    }
+        
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         configureLayoutHeaderView()
@@ -101,16 +145,30 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.count
+        posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? TableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? MyTableViewCell else {
             fatalError()
         }
-        
-        cell.myView.self = data[indexPath.row]
-        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        let myPost = posts[indexPath.row]
+        cell.authorLabel.text = "\(myPost.author)"
+        cell.postImageView.image = UIImage(named: myPost.image)
+        cell.descriptionLabel.text = "\(myPost.description)"
+        cell.likeLabel.text = "\(myPost.like)"
+        cell.viewsLabel.text = "\(myPost.views)"
         return cell
     }
 }
+
+// черновик
+
+/* let data = [
+    PostView(author: "Google memes", descriptionn: "Eto ya после полугодового обучения", image: "gde_swift.png", like: 55, views: 100),
+    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
+    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
+    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70)
+]*/

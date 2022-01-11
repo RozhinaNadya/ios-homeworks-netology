@@ -5,17 +5,9 @@
 //  Created by Надежда on 16.12.2021.
 //
 
-import UIKit
+//не убираю пока на всякий случай
 
-/*struct Post {
-    var author: String
-    var description: String
-    var image: String
-    var like: Int
-    var views: Int
-  }*/
-
-class PostView: UIView {
+/*class PostView: UIView {
     
     init?(author: String, descriptionn: String, image: String, like: Int, views: Int) {
         super.init(frame: .zero)
@@ -104,4 +96,4 @@ class PostView: UIView {
     
 
 }
-
+*/
