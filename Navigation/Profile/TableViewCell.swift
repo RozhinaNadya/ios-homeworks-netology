@@ -17,7 +17,43 @@ struct Post: Codable {
     var views: Int
   }
 
+class ProfileTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureLayoutProfile()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let profileHeaderView = ProfileHeaderView()
+    
+    func configureLayoutProfile() {
+        contentView.addSubview(profileHeaderView)
+        profileHeaderView.toAutoLayout()
+        
+        let constrProfile = [
+            profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            profileHeaderView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+        ]
+        
+        NSLayoutConstraint.activate(constrProfile)
+    }
+    
+}
+
 class MyTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubviews([authorLabel, descriptionLabel, postImageView, likeLabel, viewsLabel])
+        configureLayoutPost()
+    }
     
     var authorLabel: UILabel = {
         let aLabel = UILabel()
@@ -60,12 +96,11 @@ class MyTableViewCell: UITableViewCell {
     }()
     
     func configureLayoutPost() {
-        addSubviews([authorLabel, descriptionLabel, postImageView, likeLabel, viewsLabel])
         let constrPost = [
-            authorLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50),
-            authorLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            authorLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            authorLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+            authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            authorLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             
             postImageView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor),
             postImageView.leadingAnchor.constraint(equalTo: authorLabel.leadingAnchor),
@@ -81,24 +116,23 @@ class MyTableViewCell: UITableViewCell {
             
             viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
             viewsLabel.rightAnchor.constraint(equalTo: rightAnchor),
+            viewsLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(constrPost)
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
-    override func prepareForReuse() {
+/*    override func prepareForReuse() {
         super.prepareForReuse()
         accessoryType = .none
-    }
+    } */
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
+ /*   override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
+    } */
     
 }

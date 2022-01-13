@@ -11,11 +11,11 @@ class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
     
-    let profileHeaderView = ProfileHeaderView()
-    
     let tableView = UITableView.init(frame: .zero, style: .plain)
     
-    let cellReuseID = "TableViewCell"
+    let cellReuseID = "MyTableViewCell"
+    
+    let cellProfileID = "ProfileTableViewCell"
     
     var posts: [Post]!
     
@@ -39,22 +39,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         tableView.register(MyTableViewCell.self, forCellReuseIdentifier: cellReuseID)
+        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: cellProfileID)
         posts = getPostData()
         tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
+  //      tableView.rowHeight = UITableView.automaticDimension
     }
-    
-    var profileScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.toAutoLayout()
-        return scrollView
-    }()
-    
-    var contentProfileView: UIView = {
-        let content = UIView()
-        content.toAutoLayout()
-        return content
-    }()
     
     func getPostData() -> [Post] {
         var posts: [Post] = [Post]()
@@ -64,7 +53,7 @@ class ProfileViewController: UIViewController {
                 "description": "Eto ya после полугодового обучения",
                 "image": "gde_swift.png",
                 "like": 55,
-                views: 100},
+                "views": 100},
 
                 {"author": "test",
                 "description": "Eto ya после полугодового обучения",
@@ -108,19 +97,17 @@ class ProfileViewController: UIViewController {
     }
     
     func configureLayoutHeaderView() {
-        self.view.addSubview(profileScrollView)
-        self.profileScrollView.addSubview(contentProfileView)
-        self.contentProfileView.addSubviews([profileHeaderView, tableView])
-        profileHeaderView.toAutoLayout()
+        
+        self.view.addSubview(tableView)
         tableView.toAutoLayout()
         
         let constrHeaderView : [NSLayoutConstraint] = [
             
-            profileScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            profileScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            profileScrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            profileScrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+   /*
             contentProfileView.leadingAnchor.constraint(equalTo: profileScrollView.leadingAnchor),
             contentProfileView.topAnchor.constraint(equalTo: profileScrollView.topAnchor),
             contentProfileView.bottomAnchor.constraint(equalTo: profileScrollView.bottomAnchor),
@@ -132,11 +119,11 @@ class ProfileViewController: UIViewController {
             profileHeaderView.leadingAnchor.constraint(equalTo: contentProfileView.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: contentProfileView.trailingAnchor),
             profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            tableView.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
+  */
+    /*        tableView.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: profileHeaderView.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: profileScrollView.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: profileScrollView.bottomAnchor)*/
         ]
         NSLayoutConstraint.activate(constrHeaderView)
     }
@@ -149,6 +136,12 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellProfileID, for: indexPath) as! ProfileTableViewCell
+            return cell
+            
+        } else {
+            
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? MyTableViewCell else {
             fatalError()
         }
@@ -161,14 +154,6 @@ extension ProfileViewController: UITableViewDataSource {
         cell.likeLabel.text = "\(myPost.like)"
         cell.viewsLabel.text = "\(myPost.views)"
         return cell
+        }
     }
 }
-
-// черновик
-
-/* let data = [
-    PostView(author: "Google memes", descriptionn: "Eto ya после полугодового обучения", image: "gde_swift.png", like: 55, views: 100),
-    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
-    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70),
-    PostView(author: "test", descriptionn: "fghjklkjhgfdsdfghjkjhgfdsdfghjkjhgfdsdfghjklkjh", image: "not_found.png", like: 60, views: 70)
-]*/
