@@ -38,11 +38,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: cellReuseID)
-        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: cellProfileID)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellReuseID)
+        tableView.register(ProfileTableViewCell.self, forHeaderFooterViewReuseIdentifier: cellProfileID)
         posts = getPostData()
         tableView.dataSource = self
-  //      tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
     
     func getPostData() -> [Post] {
@@ -54,24 +54,24 @@ class ProfileViewController: UIViewController {
                 "image": "gde_swift.png",
                 "like": 55,
                 "views": 100},
+            
+                {"author": "Eugène Henri Paul Gauguin",
+                "description": "Поль Гоген – Забавы (1892 г.). Это была одна из работ Гогена, выставленная на его выставке в Дюран-Руэль в 1893 году в Париже. Он был завещан французскому государству в 1961 году и находился в коллекции Лувра. С 1986 года картина находится в коллекции Музея Орсе.",
+                "image": "gogen.png",
+                "like": 1055,
+                "views": 15100},
 
-                {"author": "test",
-                "description": "Eto ya после полугодового обучения",
-                "image": "not_found.png",
-                "like": 55,
-                "views": 100},
+                {"author": "Икскотер Нетологиевич",
+                "description": "Самый сложный выбор при ожидании проверки ДЗ",
+                "image": "choice.png",
+                "like": 555,
+                "views": 5100},
 
-                {"author": "test",
-                "description": "Eto ya после полугодового обучения",
-                "image": "not_found.png",
-                "like": 55,
-                "views": 100},
-
-                {"author": "test",
-                "description": "Eto ya после полугодового обучения",
-                "image": "not_found.png",
-                "like": 55,
-                "views": 100}
+                {"author": "Wikipedia",
+                "description": "Южноафриканский узкорот (лат. Breviceps adspersus) — вид бесхвостых земноводных из рода африканских узкоротов.",
+                "image": "frog.png",
+                "like": 5675547,
+                "views": 100674455}
             ]
             """
         if let jsonData = myJsonData.data(using: .utf8) {
@@ -107,23 +107,6 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-   /*
-            contentProfileView.leadingAnchor.constraint(equalTo: profileScrollView.leadingAnchor),
-            contentProfileView.topAnchor.constraint(equalTo: profileScrollView.topAnchor),
-            contentProfileView.bottomAnchor.constraint(equalTo: profileScrollView.bottomAnchor),
-            contentProfileView.trailingAnchor.constraint(equalTo: profileScrollView.trailingAnchor),
-            contentProfileView.widthAnchor.constraint(equalTo: profileScrollView.widthAnchor),
-            
-            profileHeaderView.topAnchor.constraint(equalTo: contentProfileView.topAnchor),
-            profileHeaderView.centerXAnchor.constraint(equalTo: contentProfileView.centerXAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: contentProfileView.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: contentProfileView.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-  */
-    /*        tableView.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: profileHeaderView.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: profileScrollView.bottomAnchor)*/
         ]
         NSLayoutConstraint.activate(constrHeaderView)
     }
@@ -131,29 +114,33 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     
+    private func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
+        
+        return headerCell
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellProfileID, for: indexPath) as! ProfileTableViewCell
-            return cell
+  //          let cell = tableView.dequeueReusableCell(withIdentifier: cellProfileID, for: indexPath) as! ProfileTableViewCell
+ //           return cell
             
-        } else {
+ //       } else {
             
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? MyTableViewCell else {
-            fatalError()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? PostTableViewCell else { fatalError() }
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let myPost = posts[indexPath.row]
         cell.authorLabel.text = "\(myPost.author)"
         cell.postImageView.image = UIImage(named: myPost.image)
         cell.descriptionLabel.text = "\(myPost.description)"
-        cell.likeLabel.text = "\(myPost.like)"
-        cell.viewsLabel.text = "\(myPost.views)"
+        cell.likeLabel.text = "Likes: \(myPost.like)"
+        cell.viewsLabel.text = "Views: \(myPost.views)"
         return cell
-        }
+ //       }
     }
 }

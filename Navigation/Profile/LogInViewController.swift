@@ -9,18 +9,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    var backgroundColor: UIColor = .clear
-    
-    init(_ color: UIColor, title: String = "Title") {
-        super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -70,14 +58,6 @@ class LogInViewController: UIViewController {
         return password
     }()
     
-    func goStack() {
-        [logInText, passwordText].map {[weak self] in
-            var text = UITextField()
-            text = $0
-            self?.logInStackView.addArrangedSubview(text)
-        }
-    }
-    
     var logInButton: UIButton = {
         let button = UIButton()
         button.toAutoLayout()
@@ -92,6 +72,26 @@ class LogInViewController: UIViewController {
         button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
         return button
     }()
+    
+    var backgroundColor: UIColor = .clear
+    
+    init(_ color: UIColor, title: String = "Title") {
+        super.init(nibName: nil, bundle: nil)
+        backgroundColor = color
+        self.title = title
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func goStack() {
+        [logInText, passwordText].map {[weak self] in
+            var text = UITextField()
+            text = $0
+            self?.logInStackView.addArrangedSubview(text)
+        }
+    }
     
     @objc func logInButtonPress() {
         let profile = ProfileViewController(.white, title: "Профиль")
