@@ -34,7 +34,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
-        status.text = "Waiting for something..."
+        status.placeholder = "Waiting for something..."
         status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()

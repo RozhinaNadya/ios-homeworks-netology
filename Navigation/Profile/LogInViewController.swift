@@ -46,7 +46,7 @@ class LogInViewController: UIViewController {
         let text = UITextField()
         text.toAutoLayout()
         text.toLogInText()
-        text.text = "Email or phone"
+        text.placeholder = "Email or phone"
         return text
     }()
     
@@ -54,7 +54,7 @@ class LogInViewController: UIViewController {
         let password = UITextField()
         password.toLogInText()
         password.toAutoLayout()
-        password.text = "Password"
+        password.placeholder = "Password"
         return password
     }()
     
