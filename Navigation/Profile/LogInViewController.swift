@@ -138,6 +138,11 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         goStack()
         logInScrollView.keyboardDismissMode = .interactive
+        goLogin()
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func goLogin() {
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(contentView)
         self.contentView.addSubviews([iconVk, logInStackView, logInButton])
@@ -172,9 +177,6 @@ class LogInViewController: UIViewController {
             logInButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraintLogIn)
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-        self.navigationController?.navigationBar.isHidden = true
     }
 }
 
