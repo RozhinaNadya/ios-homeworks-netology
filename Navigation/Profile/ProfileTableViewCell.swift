@@ -9,32 +9,6 @@ import UIKit
 
 class ProfileTableViewCell: UITableViewHeaderFooterView {
     
- /*   let profileHeaderView = ProfileHeaderView()
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        configureLayoutProfile()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-       func configureLayoutProfile() {
-        contentView.addSubview(profileHeaderView)
-        profileHeaderView.toAutoLayout()
-        
-        let constrProfile = [
-            profileHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            profileHeaderView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            profileHeaderView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constrProfile)
-    }*/
-    
     var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
@@ -59,9 +33,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         let status = UITextField()
         status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
-      //  status.textColor = .gray
+        status.textColor = .gray
         status.text = "Waiting for something..."
-        status.backgroundColor = .lightGray
         status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()
@@ -116,8 +89,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
             myText.centerXAnchor.constraint(equalTo: statusTextField.centerXAnchor),
             myText.topAnchor.constraint(equalTo: statusTextField.bottomAnchor),
             myText.heightAnchor.constraint(equalToConstant: 40),
-            myText.widthAnchor.constraint(equalToConstant: 175),
-        //    myText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            myText.widthAnchor.constraint(equalToConstant: 175)
         ]
         NSLayoutConstraint.activate(constrMyText)
         statusText = myText.text ?? "Waiting for something..."
@@ -147,8 +119,26 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
             setStatusButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16)
+            setStatusButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ]
         NSLayoutConstraint.activate(constrArray)
+    }
+}
+
+extension UIView {
+    
+    func addShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = .init(width: 4, height: 4)
+        self.layer.shadowRadius = 4
+        self.layer.shadowOpacity = 0.7
+    }
+    
+    func toAutoLayout() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func addSubviews(_ views: [UIView]) {
+        views.forEach{ addSubview($0) }
     }
 }

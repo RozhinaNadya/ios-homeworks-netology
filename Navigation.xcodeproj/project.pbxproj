@@ -17,7 +17,6 @@
 		841B7F8F271EC95A00740CD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841B7F8D271EC95A00740CD5 /* LaunchScreen.storyboard */; };
 		843CC42C27274CF200FB46B0 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42B27274CF200FB46B0 /* InfoViewController.swift */; };
 		843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42D272752C400FB46B0 /* ViewInfo.swift */; };
-		8441F19727313A0C00E81713 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441F19627313A0B00E81713 /* ProfileHeaderView.swift */; };
 		844D835D277210F700513017 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D835C277210F700513017 /* PostTableViewCell.swift */; };
 		84603D7027906AE5003BD463 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84603D6F27906AE5003BD463 /* ProfileTableViewCell.swift */; };
 		84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFEA8427660C2C00D2C240 /* LogInViewController.swift */; };
@@ -36,7 +35,6 @@
 		841B7F90271EC95A00740CD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843CC42B27274CF200FB46B0 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		843CC42D272752C400FB46B0 /* ViewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInfo.swift; sourceTree = "<group>"; };
-		8441F19627313A0B00E81713 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		844D835C277210F700513017 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		84603D6F27906AE5003BD463 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		84FFEA8427660C2C00D2C240 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 		8441F195273139DF00E81713 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				8441F19627313A0B00E81713 /* ProfileHeaderView.swift */,
 				841337A8272067BD0016EDB7 /* ProfileViewController.swift */,
 				84FFEA8427660C2C00D2C240 /* LogInViewController.swift */,
 				844D835C277210F700513017 /* PostTableViewCell.swift */,
@@ -170,7 +167,6 @@
 			files = (
 				841337AD272197C90016EDB7 /* ViewFeed.swift in Sources */,
 				841337A9272067BD0016EDB7 /* ProfileViewController.swift in Sources */,
-				8441F19727313A0C00E81713 /* ProfileHeaderView.swift in Sources */,
 				841337AB27207CE90016EDB7 /* PostViewController.swift in Sources */,
 				843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */,
 				843CC42C27274CF200FB46B0 /* InfoViewController.swift in Sources */,

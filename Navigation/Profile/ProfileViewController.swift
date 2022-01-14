@@ -129,20 +129,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return headerCell
     }
     
-/*  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 220
-    }*/
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-   //     if indexPath.row == 0 {
-  //          let cell = tableView.dequeueReusableCell(withIdentifier: cellProfileID, for: indexPath) as! ProfileTableViewCell
- //           return cell
-            
- //       } else {
             
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? PostTableViewCell else { fatalError() }
         let formatter = NumberFormatter()
@@ -154,6 +145,5 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         cell.likeLabel.text = "Likes: \(myPost.like)"
         cell.viewsLabel.text = "Views: \(myPost.views)"
         return cell
- //       }
     }
 }
