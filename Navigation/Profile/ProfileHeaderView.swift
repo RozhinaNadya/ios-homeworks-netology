@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+/*class ProfileHeaderView: UIView {
     
-    var fullNameLabel: UILabel = {
+       var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -104,14 +104,17 @@ class ProfileHeaderView: UIView {
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+            
             fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
             fullNameLabel.widthAnchor.constraint(equalToConstant: 175),
+            
             statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.widthAnchor.constraint(equalToConstant: 175),
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
+            
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -121,7 +124,7 @@ class ProfileHeaderView: UIView {
         setNeedsLayout()
         layoutIfNeeded()
     }
-}
+} */
 
 extension UIView {
     

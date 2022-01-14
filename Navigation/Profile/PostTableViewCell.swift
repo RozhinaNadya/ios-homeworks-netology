@@ -7,14 +7,6 @@
 
 import UIKit
 
-struct Post: Codable {
-    var author: String
-    var description: String
-    var image: String
-    var like: Int
-    var views: Int
-  }
-
 class PostTableViewCell: UITableViewCell {
     
     var authorLabel: UILabel = {

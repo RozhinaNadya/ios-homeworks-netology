@@ -7,6 +7,14 @@
 
 import UIKit
 
+struct Post: Codable {
+    var author: String
+    var description: String
+    var image: String
+    var like: Int
+    var views: Int
+  }
+
 class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
@@ -43,6 +51,7 @@ class ProfileViewController: UIViewController {
         posts = getPostData()
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
     }
     
     func getPostData() -> [Post] {
@@ -112,20 +121,24 @@ class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController: UITableViewDataSource {
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
-    private func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
         
         return headerCell
     }
+    
+/*  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 220
+    }*/
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+   //     if indexPath.row == 0 {
   //          let cell = tableView.dequeueReusableCell(withIdentifier: cellProfileID, for: indexPath) as! ProfileTableViewCell
  //           return cell
             
