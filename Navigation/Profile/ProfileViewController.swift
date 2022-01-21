@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
     
     let cellProfileID = "ProfileTableViewCell"
     
+    let cellPhotosID = "PhotosTableViewCell"
+    
     var posts: [Post]!
     
     init(_ color: UIColor, title: String = "Title") {
@@ -48,6 +50,7 @@ class ProfileViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellReuseID)
         tableView.register(ProfileTableViewCell.self, forHeaderFooterViewReuseIdentifier: cellProfileID)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: cellPhotosID)
         posts = getPostData()
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -124,26 +127,49 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
-        
-        return headerCell
+            return headerCell
+            
+        } else {
+            return nil
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        if section == 1 {
+            return posts.count
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellPhotosID, for: indexPath) as? PhotosTableViewCell else { fatalError() }
+            return cell
+        } else {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID, for: indexPath) as? PostTableViewCell else { fatalError() }
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let myPost = posts[indexPath.row]
-        cell.authorLabel.text = "\(myPost.author)"
-        cell.postImageView.image = UIImage(named: myPost.image)
-        cell.descriptionLabel.text = "\(myPost.description)"
-        cell.likeLabel.text = "Likes: \(myPost.like)"
-        cell.viewsLabel.text = "Views: \(myPost.views)"
-        return cell
+
+            cell.authorLabel.text = "\(myPost.author)"
+            cell.postImageView.image = UIImage(named: myPost.image)
+            cell.descriptionLabel.text = "\(myPost.description)"
+            cell.likeLabel.text = "Likes: \(myPost.like)"
+            cell.viewsLabel.text = "Views: \(myPost.views)"
+            return cell
+        }
     }
+    
+  /*  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellPhotosID, for: indexPath) as? PhotosTableViewCell else { fatalError() }
+        return cell
+    }*/
 }
