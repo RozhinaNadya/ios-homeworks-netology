@@ -167,9 +167,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-  /*  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellPhotosID, for: indexPath) as? PhotosTableViewCell else { fatalError() }
-        return cell
-    }*/
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let photosViewController = PhotosViewController()
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(photosViewController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
 }
