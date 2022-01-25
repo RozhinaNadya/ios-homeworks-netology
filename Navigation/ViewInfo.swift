@@ -14,6 +14,7 @@ class ViewInfo: UIView {
         buttonInfo.translatesAutoresizingMaskIntoConstraints = false
         buttonInfo.setTitle("Подробне", for: .normal)
         buttonInfo.backgroundColor = .systemBlue
+        buttonInfo.layer.cornerRadius = 4
         buttonInfo.addShadow()
         return buttonInfo
     }()

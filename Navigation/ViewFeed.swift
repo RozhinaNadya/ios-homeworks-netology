@@ -59,12 +59,13 @@ class ViewFeed: UIView {
         let stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 1
         stackView.layer.cornerRadius = 4
         stackView.addShadow()
         stackView.backgroundColor = .white
         stackView.layer.borderColor = UIColor.white.cgColor
-        stackView.layer.borderWidth = 4
+        stackView.layer.borderWidth = 1
+        stackView.addShadow()
         return stackView
     }()
     
