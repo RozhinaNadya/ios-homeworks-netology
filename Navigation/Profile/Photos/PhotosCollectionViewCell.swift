@@ -12,6 +12,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     var photosImageView: UIImageView = {
         let iView = UIImageView()
         iView.toAutoLayout()
+        iView.clipsToBounds = true
         return iView
     }()
     
