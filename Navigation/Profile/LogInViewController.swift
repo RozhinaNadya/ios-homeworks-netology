@@ -180,13 +180,3 @@ class LogInViewController: UIViewController {
     }
 }
 
-extension UITextField {
-    
-    func toLogInText() {
-        self.textColor = .black
-        self.font = .systemFont(ofSize: 16)
-        self.autocapitalizationType = .none
-        self.tintColor = UIColor(named: "AccentColor")
-        self.backgroundColor = .systemGray6
-    }
-}

@@ -17,10 +17,11 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        photosCollectionView.self.backgroundColor = .yellow
         photosCollectionView.dataSource = self
         photosCollectionView.delegate = self
         photosCollectionView.toAutoLayout()
-        self.view.addSubview(photosCollectionView)
+        self.view.addSubview(self.photosCollectionView)
         configureLayoutPhotos()
         photosCollectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: cellPhotosCollectionID)
     }
@@ -32,9 +33,7 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
             photosCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             photosCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ]
-        
         NSLayoutConstraint.activate(constrPhotos)
-        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -46,33 +45,35 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = photosCollectionView.dequeueReusableCell(withReuseIdentifier: cellPhotosCollectionID, for: indexPath) as! PhotosCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellPhotosCollectionID, for: indexPath) as! PhotosCollectionViewCell
         cell.photosImageView.image = dataPhotos[indexPath.row]
+        cell.backgroundColor = .red
         return cell
     }
     
     /*   func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-    }
+     layout collectionViewLayout: UICollectionViewLayout,
+     insetForSectionAt section: Int) -> UIEdgeInsets {
+     return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+     }
+     
+     func collectionView(_ collectionView: UICollectionView,
+     layout collectionViewLayout: UICollectionViewLayout,
+     sizeForItemAt indexPath: IndexPath) -> CGSize {
+     
+     return CGSize(width: 50, height: 50)
+     }  */
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return CGSize(width: 50, height: 50)
-    }*/
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
-        
+    
 }
