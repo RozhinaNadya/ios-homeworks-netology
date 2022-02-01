@@ -1,17 +1,18 @@
 //
-//  PhotosCollectionViewCell.swift
+//  PreviewPhotosCollectionViewCell.swift
 //  Navigation
 //
-//  Created by Надежда on 25.01.2022.
+//  Created by Надежда on 01.02.2022.
 //
 
 import UIKit
 
-class PhotosCollectionViewCell: UICollectionViewCell {
+class PreviewPhotosCollectionViewCell: UICollectionViewCell {
     
     var photosImageView: UIImageView = {
         let iView = UIImageView()
         iView.toAutoLayout()
+        iView.layer.cornerRadius = 6
         iView.clipsToBounds = true
         return iView
     }()
@@ -27,7 +28,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
             photosImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             photosImageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
             photosImageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
-            photosImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            photosImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constrPhoto)
     }
@@ -36,3 +37,4 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

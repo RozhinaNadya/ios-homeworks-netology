@@ -13,8 +13,6 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     let cellPhotosCollectionID = "PhotosCell"
     
-    let dataPhotos: [UIImage?] = [UIImage(named: "1.png"), UIImage(named: "2.png"), UIImage(named: "3.png"), UIImage(named: "4.png"), UIImage(named: "5.png"), UIImage(named: "6.png"), UIImage(named: "7.png"), UIImage(named: "8.png"), UIImage(named: "9.png"), UIImage(named: "10.png"), UIImage(named: "11.png"), UIImage(named: "12.png"), UIImage(named: "13.png"), UIImage(named: "14.png"), UIImage(named: "15.png"), UIImage(named: "16.png"), UIImage(named: "17.png"), UIImage(named: "18.png"), UIImage(named: "19.png"), UIImage(named: "20.png")]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         photosCollectionView.dataSource = self
@@ -29,11 +27,14 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         let constrPhotos = [
             photosCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8),
             photosCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            photosCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 8),
-            photosCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8)
+            photosCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8),
+            photosCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constrPhotos)
     }
+}
+
+extension PhotosViewController {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -52,25 +53,14 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 3 - 8), height: (view.frame.width / 3 - 8))
-    }
-    /*
-       func collectionView(_ collectionView: UICollectionView,
-     layout collectionViewLayout: UICollectionViewLayout,
-     insetForSectionAt section: Int) -> UIEdgeInsets {
-     return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-     }
-     
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
+        return CGSize(width: (self.view.frame.width - 32) / 3, height: (self.view.frame.width - 32) / 3)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
-    }*/
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        8
+    }
 }
