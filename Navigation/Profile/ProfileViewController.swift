@@ -35,8 +35,6 @@ class ProfileViewController: UIViewController {
         let view = UIView()
         self.view = view
         view.backgroundColor = backgroundColor
- //       self.navigationController?.navigationBar.isHidden = true
-
     }
     
     override func viewDidLoad() {
@@ -71,15 +69,6 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
-            return headerCell
-        } else {
-            return nil
-        }
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
@@ -89,6 +78,23 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return posts.count
         } else {
             return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
+            return headerCell
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 0
+        } else {
+            return 200
         }
     }
     
@@ -117,5 +123,4 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    
 }

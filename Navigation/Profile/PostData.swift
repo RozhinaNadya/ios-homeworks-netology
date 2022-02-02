@@ -22,13 +22,13 @@ func getPostData() -> [Post] {
             "image": "gogen.png",
             "like": 1055,
             "views": 15100},
-
+        
             {"author": "Икскотер Нетологиевич",
             "description": "Самый сложный выбор при ожидании проверки ДЗ",
             "image": "choice.png",
             "like": 555,
             "views": 5100},
-
+        
             {"author": "Wikipedia",
             "description": "Южноафриканский узкорот (лат. Breviceps adspersus) — вид бесхвостых земноводных из рода африканских узкоротов.",
             "image": "frog.png",

@@ -84,7 +84,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     @objc func statusTextChanged(_ textField: UITextField){
         setStatusButton.setTitle("Set status", for: .normal)
         myText.text = statusTextField.text
-            contentView.addSubview(myText)
+        contentView.addSubview(myText)
         let constrMyText: [NSLayoutConstraint] = [
             myText.centerXAnchor.constraint(equalTo: statusTextField.centerXAnchor),
             myText.topAnchor.constraint(equalTo: statusTextField.bottomAnchor),
