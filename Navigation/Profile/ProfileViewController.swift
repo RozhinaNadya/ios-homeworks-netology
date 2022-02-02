@@ -35,11 +35,13 @@ class ProfileViewController: UIViewController {
         let view = UIView()
         self.view = view
         view.backgroundColor = backgroundColor
+ //       self.navigationController?.navigationBar.isHidden = true
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellReuseID)
         tableView.register(ProfileTableViewCell.self, forHeaderFooterViewReuseIdentifier: cellProfileID)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: cellPhotosID)
@@ -109,7 +111,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photosViewController = PhotosViewController()
+        let photosViewController = PhotosViewController(.white, title: "Photo Gallery")
         if indexPath.section == 0 {
             navigationController?.pushViewController(photosViewController, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)

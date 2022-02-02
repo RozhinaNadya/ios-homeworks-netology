@@ -13,6 +13,18 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     let cellPhotosCollectionID = "PhotosCell"
     
+    var backgroundColor: UIColor = .clear
+    
+    init(_ color: UIColor, title: String = "Title") {
+        super.init(nibName: nil, bundle: nil)
+        backgroundColor = color
+        self.title = title
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photosCollectionView.dataSource = self
@@ -21,6 +33,13 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.view.addSubview(self.photosCollectionView)
         configureLayoutPhotos()
         photosCollectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: cellPhotosCollectionID)
+        self.navigationController?.navigationBar.isHidden = false
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     func configureLayoutPhotos() {
