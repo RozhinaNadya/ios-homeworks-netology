@@ -54,6 +54,10 @@ class ProfileViewController: UIViewController {
         configureLayoutHeaderView()
     }
     
+    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
+        print("tap tap tap: ")
+    }
+    
     func configureLayoutHeaderView() {
         self.view.addSubview(tableView)
         tableView.toAutoLayout()
@@ -84,12 +88,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
+                 let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+            headerCell.avatarImageView.addGestureRecognizer(gesture)
+            headerCell.avatarImageView.isUserInteractionEnabled = true
             return headerCell
         } else {
             return nil
         }
     }
-    
+       
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 0
