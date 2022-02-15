@@ -21,6 +21,13 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
+    let backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.7
+        return view
+    }()
+        
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
@@ -53,9 +60,32 @@ class ProfileViewController: UIViewController {
         super.viewWillLayoutSubviews()
         configureLayoutHeaderView()
     }
-    
+       
     @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
         print("tap tap tap: ")
+        if gesture.state == .ended {
+            view.addSubview(backView)
+            UIView.animateKeyframes(
+                    withDuration: 0.8,
+                    delay: 0.0,
+                    options: .calculationModeCubic,
+                    animations: {
+                        UIView.addKeyframe(
+                            withRelativeStartTime: 0.0,
+                            relativeDuration: 0.5,
+                            animations: {
+                                gesture.view!.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+                                gesture.view!.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
+                            })
+                        UIView.addKeyframe(
+                            withRelativeStartTime: 0.0,
+                            relativeDuration: 0.8,
+                            animations: {
+                                self.backView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                            })
+                    },
+                    completion: nil)
+        }
     }
     
     func configureLayoutHeaderView() {
@@ -88,7 +118,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: cellProfileID) as! ProfileTableViewCell
-                 let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
             headerCell.avatarImageView.addGestureRecognizer(gesture)
             headerCell.avatarImageView.isUserInteractionEnabled = true
             return headerCell
