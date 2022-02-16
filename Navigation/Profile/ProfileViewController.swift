@@ -21,13 +21,6 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
-    let backView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.alpha = 0.7
-        return view
-    }()
-        
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
@@ -60,11 +53,29 @@ class ProfileViewController: UIViewController {
         super.viewWillLayoutSubviews()
         configureLayoutHeaderView()
     }
-       
-    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
-        print("tap tap tap: ")
+    
+    @objc func handleTapGestureBackView(gesture: UITapGestureRecognizer) {
+        print("top top")
         if gesture.state == .ended {
-            view.addSubview(backView)
+            UIView.animateKeyframes(
+                    withDuration: 0.5,
+                    delay: 0.0,
+                    options: .calculationModeCubic,
+                    animations: {
+                        UIView.addKeyframe(
+                            withRelativeStartTime: 0.0,
+                            relativeDuration: 0.5,
+                            animations: {
+                                gesture.view!.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                            })
+                    },
+                    completion: nil)
+        }
+    }
+    
+    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
+        print("tap tap tap")
+        if gesture.state == .ended {
             UIView.animateKeyframes(
                     withDuration: 0.8,
                     delay: 0.0,
@@ -76,13 +87,10 @@ class ProfileViewController: UIViewController {
                             animations: {
                                 gesture.view!.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
                                 gesture.view!.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
+                                gesture.view!.superview!.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                                gesture.view!.superview!.backgroundColor = UIColor.black.withAlphaComponent(0.7)
                             })
-                        UIView.addKeyframe(
-                            withRelativeStartTime: 0.0,
-                            relativeDuration: 0.8,
-                            animations: {
-                                self.backView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-                            })
+
                     },
                     completion: nil)
         }

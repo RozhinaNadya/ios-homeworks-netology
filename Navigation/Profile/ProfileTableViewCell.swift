@@ -63,6 +63,13 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         return text
     }()
     
+    public let backView: UIView = {
+        let view = UIView()
+        view.toAutoLayout()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        return view
+    }()
+    
     private var statusText: String = "Waiting for something..."
     
     override init(reuseIdentifier: String?) {
@@ -97,14 +104,20 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     
     func configureLayout() {
         avatarImageView.layer.cornerRadius = 50
-        contentView.addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
+        contentView.addSubviews([backView, fullNameLabel, statusTextField, setStatusButton])
+        backView.addSubview(avatarImageView)
         let constrArray: [NSLayoutConstraint] = [
+            backView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             avatarImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
+            fullNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 132),
             fullNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             fullNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
