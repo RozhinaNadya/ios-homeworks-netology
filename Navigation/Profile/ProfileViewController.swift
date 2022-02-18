@@ -13,6 +13,34 @@ class ProfileViewController: UIViewController {
     
     let tableView = UITableView.init(frame: .zero, style: .plain)
     
+    let backView: UIView = {
+        let view = UIView()
+        view.toAutoLayout()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        return view
+    }()
+    
+    var sizeAvatarImageView: UIImageView = {
+        let imageName = "catImage.png"
+        let avatarImage = UIImage(named: imageName)
+        let avatarView = UIImageView(image: avatarImage)
+        avatarView.toAutoLayout()
+        avatarView.layer.borderColor = UIColor.white.cgColor
+        avatarView.layer.borderWidth = 3
+        avatarView.layer.cornerRadius = 50
+        avatarView.clipsToBounds = true
+        avatarView.alpha = 0.0
+        return avatarView
+    }()
+    
+    var exitIcon: UIImageView = {
+        var exit = UIImageView(image: UIImage(systemName: "xmark"))
+        exit.tintColor = .white
+        exit.alpha = 0.0
+        exit.toAutoLayout()
+        return exit
+    }()
+    
     let cellReuseID = "MyTableViewCell"
     
     let cellProfileID = "ProfileTableViewCell"
@@ -25,10 +53,6 @@ class ProfileViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -47,6 +71,10 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
+        backView.isHidden = true
+        let gestureExit = UITapGestureRecognizer(target: self, action: #selector(handleExitTapGesture))
+        exitIcon.addGestureRecognizer(gestureExit)
+        exitIcon.isUserInteractionEnabled = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -54,58 +82,101 @@ class ProfileViewController: UIViewController {
         configureLayoutHeaderView()
     }
     
-    @objc func handleTapGestureBackView(gesture: UITapGestureRecognizer) {
-        print("top top")
+    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             UIView.animateKeyframes(
-                    withDuration: 0.5,
-                    delay: 0.0,
-                    options: .calculationModeCubic,
-                    animations: {
-                        UIView.addKeyframe(
-                            withRelativeStartTime: 0.0,
-                            relativeDuration: 0.5,
-                            animations: {
-                                gesture.view!.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-                            })
-                    },
-                    completion: nil)
+                withDuration: 0.8,
+                delay: 0.0,
+                options: .calculationModeCubic,
+                animations: {
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.0,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.backView.isHidden = false
+                            self.sizeAvatarImageView.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+                            self.sizeAvatarImageView.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
+                            self.sizeAvatarImageView.alpha = 1.0
+                            self.sizeAvatarImageView.layer.cornerRadius = 0
+                            self.sizeAvatarImageView.layer.borderWidth = 0
+                            self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+                        })
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.5,
+                        relativeDuration: 0.2,
+                        animations: {
+                            self.sizeAvatarImageView.layer.cornerRadius = 0
+                            self.sizeAvatarImageView.layer.borderWidth = 0
+                        })
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.5,
+                        relativeDuration: 0.3,
+                        animations: {
+                            self.exitIcon.alpha = 1.0
+                        })
+                },
+                completion: nil)
         }
     }
     
-    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
-        print("tap tap tap")
+    @objc func handleExitTapGesture(gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             UIView.animateKeyframes(
-                    withDuration: 0.8,
-                    delay: 0.0,
-                    options: .calculationModeCubic,
-                    animations: {
-                        UIView.addKeyframe(
-                            withRelativeStartTime: 0.0,
-                            relativeDuration: 0.5,
-                            animations: {
-                                gesture.view!.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-                                gesture.view!.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
-                                gesture.view!.superview!.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-                                gesture.view!.superview!.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-                            })
-
-                    },
-                    completion: nil)
+                withDuration: 0.8,
+                delay: 0.0,
+                options: .calculationModeCubic,
+                animations: {
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.0,
+                        relativeDuration: 0.3,
+                        animations: {
+                            self.exitIcon.alpha = 0.0
+                        })
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.3,
+                        relativeDuration: 0.5,
+                        animations: {
+                            self.sizeAvatarImageView.center = CGPoint(x: self.sizeAvatarImageView.bounds.midX, y: self.sizeAvatarImageView.bounds.midY)
+                            self.sizeAvatarImageView.transform = .identity
+                            self.sizeAvatarImageView.alpha = 0.0
+                            self.sizeAvatarImageView.layer.cornerRadius = 50
+                            self.sizeAvatarImageView.layer.borderWidth = 3
+                            self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+                            self.backView.isHidden = true
+                        })
+                }
+            )
         }
     }
     
     func configureLayoutHeaderView() {
-        self.view.addSubview(tableView)
+        self.view.addSubviews([tableView, backView])
+        backView.addSubviews([sizeAvatarImageView, exitIcon])
         tableView.toAutoLayout()
         let constrHeaderView : [NSLayoutConstraint] = [
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            
+            exitIcon.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 16),
+            exitIcon.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: -16),
+            
+            backView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            sizeAvatarImageView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 16),
+            sizeAvatarImageView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 16),
+            sizeAvatarImageView.heightAnchor.constraint(equalToConstant: 100),
+            sizeAvatarImageView.widthAnchor.constraint(equalToConstant: 100),
         ]
         NSLayoutConstraint.activate(constrHeaderView)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -134,7 +205,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
     }
-       
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 0

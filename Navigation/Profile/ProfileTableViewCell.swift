@@ -63,13 +63,6 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         return text
     }()
     
-    public let backView: UIView = {
-        let view = UIView()
-        view.toAutoLayout()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-        return view
-    }()
-    
     private var statusText: String = "Waiting for something..."
     
     override init(reuseIdentifier: String?) {
@@ -104,14 +97,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     
     func configureLayout() {
         avatarImageView.layer.cornerRadius = 50
-        contentView.addSubviews([backView, fullNameLabel, statusTextField, setStatusButton])
-        backView.addSubview(avatarImageView)
+        contentView.addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
         let constrArray: [NSLayoutConstraint] = [
-            backView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             avatarImageView.heightAnchor.constraint(equalToConstant: 100),
