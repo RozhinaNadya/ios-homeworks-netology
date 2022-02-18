@@ -38,6 +38,7 @@ class ProfileViewController: UIViewController {
         exit.tintColor = .white
         exit.alpha = 0.0
         exit.toAutoLayout()
+        exit.isHidden = true
         return exit
     }()
     
@@ -83,75 +84,80 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
-        if gesture.state == .ended {
-            UIView.animateKeyframes(
-                withDuration: 0.8,
-                delay: 0.0,
-                options: .calculationModeCubic,
-                animations: {
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.0,
-                        relativeDuration: 0.5,
-                        animations: {
-                            self.backView.isHidden = false
-                            self.sizeAvatarImageView.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-                            self.sizeAvatarImageView.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
-                            self.sizeAvatarImageView.alpha = 1.0
-                            self.sizeAvatarImageView.layer.cornerRadius = 0
-                            self.sizeAvatarImageView.layer.borderWidth = 0
-                            self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-                        })
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.5,
-                        relativeDuration: 0.2,
-                        animations: {
-                            self.sizeAvatarImageView.layer.cornerRadius = 0
-                            self.sizeAvatarImageView.layer.borderWidth = 0
-                        })
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.5,
-                        relativeDuration: 0.3,
-                        animations: {
-                            self.exitIcon.alpha = 1.0
-                        })
-                },
-                completion: nil)
-        }
+        UIView.animateKeyframes(
+            withDuration: 0.8,
+            delay: 0.0,
+            options: .calculationModeCubic,
+            animations: {
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.0,
+                    relativeDuration: 0.5,
+                    animations: {
+                        self.backView.isHidden = false
+                        self.sizeAvatarImageView.isHidden = false
+                        self.exitIcon.isHidden = false
+                        
+                        self.sizeAvatarImageView.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+                        self.sizeAvatarImageView.transform = CGAffineTransform(scaleX: self.view.bounds.width / gesture.view!.bounds.width, y: self.view.bounds.width / gesture.view!.bounds.width)
+                        self.sizeAvatarImageView.alpha = 1.0
+                        self.sizeAvatarImageView.layer.cornerRadius = 0
+                        self.sizeAvatarImageView.layer.borderWidth = 0
+                        self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+                    })
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.5,
+                    relativeDuration: 0.2,
+                    animations: {
+                        self.sizeAvatarImageView.layer.cornerRadius = 0
+                        self.sizeAvatarImageView.layer.borderWidth = 0
+                    })
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.5,
+                    relativeDuration: 0.3,
+                    animations: {
+                        self.exitIcon.alpha = 1.0
+                    })
+            },
+            completion: nil)
     }
     
     @objc func handleExitTapGesture(gesture: UITapGestureRecognizer) {
-        if gesture.state == .ended {
-            UIView.animateKeyframes(
-                withDuration: 0.8,
-                delay: 0.0,
-                options: .calculationModeCubic,
-                animations: {
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.0,
-                        relativeDuration: 0.3,
-                        animations: {
-                            self.exitIcon.alpha = 0.0
-                        })
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.3,
-                        relativeDuration: 0.5,
-                        animations: {
-                            self.sizeAvatarImageView.center = CGPoint(x: self.sizeAvatarImageView.bounds.midX, y: self.sizeAvatarImageView.bounds.midY)
-                            self.sizeAvatarImageView.transform = .identity
-                            self.sizeAvatarImageView.alpha = 0.0
-                            self.sizeAvatarImageView.layer.cornerRadius = 50
-                            self.sizeAvatarImageView.layer.borderWidth = 3
-                            self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-                            self.backView.isHidden = true
-                        })
-                }
-            )
-        }
+        UIView.animateKeyframes(
+            withDuration: 0.9,
+            delay: 0.0,
+            options: .calculationModeCubic,
+            animations: {
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.0,
+                    relativeDuration: 0.3,
+                    animations: {
+                        self.exitIcon.alpha = 0.0
+                    })
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.3,
+                    relativeDuration: 0.5,
+                    animations: {
+                        self.sizeAvatarImageView.center = CGPoint(x: self.sizeAvatarImageView.bounds.midX, y: self.sizeAvatarImageView.bounds.midY)
+                        self.sizeAvatarImageView.transform = .identity
+                        self.sizeAvatarImageView.alpha = 0.0
+                        self.sizeAvatarImageView.layer.cornerRadius = 50
+                        self.sizeAvatarImageView.layer.borderWidth = 3
+                        self.backView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+                    })
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.8,
+                    relativeDuration: 0.1,
+                    animations: {
+                        self.backView.isHidden = true
+                        self.exitIcon.isHidden = true
+                    })
+            }
+        )
     }
     
     func configureLayoutHeaderView() {
-        self.view.addSubviews([tableView, backView])
-        backView.addSubviews([sizeAvatarImageView, exitIcon])
+        self.view.addSubviews([tableView, sizeAvatarImageView, exitIcon])
+        tableView.addSubview(backView)
         tableView.toAutoLayout()
         let constrHeaderView : [NSLayoutConstraint] = [
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
