@@ -77,6 +77,7 @@ class ProfileViewController: UIViewController {
         let gestureExit = UITapGestureRecognizer(target: self, action: #selector(handleExitTapGesture))
         exitIcon.addGestureRecognizer(gestureExit)
         exitIcon.isUserInteractionEnabled = true
+        handlerDebigReleaseColor()
     }
     
     override func viewWillLayoutSubviews() {
@@ -154,6 +155,16 @@ class ProfileViewController: UIViewController {
                     })
             }
         )
+    }
+    
+    func handlerDebigReleaseColor() {
+#if DEBUG
+        self.view.backgroundColor = UIColor(named: "debugColor")
+        tableView.backgroundColor = UIColor(named: "debugColor")
+#else
+        self.view.backgroundColor = UIColor(named: "releaseColor")
+        tableView.backgroundColor = UIColor(named: "releaseColor")
+#endif
     }
     
     func configureLayoutHeaderView() {
