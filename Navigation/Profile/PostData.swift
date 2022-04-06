@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 func getPostData() -> [Post] {
     var posts: [Post] = [Post]()
