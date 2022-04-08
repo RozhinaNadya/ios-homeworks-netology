@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -54,6 +55,7 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubviews([authorLabel, descriptionLabel, postImageView, likeLabel, viewsLabel])
         configureLayoutPost()
+//        filterImage(image: postImageView.image!)
     }
     
     func configureLayoutPost() {
@@ -83,6 +85,13 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.heightAnchor.constraint(equalToConstant: 50)
         ]
         NSLayoutConstraint.activate(constrPost)
+    }
+    
+    func filterImage(image: UIImage) {
+        let filter = ImageProcessor()
+        DispatchQueue.main.async {
+            filter.processImage(sourceImage: image, filter: ColorFilter.allCases.randomElement()!, completion: { [weak self] image in self?.postImageView.image = image})
+        }
     }
     
     override func prepareForReuse() {
