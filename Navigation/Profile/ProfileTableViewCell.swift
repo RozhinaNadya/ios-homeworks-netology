@@ -100,31 +100,27 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         avatarImageView.layer.cornerRadius = 50
         contentView.addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
         avatarImageView.snp.makeConstraints {
-            (make) -> Void in
-            make.top.equalToSuperview().inset(27)
-            make.leading.equalToSuperview().inset(16)
-            make.height.width.equalTo(100)
+            $0.top.equalToSuperview().inset(27)
+            $0.leading.equalToSuperview().inset(16)
+            $0.height.width.equalTo(100)
         }
         fullNameLabel.snp.makeConstraints {
-            (make) -> Void in
-            make.leading.equalToSuperview().inset(132)
-            make.top.equalToSuperview().inset(27)
-            make.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(40)
-            make.width.equalTo(175)
+            $0.leading.equalToSuperview().inset(132)
+            $0.top.equalToSuperview().inset(27)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+            $0.width.equalTo(175)
         }
         statusTextField.snp.makeConstraints {
-            (make) -> Void in
-            make.leading.equalTo(fullNameLabel)
-            make.bottom.equalTo(setStatusButton).inset(84)
-            make.height.equalTo(40)
-            make.width.equalTo(175)
+            $0.leading.equalTo(fullNameLabel)
+            $0.bottom.equalTo(setStatusButton).inset(84)
+            $0.height.equalTo(40)
+            $0.width.equalTo(175)
         }
         setStatusButton.snp.makeConstraints {
-            (make) -> Void in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-            make.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 }
