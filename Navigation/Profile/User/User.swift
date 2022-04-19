@@ -10,16 +10,16 @@ import UIKit
 class User {
     
     var fullName: String?
-    var avatar: UIImageView?
+    var avatarImageName: String?
     var status: String?
     
     init(fullName: String) {
         self.fullName = fullName
     }
     
-    init(fullName: String, avatar: UIImageView, status: String) {
+    init(fullName: String, avatarImageName: String, status: String) {
         self.fullName = fullName
-        self.avatar = avatar
+        self.avatarImageName = avatarImageName
         self.status = status
     }
 }

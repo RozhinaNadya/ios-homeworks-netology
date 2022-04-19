@@ -94,9 +94,17 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonPress() {
+        
         let userName = logInText.text ?? "No name"
+        
+#if DEBUG
+        let userService = TestUserService()
+#else
         let user = User(fullName: userName)
-        let profile = ProfileViewController(.white, title: "Профиль", userService: CurrentUserService(user: user), userName: userName)
+        let userService = CurrentUserService(user: user)
+#endif
+        
+        let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
         self.navigationController?.pushViewController(profile, animated: true)
     }
     
