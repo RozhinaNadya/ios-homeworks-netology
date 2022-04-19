@@ -222,14 +222,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
             headerCell.avatarImageView.addGestureRecognizer(gesture)
             headerCell.avatarImageView.isUserInteractionEnabled = true
-            
-#if DEBUG
+//#if DEBUG
             let user = userService?.giveUser(name: userName ?? "Not found")
             headerCell.fullNameLabel.text = user?.fullName ?? "Not found"
             headerCell.avatarImageView.image = UIImage(named: user?.avatarImageName ?? "not_found.png")
             headerCell.statusTextField.text = user?.status
-#endif
-            
+//#endif
             return headerCell
             
         } else {
