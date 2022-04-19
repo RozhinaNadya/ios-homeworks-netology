@@ -41,6 +41,8 @@
 		84A9B35D2798399700353093 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9B35C2798399700353093 /* PhotosViewController.swift */; };
 		84A9B36027983A6900353093 /* ArrayPhotos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */; };
 		84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D1280ECD0600123322 /* TestUserService.swift */; };
+		84DD26D4280EF28200123322 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D3280EF28200123322 /* Checker.swift */; };
+		84DD26D8280F01B400123322 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D7280F01B400123322 /* LoginInspector.swift */; };
 		84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFEA8427660C2C00D2C240 /* LogInViewController.swift */; };
 		CCC855908C98825689A8B621 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,8 @@
 		84A9B35C2798399700353093 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ArrayPhotos.xcassets; sourceTree = "<group>"; };
 		84DD26D1280ECD0600123322 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
+		84DD26D3280EF28200123322 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		84DD26D7280F01B400123322 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		84FFEA8427660C2C00D2C240 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		91C486BA4539E2598FE4629B /* Pods_StorageService_StorageServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService_StorageServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +215,10 @@
 			children = (
 				849331E328007AFB00FE58C0 /* User */,
 				841337A8272067BD0016EDB7 /* ProfileViewController.swift */,
-				84603D6F27906AE5003BD463 /* ProfileTableViewCell.swift */,
 				84FFEA8427660C2C00D2C240 /* LogInViewController.swift */,
+				84DD26D7280F01B400123322 /* LoginInspector.swift */,
+				84DD26D3280EF28200123322 /* Checker.swift */,
+				84603D6F27906AE5003BD463 /* ProfileTableViewCell.swift */,
 				844D835C277210F700513017 /* PostTableViewCell.swift */,
 				84903FD727A1521300CFE811 /* PostData.swift */,
 				84A9B35E279839CC00353093 /* Photos */,
@@ -550,6 +556,7 @@
 				84903FE027A9444A00CFE811 /* PreviewPhotosCollectionViewCell.swift in Sources */,
 				841337A72720675D0016EDB7 /* FeedViewController.swift in Sources */,
 				848F7D8527FDA613004E2330 /* PostViewController.swift in Sources */,
+				84DD26D8280F01B400123322 /* LoginInspector.swift in Sources */,
 				841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */,
 				84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */,
 				84603D7027906AE5003BD463 /* ProfileTableViewCell.swift in Sources */,
@@ -557,6 +564,7 @@
 				844D835D277210F700513017 /* PostTableViewCell.swift in Sources */,
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
 				849331E0280075D800FE58C0 /* User.swift in Sources */,
+				84DD26D4280EF28200123322 /* Checker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
