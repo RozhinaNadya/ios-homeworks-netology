@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
     
+    var userService: UserService?
+    
     let tableView = UITableView.init(frame: .zero, style: .plain)
     
     let backView: UIView = {
@@ -51,10 +53,11 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
-    init(_ color: UIColor, title: String = "Title") {
+    init(_ color: UIColor, title: String = "Title", userService: UserService, userName: String) {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
+        self.userService = userService
     }
     
     override func loadView() {

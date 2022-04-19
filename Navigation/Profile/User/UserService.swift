@@ -8,5 +8,5 @@
 import UIKit
 
 protocol UserService {
-    func giveUser(name: String) -> User
+    func giveUser(name: String) -> User?
 }

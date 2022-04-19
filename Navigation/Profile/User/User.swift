@@ -13,6 +13,10 @@ class User {
     var avatar: UIImageView?
     var status: String?
     
+    init(fullName: String) {
+        self.fullName = fullName
+    }
+    
     init(fullName: String, avatar: UIImageView, status: String) {
         self.fullName = fullName
         self.avatar = avatar
