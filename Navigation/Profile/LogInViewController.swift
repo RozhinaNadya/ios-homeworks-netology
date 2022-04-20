@@ -77,12 +77,12 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    var backgroundColor: UIColor = .clear
+ //   var backgroundColor: UIColor = .clear
     
-    init(_ color: UIColor, title: String = "Title") {
+    init(/*_ color: UIColor, title: String = "Title"*/) {
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
+   //     backgroundColor = color
+  //      self.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -131,7 +131,7 @@ class LogInViewController: UIViewController {
     override func loadView() {
         let view = UIView()
         self.view = view
-        view.backgroundColor = backgroundColor
+  //      view.backgroundColor = backgroundColor
         logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
         passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
     }
