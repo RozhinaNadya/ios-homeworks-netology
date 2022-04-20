@@ -19,7 +19,6 @@ class AppFactory {
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.title = title
         navigationController.view.backgroundColor = color
-   //     navigationController.navigationBar.backgroundColor = color
         return navigationController
     }
     

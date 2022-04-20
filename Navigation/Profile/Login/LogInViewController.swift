@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func checkLoginPassword(login: String, password: String) -> Bool
-}
-
 class LogInViewController: UIViewController {
     
     var delegat: LoginViewControllerDelegate
