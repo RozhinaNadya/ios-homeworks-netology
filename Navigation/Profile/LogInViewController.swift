@@ -13,6 +13,9 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 class LogInViewController: UIViewController {
     
+    var delegat: LoginViewControllerDelegate
+    let loginInspector = LoginInspector()
+    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -50,7 +53,7 @@ class LogInViewController: UIViewController {
         let text = UITextField()
         text.toAutoLayout()
         text.toLogInText()
-        text.placeholder = "Email or phone"
+        text.placeholder = "Email, phone or nickname"
         return text
     }()
     
@@ -80,6 +83,7 @@ class LogInViewController: UIViewController {
  //   var backgroundColor: UIColor = .clear
     
     init(/*_ color: UIColor, title: String = "Title"*/) {
+        self.delegat = loginInspector
         super.init(nibName: nil, bundle: nil)
    //     backgroundColor = color
   //      self.title = title
@@ -88,7 +92,7 @@ class LogInViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     func goStack() {
         [logInText, passwordText].map {[weak self] in
             var text = UITextField()
@@ -99,7 +103,8 @@ class LogInViewController: UIViewController {
     
     @objc func logInButtonPress() {
         
-        let userName = logInText.text ?? "No name"
+        guard let userName = logInText.text else {return}
+        guard let userPassword = passwordText.text else {return}
         
 #if DEBUG
         let userService = TestUserService()
@@ -108,8 +113,18 @@ class LogInViewController: UIViewController {
         let userService = CurrentUserService(user: user)
 #endif
         
-        let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
-        self.navigationController?.pushViewController(profile, animated: true)
+        if delegat.checkLoginPassword(login: userName, password: userPassword) == true {
+            let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
+            self.navigationController?.pushViewController(profile, animated: true)
+            
+        } else {
+            
+            let alert = UIAlertController(title: "Не верный логин или пароль", message: "Пожалуйста, проверьте данные и повторите попытку", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func tapText() {

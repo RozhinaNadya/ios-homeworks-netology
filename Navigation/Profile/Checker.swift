@@ -11,7 +11,8 @@ final class Checker {
     
     static var shared: Checker { Checker() }
     
-    private let loginChecker = "Vasily"
+    //MARK: Данные для входа
+    private let loginChecker = "Ivan"
     private let pswdChecker = "StrongPassword"
     
     var rootController = UITabBarController()
