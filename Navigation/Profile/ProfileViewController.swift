@@ -242,7 +242,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             formatter.numberStyle = .currency
             let myPost = posts[indexPath.row]
             cell.authorLabel.text = "\(myPost.author)"
-            cell.postImageView.image = UIImage(named: myPost.image)
+            cell.filterImage(image: (UIImage(named: myPost.image)!))
+     //       cell.postImageView.image = UIImage(named: myPost.image)
             cell.descriptionLabel.text = "\(myPost.description)"
             cell.likeLabel.text = "Likes: \(myPost.like)"
             cell.viewsLabel.text = "Views: \(myPost.views)"
