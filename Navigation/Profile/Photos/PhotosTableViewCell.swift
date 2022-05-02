@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -79,3 +80,11 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension PhotosTableViewCell: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        images.forEach { dataPhotos.append($0) }
+        previewPhotosCollectionView.reloadData()
+    }
+    
+    
+}
