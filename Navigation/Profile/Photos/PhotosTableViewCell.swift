@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import iOSIntPackage
 
 class PhotosTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -29,15 +28,6 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     
     let cellPhotosPreviewCollectionID = "PhotosCellPreview"
     
-    private var publisherImages: [UIImage] = []
-    
-    let imagePublisherFacadeObject = ImagePublisherFacade()
-        
-    deinit {
-        imagePublisherFacadeObject.rechargeImageLibrary()
-        imagePublisherFacadeObject.removeSubscription(for: self)
-        }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         previewPhotosCollectionView.register(PreviewPhotosCollectionViewCell.self, forCellWithReuseIdentifier: cellPhotosPreviewCollectionID)
@@ -45,8 +35,7 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         previewPhotosCollectionView.dataSource = self
         previewPhotosCollectionView.toAutoLayout()
         configureLayoutPhotosTable()
-        imagePublisherFacadeObject.subscribe(self)
-        imagePublisherFacadeObject.addImagesWithTimer(time: 0.1, repeat: dataPhotos.count)
+        checkOptional(images: dataPhotos)
     }
     
     func configureLayoutPhotosTable() {
@@ -78,7 +67,7 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellPhotosPreviewCollectionID, for: indexPath) as! PreviewPhotosCollectionViewCell
-        cell.photosImageView.image = dataPhotos[indexPath.row]
+        cell.photosImageView.image = dataPhotosSafely[indexPath.row]
         return cell
     }
     
@@ -91,9 +80,3 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosTableViewCell: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        images.forEach { dataPhotos.append($0) }
-        previewPhotosCollectionView.reloadData()
-    }
-}

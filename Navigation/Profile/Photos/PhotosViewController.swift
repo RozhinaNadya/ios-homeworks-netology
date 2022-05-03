@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -14,6 +15,15 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     let cellPhotosCollectionID = "PhotosCell"
     
     var backgroundColor: UIColor = .clear
+    
+    private var publisherImages: [UIImage] = []
+    
+    let imagePublisherFacadeObject = ImagePublisherFacade()
+        
+    deinit {
+        imagePublisherFacadeObject.rechargeImageLibrary()
+        imagePublisherFacadeObject.removeSubscription(for: self)
+        }
     
     init(_ color: UIColor, title: String = "Title") {
         super.init(nibName: nil, bundle: nil)
@@ -34,6 +44,9 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         configureLayoutPhotos()
         photosCollectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: cellPhotosCollectionID)
         self.navigationController?.navigationBar.isHidden = false
+        imagePublisherFacadeObject.subscribe(self)
+        imagePublisherFacadeObject.addImagesWithTimer(time: 0.1, repeat: 10)
+        receive(images: dataPhotosSafely)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,12 +72,12 @@ extension PhotosViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataPhotos.count
+        return publisherImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellPhotosCollectionID, for: indexPath) as! PhotosCollectionViewCell
-        cell.photosImageView.image = dataPhotos[indexPath.row]
+        cell.photosImageView.image = publisherImages[indexPath.row]
         return cell
     }
     
@@ -84,5 +97,12 @@ extension PhotosViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        images.forEach { publisherImages.append($0) }
+        photosCollectionView.reloadData()
     }
 }
