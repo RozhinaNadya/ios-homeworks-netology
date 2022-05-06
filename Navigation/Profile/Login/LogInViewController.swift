@@ -61,32 +61,61 @@ class LogInViewController: UIViewController {
         return password
     }()
     
-    var logInButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitle("Log in", for: .normal)
-        let pixelImage = UIImage(named: "blue_pixel.png")
-        button.setBackgroundImage(pixelImage, for: .normal)
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .highlighted)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
+    var logInButton: CustomButton = {
+        let button = CustomButton(title: "Log in")
         return button
     }()
     
- //   var backgroundColor: UIColor = .clear
-    
-    init(/*_ color: UIColor, title: String = "Title"*/) {
+    init() {
         self.delegat = loginInspector
         super.init(nibName: nil, bundle: nil)
-   //     backgroundColor = color
-  //      self.title = title
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        let view = UIView()
+        self.view = view
+        logInButton.onTap = {self.logInButtonPress()}
+        passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        goStack()
+        logInScrollView.keyboardDismissMode = .interactive
+        goLogin()
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    @objc func tapText() {
+        passwordText.isSecureTextEntry = true
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            logInScrollView.contentInset.bottom = keyboardSize.height
+            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        logInScrollView.contentInset.bottom = .zero
+        logInScrollView.verticalScrollIndicatorInsets = .zero
     }
         
     func goStack() {
@@ -97,7 +126,7 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc func logInButtonPress() {
+    func logInButtonPress() {
         
         guard let userName = logInText.text else {return}
         guard let userPassword = passwordText.text else {return}
@@ -121,50 +150,6 @@ class LogInViewController: UIViewController {
             }))
             self.present(alert, animated: true, completion: nil)
         }
-    }
-    
-    @objc func tapText() {
-        passwordText.isSecureTextEntry = true
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-            logInScrollView.contentInset.bottom = keyboardSize.height
-            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        logInScrollView.contentInset.bottom = .zero
-        logInScrollView.verticalScrollIndicatorInsets = .zero
-    }
-    
-    override func loadView() {
-        let view = UIView()
-        self.view = view
-  //      view.backgroundColor = backgroundColor
-        logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
-        passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        goStack()
-        logInScrollView.keyboardDismissMode = .interactive
-        goLogin()
-        self.navigationController?.navigationBar.isHidden = true
     }
     
     func goLogin() {

@@ -9,12 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
- //   var backgroundColor: UIColor = .clear
-    
-    init(/*_ color: UIColor, title: String = "Title"*/) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-    //    backgroundColor = color
-    //    self.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -23,18 +19,21 @@ class FeedViewController: UIViewController {
     
     override func loadView() {
         let view = ViewFeed()
-        view.buttonPost1.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
-        view.buttonPost2.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
         self.view = view
-//        view.backgroundColor = backgroundColor
+        view.buttonPost1.onTap = {
+            self.onButtonTap()
+        }
+        view.buttonPost2.onTap = {
+            self.onButtonTap()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    @objc
-    func onButtonTap(){
+
+    func onButtonTap() {
         print("button tapped")
         let vcPost = PostViewController(.yellow, title: "Новый пост")
         self.navigationController?.pushViewController(vcPost, animated: true)

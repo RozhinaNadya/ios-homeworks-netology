@@ -9,23 +9,13 @@ import UIKit
 
 class ViewFeed: UIView {
     
-    var buttonPost1: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Создать пост №1", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
+    var buttonPost1: CustomButton = {
+        let button = CustomButton(title: "Создать пост №1")
         return button
     }()
     
-    var buttonPost2: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Создать пост №2", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
+    var buttonPost2: CustomButton = {
+        let button = CustomButton(title: "Создать пост №2")
         return button
     }()
     

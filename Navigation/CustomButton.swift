@@ -9,7 +9,7 @@ import UIKit
 
 final class CustomButton: UIButton {
     private var title: String
-    private var onTap: (() -> Void)?
+    var onTap: (() -> Void)?
     private let pixelImage = UIImage(named: "blue_pixel.png")
     
     init(title: String) {
@@ -20,6 +20,8 @@ final class CustomButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         layer.cornerRadius = 10
+  //      layer.cornerRadius = 4
+        addShadow()
         clipsToBounds = true
         setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
         setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
