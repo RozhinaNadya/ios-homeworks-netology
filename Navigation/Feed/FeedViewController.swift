@@ -9,7 +9,12 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    init() {
+    private let viewModel: FeedModel
+    
+    let viewFeed = ViewFeed()
+    
+    init(viewModel: FeedModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -18,18 +23,21 @@ class FeedViewController: UIViewController {
     }
     
     override func loadView() {
-        let view = ViewFeed()
-        self.view = view
-        view.buttonPost1.onTap = {
+        self.view = viewFeed
+        viewFeed.buttonPost1.onTap = {
             self.onButtonTap()
         }
-        view.buttonPost2.onTap = {
+        viewFeed.buttonPost2.onTap = {
             self.onButtonTap()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewFeed.delegate = self
+        viewFeed.passwordButton.onTap = {
+            self.onButton()
+        }
     }
     
 
@@ -40,4 +48,13 @@ class FeedViewController: UIViewController {
     }
     
     var post = PostViewController.Post(title: "New Post")
+}
+
+extension FeedViewController: FeedViewControllerDelegate {
+    func onButton() {
+        print("tap on button")
+        guard let userPassword = viewFeed.passwordTextField.text else {return}
+        viewFeed.checkPasswordLabel.text = userPassword
+        viewFeed.checkPasswordLabel.textColor = { userPassword == viewModel.password ? .green : .red}()
+    }
 }

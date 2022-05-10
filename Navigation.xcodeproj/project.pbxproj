@@ -42,6 +42,8 @@
 		84A9B36027983A6900353093 /* ArrayPhotos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */; };
 		84C003EF2824122300369191 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003EE2824122300369191 /* CustomButton.swift */; };
 		84C003F22825291700369191 /* Extension(UIView).swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003F12825291700369191 /* Extension(UIView).swift */; };
+		84C003F52829214B00369191 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003F42829214B00369191 /* FeedModel.swift */; };
+		84C003F9282A782100369191 /* FeedViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003F8282A782100369191 /* FeedViewControllerDelegate.swift */; };
 		84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D1280ECD0600123322 /* TestUserService.swift */; };
 		84DD26D4280EF28200123322 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D3280EF28200123322 /* Checker.swift */; };
 		84DD26D8280F01B400123322 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D7280F01B400123322 /* LoginInspector.swift */; };
@@ -128,6 +130,8 @@
 		84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ArrayPhotos.xcassets; sourceTree = "<group>"; };
 		84C003EE2824122300369191 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		84C003F12825291700369191 /* Extension(UIView).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension(UIView).swift"; sourceTree = "<group>"; };
+		84C003F42829214B00369191 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		84C003F8282A782100369191 /* FeedViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerDelegate.swift; sourceTree = "<group>"; };
 		84DD26D1280ECD0600123322 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		84DD26D3280EF28200123322 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		84DD26D7280F01B400123322 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 		841B7F81271EC95700740CD5 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				84C003F32829213100369191 /* Models */,
 				841B7F82271EC95700740CD5 /* AppDelegate.swift */,
 				841B7F84271EC95700740CD5 /* SceneDelegate.swift */,
 				84DD26D928100A3200123322 /* AppFactory.swift */,
@@ -262,8 +267,9 @@
 			isa = PBXGroup;
 			children = (
 				841337A62720675D0016EDB7 /* FeedViewController.swift */,
-				841337AA27207CE90016EDB7 /* PostViewController.swift */,
 				841337AC272197C90016EDB7 /* ViewFeed.swift */,
+				84C003F8282A782100369191 /* FeedViewControllerDelegate.swift */,
+				841337AA27207CE90016EDB7 /* PostViewController.swift */,
 				84903FD427A150F700CFE811 /* Info */,
 			);
 			path = Feed;
@@ -309,6 +315,14 @@
 				84C003F12825291700369191 /* Extension(UIView).swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		84C003F32829213100369191 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84C003F42829214B00369191 /* FeedModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		84DD26E128104F9000123322 /* Login */ = {
@@ -585,11 +599,13 @@
 				849331E528007B7100FE58C0 /* CurrentUserService.swift in Sources */,
 				84C003EF2824122300369191 /* CustomButton.swift in Sources */,
 				84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */,
+				84C003F52829214B00369191 /* FeedModel.swift in Sources */,
 				84DD26E028104F6A00123322 /* LoginViewControllerDelegate.swift in Sources */,
 				84903FD227A13CC600CFE811 /* Extension(UITextField).swift in Sources */,
 				84A9B35B2798334A00353093 /* PhotosTableViewCell.swift in Sources */,
 				84C003F22825291700369191 /* Extension(UIView).swift in Sources */,
 				84903FD027A01C7000CFE811 /* PhotosCollectionViewCell.swift in Sources */,
+				84C003F9282A782100369191 /* FeedViewControllerDelegate.swift in Sources */,
 				84A9B35D2798399700353093 /* PhotosViewController.swift in Sources */,
 				841337AD272197C90016EDB7 /* ViewFeed.swift in Sources */,
 				841337A9272067BD0016EDB7 /* ProfileViewController.swift in Sources */,

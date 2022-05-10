@@ -17,7 +17,7 @@ final class Checker {
     
     var rootController = UITabBarController()
     
-    private let feedController = FeedViewController()
+    private let feedController = FeedViewController(viewModel: FeedModel())
     private let profileController = LogInViewController()
     private let factory = AppFactory()
     

@@ -20,7 +20,6 @@ final class CustomButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         toAutoLayout()
         layer.cornerRadius = 10
-  //      layer.cornerRadius = 4
         addShadow()
         clipsToBounds = true
         setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
