@@ -17,17 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
-        let feedNavController = UINavigationController(rootViewController: FeedViewController(.gray, title: "Лента"))
-        feedNavController.tabBarItem = UITabBarItem(title: "Лента", image:UIImage(systemName: "house"), selectedImage: nil)
-        let profileNavController = UINavigationController(rootViewController: LogInViewController(.white, title: "Log in"))
-        profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
-        
-        window.rootViewController = TabBar(
-            viewControllers: [
-                feedNavController,
-                profileNavController
-            ]
-        )
+        window.rootViewController = Checker.shared.rootController
         window.makeKeyAndVisible()
         self.window = window
     }

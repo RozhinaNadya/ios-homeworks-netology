@@ -55,7 +55,6 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubviews([authorLabel, descriptionLabel, postImageView, likeLabel, viewsLabel])
         configureLayoutPost()
-//        filterImage(image: postImageView.image!)
     }
     
     func configureLayoutPost() {

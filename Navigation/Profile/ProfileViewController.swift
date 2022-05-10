@@ -12,6 +12,9 @@ class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
     
+    var userService: UserService?
+    var userName: String?
+    
     let tableView = UITableView.init(frame: .zero, style: .plain)
     
     let backView: UIView = {
@@ -51,10 +54,11 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
-    init(_ color: UIColor, title: String = "Title") {
+    init(_ color: UIColor, title: String = "Title", userService: UserService, userName: String) {
         super.init(nibName: nil, bundle: nil)
         backgroundColor = color
         self.title = title
+        self.userService = userService
     }
     
     override func loadView() {
@@ -218,7 +222,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
             headerCell.avatarImageView.addGestureRecognizer(gesture)
             headerCell.avatarImageView.isUserInteractionEnabled = true
+//#if DEBUG
+            let user = userService?.giveUser(name: userName ?? "Not found")
+            headerCell.fullNameLabel.text = user?.fullName ?? "Not found"
+            headerCell.avatarImageView.image = UIImage(named: user?.avatarImageName ?? "not_found.png")
+            headerCell.statusTextField.text = user?.status
+//#endif
             return headerCell
+            
         } else {
             return nil
         }
@@ -243,7 +254,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let myPost = posts[indexPath.row]
             cell.authorLabel.text = "\(myPost.author)"
             cell.filterImage(image: (UIImage(named: myPost.image)!))
-     //       cell.postImageView.image = UIImage(named: myPost.image)
+            //       cell.postImageView.image = UIImage(named: myPost.image)
             cell.descriptionLabel.text = "\(myPost.description)"
             cell.likeLabel.text = "Likes: \(myPost.like)"
             cell.viewsLabel.text = "Views: \(myPost.views)"

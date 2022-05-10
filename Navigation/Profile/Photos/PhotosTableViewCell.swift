@@ -35,6 +35,7 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         previewPhotosCollectionView.dataSource = self
         previewPhotosCollectionView.toAutoLayout()
         configureLayoutPhotosTable()
+        checkOptional(images: dataPhotos)
     }
     
     func configureLayoutPhotosTable() {
@@ -66,7 +67,7 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellPhotosPreviewCollectionID, for: indexPath) as! PreviewPhotosCollectionViewCell
-        cell.photosImageView.image = dataPhotos[indexPath.row]
+        cell.photosImageView.image = dataPhotosSafely[indexPath.row]
         return cell
     }
     

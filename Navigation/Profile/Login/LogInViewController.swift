@@ -9,6 +9,9 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    var delegat: LoginViewControllerDelegate
+    let loginInspector = LoginInspector()
+    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -46,7 +49,7 @@ class LogInViewController: UIViewController {
         let text = UITextField()
         text.toAutoLayout()
         text.toLogInText()
-        text.placeholder = "Email or phone"
+        text.placeholder = "Email, phone or nickname"
         return text
     }()
     
@@ -58,67 +61,24 @@ class LogInViewController: UIViewController {
         return password
     }()
     
-    var logInButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitle("Log in", for: .normal)
-        let pixelImage = UIImage(named: "blue_pixel.png")
-        button.setBackgroundImage(pixelImage, for: .normal)
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.setTitleColor(UIColor.init(white: 1, alpha: 1), for: .normal)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .selected)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .highlighted)
-        button.setTitleColor(UIColor.init(white: 1, alpha: 0.8), for: .disabled)
+    var logInButton: CustomButton = {
+        let button = CustomButton(title: "Log in")
         return button
     }()
     
-    var backgroundColor: UIColor = .clear
-    
-    init(_ color: UIColor, title: String = "Title") {
+    init() {
+        self.delegat = loginInspector
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func goStack() {
-        [logInText, passwordText].map {[weak self] in
-            var text = UITextField()
-            text = $0
-            self?.logInStackView.addArrangedSubview(text)
-        }
-    }
-    
-    @objc func logInButtonPress() {
-        let profile = ProfileViewController(.white, title: "Профиль")
-        self.navigationController?.pushViewController(profile, animated: true)
-    }
-    
-    @objc func tapText() {
-        passwordText.isSecureTextEntry = true
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-            logInScrollView.contentInset.bottom = keyboardSize.height
-            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        logInScrollView.contentInset.bottom = .zero
-        logInScrollView.verticalScrollIndicatorInsets = .zero
-    }
-    
     override func loadView() {
         let view = UIView()
         self.view = view
-        view.backgroundColor = backgroundColor
-        logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
+        logInButton.onTap = {self.logInButtonPress()}
         passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
     }
     
@@ -140,6 +100,56 @@ class LogInViewController: UIViewController {
         logInScrollView.keyboardDismissMode = .interactive
         goLogin()
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    @objc func tapText() {
+        passwordText.isSecureTextEntry = true
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            logInScrollView.contentInset.bottom = keyboardSize.height
+            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        logInScrollView.contentInset.bottom = .zero
+        logInScrollView.verticalScrollIndicatorInsets = .zero
+    }
+        
+    func goStack() {
+        [logInText, passwordText].map {[weak self] in
+            var text = UITextField()
+            text = $0
+            self?.logInStackView.addArrangedSubview(text)
+        }
+    }
+    
+    func logInButtonPress() {
+        
+        guard let userName = logInText.text else {return}
+        guard let userPassword = passwordText.text else {return}
+        
+#if DEBUG
+        let userService = TestUserService()
+#else
+        let user = User(fullName: userName)
+        let userService = CurrentUserService(user: user)
+#endif
+        
+        if delegat.checkLoginPassword(login: userName, password: userPassword) == true {
+            let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
+            self.navigationController?.pushViewController(profile, animated: true)
+            
+        } else {
+            
+            let alert = UIAlertController(title: "Не верный логин или пароль", message: "Пожалуйста, проверьте данные и повторите попытку", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func goLogin() {
