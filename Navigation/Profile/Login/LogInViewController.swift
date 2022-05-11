@@ -139,7 +139,8 @@ class LogInViewController: UIViewController {
 #endif
         
         if delegat.checkLoginPassword(login: userName, password: userPassword) == true {
-            let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
+            let modelView = ProfileModel(userName: userName, userService: userService)
+            let profile = ProfileViewController(viewModel: modelView)
             self.navigationController?.pushViewController(profile, animated: true)
             
         } else {

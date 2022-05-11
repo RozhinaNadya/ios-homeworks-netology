@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
     
     var backgroundColor: UIColor = .clear
     
+    var profileModel: ProfileModel?
+    
     var userService: UserService?
     var userName: String?
     
@@ -54,11 +56,11 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
-    init(_ color: UIColor, title: String = "Title", userService: UserService, userName: String) {
+    init(viewModel: ProfileModel) {
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
-        self.userService = userService
+        backgroundColor = viewModel.color
+        self.title = viewModel.title
+        self.userService = viewModel.userService
     }
     
     override func loadView() {
@@ -263,7 +265,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photosViewController = PhotosViewController(.white, title: "Photo Gallery")
+        let viewModel = PhotosModel()
+        let photosViewController = PhotosViewController(viewModel: viewModel)
         if indexPath.section == 0 {
             navigationController?.pushViewController(photosViewController, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)

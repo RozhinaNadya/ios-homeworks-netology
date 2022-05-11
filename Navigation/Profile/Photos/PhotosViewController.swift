@@ -10,6 +10,8 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    var profileModel: PhotosModel?
+    
     let photosCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     let cellPhotosCollectionID = "PhotosCell"
@@ -25,10 +27,10 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         imagePublisherFacadeObject.removeSubscription(for: self)
         }
     
-    init(_ color: UIColor, title: String = "Title") {
+    init(viewModel: PhotosModel) {
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
+        backgroundColor = viewModel.color
+        self.title = viewModel.title
     }
     
     required init?(coder: NSCoder) {

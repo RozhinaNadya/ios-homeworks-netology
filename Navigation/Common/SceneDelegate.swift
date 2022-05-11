@@ -18,9 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: scene)
         
-  /*      window.rootViewController = Checker.shared.rootController
-        window.makeKeyAndVisible()
-        self.window = window*/
         mainCoordinator = MainCoordinator(scene: scene)
         mainCoordinator?.start()
     }
