@@ -265,10 +265,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = PhotosModel()
-        let photosViewController = PhotosViewController(viewModel: viewModel)
         if indexPath.section == 0 {
-            navigationController?.pushViewController(photosViewController, animated: true)
+            let photosViewController = PhotosCoordinator(viewController: self)
+            photosViewController.start()
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

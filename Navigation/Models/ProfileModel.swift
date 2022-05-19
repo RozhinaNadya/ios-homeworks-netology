@@ -13,9 +13,11 @@ class ProfileModel {
     var color: UIColor = .white
     var userService: UserService
     var userName: String
+    var user: User
     
     init(userName: String, userService: UserService){
         self.userName = userName
         self.userService = userService
+        self.user = User(fullName: userName)
     }
 }

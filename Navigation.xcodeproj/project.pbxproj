@@ -46,9 +46,11 @@
 		84C003F9282A782100369191 /* FeedViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003F8282A782100369191 /* FeedViewControllerDelegate.swift */; };
 		84C003FC282AA17800369191 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003FB282AA17700369191 /* Coordinator.swift */; };
 		84C003FF282AA36800369191 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C003FE282AA36800369191 /* MainCoordinator.swift */; };
-		84C00404282BD55100369191 /* CommonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00403282BD55100369191 /* CommonFactory.swift */; };
+		84C00404282BD55100369191 /* TypeOfViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00403282BD55100369191 /* TypeOfViewControllerFactory.swift */; };
 		84C00406282BDCA100369191 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00405282BDCA100369191 /* ProfileModel.swift */; };
 		84C00408282BEB9200369191 /* PhotosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00407282BEB9100369191 /* PhotosModel.swift */; };
+		84CD954B283665F600B7C95F /* TabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD954A283665F600B7C95F /* TabBarModel.swift */; };
+		84CD954D2836668C00B7C95F /* PhotosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD954C2836668C00B7C95F /* PhotosCoordinator.swift */; };
 		84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D1280ECD0600123322 /* TestUserService.swift */; };
 		84DD26D4280EF28200123322 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D3280EF28200123322 /* Checker.swift */; };
 		84DD26D8280F01B400123322 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26D7280F01B400123322 /* LoginInspector.swift */; };
@@ -139,9 +141,11 @@
 		84C003F8282A782100369191 /* FeedViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerDelegate.swift; sourceTree = "<group>"; };
 		84C003FB282AA17700369191 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		84C003FE282AA36800369191 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		84C00403282BD55100369191 /* CommonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFactory.swift; sourceTree = "<group>"; };
+		84C00403282BD55100369191 /* TypeOfViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfViewControllerFactory.swift; sourceTree = "<group>"; };
 		84C00405282BDCA100369191 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		84C00407282BEB9100369191 /* PhotosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosModel.swift; sourceTree = "<group>"; };
+		84CD954A283665F600B7C95F /* TabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModel.swift; sourceTree = "<group>"; };
+		84CD954C2836668C00B7C95F /* PhotosCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCoordinator.swift; sourceTree = "<group>"; };
 		84DD26D1280ECD0600123322 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		84DD26D3280EF28200123322 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		84DD26D7280F01B400123322 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				84C003F42829214B00369191 /* FeedModel.swift */,
 				84C00405282BDCA100369191 /* ProfileModel.swift */,
 				84C00407282BEB9100369191 /* PhotosModel.swift */,
+				84CD954A283665F600B7C95F /* TabBarModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 			children = (
 				84C003FB282AA17700369191 /* Coordinator.swift */,
 				84C003FE282AA36800369191 /* MainCoordinator.swift */,
+				84CD954C2836668C00B7C95F /* PhotosCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -360,7 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				84DD26D928100A3200123322 /* AppFactory.swift */,
-				84C00403282BD55100369191 /* CommonFactory.swift */,
+				84C00403282BD55100369191 /* TypeOfViewControllerFactory.swift */,
 				84DD26DB2810465C00123322 /* LoginFactory.swift */,
 				84DD26DD28104BC300123322 /* MyLoginFactory.swift */,
 			);
@@ -637,6 +643,7 @@
 				84903FDE27A93CA100CFE811 /* DataPhotos.swift in Sources */,
 				849331E528007B7100FE58C0 /* CurrentUserService.swift in Sources */,
 				84C003EF2824122300369191 /* CustomButton.swift in Sources */,
+				84CD954B283665F600B7C95F /* TabBarModel.swift in Sources */,
 				84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */,
 				84C003F52829214B00369191 /* FeedModel.swift in Sources */,
 				84DD26E028104F6A00123322 /* LoginViewControllerDelegate.swift in Sources */,
@@ -645,7 +652,7 @@
 				84C003F22825291700369191 /* Extension(UIView).swift in Sources */,
 				84903FD027A01C7000CFE811 /* PhotosCollectionViewCell.swift in Sources */,
 				84C00408282BEB9200369191 /* PhotosModel.swift in Sources */,
-				84C00404282BD55100369191 /* CommonFactory.swift in Sources */,
+				84C00404282BD55100369191 /* TypeOfViewControllerFactory.swift in Sources */,
 				84C003F9282A782100369191 /* FeedViewControllerDelegate.swift in Sources */,
 				84A9B35D2798399700353093 /* PhotosViewController.swift in Sources */,
 				841337AD272197C90016EDB7 /* ViewFeed.swift in Sources */,
@@ -669,6 +676,7 @@
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
 				849331E0280075D800FE58C0 /* User.swift in Sources */,
 				84DD26D4280EF28200123322 /* Checker.swift in Sources */,
+				84CD954D2836668C00B7C95F /* PhotosCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
