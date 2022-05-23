@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
-        window.rootViewController = Checker.shared.rootController
+        let factory = MyLoginFactory()
+                window.rootViewController = Checker.shared.createRootViewController(with: factory)
         window.makeKeyAndVisible()
         self.window = window
     }
