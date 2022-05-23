@@ -17,23 +17,23 @@ final class Checker {
     
     var rootController = UITabBarController()
     
-    private let feedController = FeedViewController()
-    private let profileController = LogInViewController()
     private let factory = AppFactory()
     
-    private init() {
-
+    func checkYourLoginPassword(login: String, password: String) -> Bool {
+        guard login == loginChecker, password == pswdChecker else { return false }
+        return true
+    }
+    
+    func createRootViewController(with loginFactory: LoginFactory) -> UITabBarController {
+        let feedController = FeedViewController()
+        let profileController = LogInViewController(inspector: loginFactory.returnLoginInspector())
+        
         let feedNavController = factory.makeNavigationController(controller: feedController, color: .white, title: "Feed")
         feedNavController.tabBarItem = factory.makeTabBarItem(title: "Feed", image: UIImage(systemName: "house")!)
         
         let profileNavController = factory.makeNavigationController(controller: profileController, color: .white, title: "Log in")
         profileNavController.tabBarItem = factory.makeTabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle")!)
         
-        rootController = factory.makeTabBar(rootControllers: [feedNavController, profileNavController])
-    }
-    
-    func checkYourLoginPassword(login: String, password: String) -> Bool {
-        guard login == loginChecker, password == pswdChecker else { return false }
-        return true
+        return factory.makeTabBar(rootControllers: [feedNavController, profileNavController])
     }
 }

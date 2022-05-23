@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LoginInspector: LoginViewControllerDelegate {
+class LoginInspector: LoginViewControllerService {
     
     func checkLoginPassword(login: String, password: String) -> Bool {
         Checker.shared.checkYourLoginPassword(login: login, password: password)

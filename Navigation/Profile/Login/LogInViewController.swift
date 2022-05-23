@@ -9,8 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    var delegat: LoginViewControllerDelegate
-    let loginInspector = LoginInspector()
+    private let loginInspector: LoginViewControllerService
     
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -76,25 +75,40 @@ class LogInViewController: UIViewController {
         return button
     }()
     
- //   var backgroundColor: UIColor = .clear
-    
-    init(/*_ color: UIColor, title: String = "Title"*/) {
-        self.delegat = loginInspector
+    init(inspector: LoginViewControllerService) {
+        self.loginInspector = inspector
         super.init(nibName: nil, bundle: nil)
-   //     backgroundColor = color
-  //      self.title = title
+    }
+    
+    override func loadView() {
+        let view = UIView()
+        self.view = view
+        logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
+        passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        goStack()
+        logInScrollView.keyboardDismissMode = .interactive
+        goLogin()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-        
-    func goStack() {
-        [logInText, passwordText].map {[weak self] in
-            var text = UITextField()
-            text = $0
-            self?.logInStackView.addArrangedSubview(text)
-        }
     }
     
     @objc func logInButtonPress() {
@@ -109,7 +123,7 @@ class LogInViewController: UIViewController {
         let userService = CurrentUserService(user: user)
 #endif
         
-        if delegat.checkLoginPassword(login: userName, password: userPassword) == true {
+        if loginInspector.checkLoginPassword(login: userName, password: userPassword) == true {
             let profile = ProfileViewController(.white, title: "Профиль", userService: userService, userName: userName)
             self.navigationController?.pushViewController(profile, animated: true)
             
@@ -139,32 +153,12 @@ class LogInViewController: UIViewController {
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
     
-    override func loadView() {
-        let view = UIView()
-        self.view = view
-  //      view.backgroundColor = backgroundColor
-        logInButton.addTarget(self, action: #selector(logInButtonPress), for: .touchUpInside)
-        passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        goStack()
-        logInScrollView.keyboardDismissMode = .interactive
-        goLogin()
-        self.navigationController?.navigationBar.isHidden = true
+    func goStack() {
+        [logInText, passwordText].map {[weak self] in
+            var text = UITextField()
+            text = $0
+            self?.logInStackView.addArrangedSubview(text)
+        }
     }
     
     func goLogin() {
