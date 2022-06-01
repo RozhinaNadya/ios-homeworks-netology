@@ -9,8 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    var delegat: LoginViewControllerDelegate
-    let loginInspector = LoginInspector()
+    private let loginInspector: LoginViewControllerService
     
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -66,8 +65,8 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    init() {
-        self.delegat = loginInspector
+    init(inspector: LoginViewControllerService) {
+        self.loginInspector = inspector
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -138,7 +137,7 @@ class LogInViewController: UIViewController {
         let userService = CurrentUserService(user: user)
 #endif
         
-        if delegat.checkLoginPassword(login: userName, password: userPassword) == true {
+        if loginInspector.checkLoginPassword(login: userName, password: userPassword) == true {
             let modelView = ProfileModel(userName: userName, userService: userService)
             let profile = ProfileViewController(viewModel: modelView)
             self.navigationController?.pushViewController(profile, animated: true)

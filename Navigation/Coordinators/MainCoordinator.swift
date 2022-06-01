@@ -29,9 +29,12 @@ class MainCoordinator: Coordinator {
     }
     
     private func initWindow() {
+        guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = tabBar
+        let factory = MyLoginFactory()
+        window.rootViewController = Checker.shared.createRootViewController(with: factory)
         window.makeKeyAndVisible()
         self.window = window
     }
+    
 }

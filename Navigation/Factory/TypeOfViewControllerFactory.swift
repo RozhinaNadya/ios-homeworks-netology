@@ -8,7 +8,7 @@
 import UIKit
 
 enum TypeOfViewControllerFactory {
-    case login
+    case login(inspector: LoginViewControllerService)
     case feed
     case profile(viewModel: ProfileModel)
     case info
@@ -16,8 +16,8 @@ enum TypeOfViewControllerFactory {
     
     func makeViewController() -> UIViewController {
         switch self {
-        case .login:
-            return LogInViewController()
+        case .login(let inspector):
+            return LogInViewController(inspector: inspector)
         case .feed:
             return FeedViewController(viewModel: FeedModel())
         case .profile(let viewModel):
