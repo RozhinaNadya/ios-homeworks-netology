@@ -26,7 +26,6 @@ class AppFactory {
         let tabBarItem = UITabBarItem()
         tabBarItem.title = title
         tabBarItem.image = image
-        
         return tabBarItem
     }
 }

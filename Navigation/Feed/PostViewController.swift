@@ -9,6 +9,8 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    weak var coordinator: PostCoordinator?
+    
     struct Post {
         var title: String
     }
@@ -41,6 +43,11 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(clickedButton))
         configureLayoutPost()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishBuying()
     }
     
     @objc func clickedButton() {

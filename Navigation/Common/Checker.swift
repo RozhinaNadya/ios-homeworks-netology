@@ -15,11 +15,6 @@ final class Checker {
     private let loginChecker = "1"
     private let pswdChecker = "2"
     
-    var rootController = UITabBarController()
-    
-
-    private let factory = AppFactory()
-    
     private init() {
     }
     
@@ -27,17 +22,4 @@ final class Checker {
         guard login == loginChecker, password == pswdChecker else { return false }
         return true
     }
-    
-    func createRootViewController(with loginFactory: LoginFactory) -> UITabBarController {
-        let feedController = TypeOfViewControllerFactory.makeViewController(.feed)
-        let profileController = TypeOfViewControllerFactory.makeViewController(.login(inspector: loginFactory.returnLoginInspector()))
-          
-        let feedNavController = factory.makeNavigationController(controller: feedController(), color: .white, title: "Feed")
-          feedNavController.tabBarItem = factory.makeTabBarItem(title: "Feed", image: UIImage(systemName: "house")!)
-          
-        let profileNavController = factory.makeNavigationController(controller: profileController(), color: .white, title: "Log in")
-          profileNavController.tabBarItem = factory.makeTabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle")!)
-          
-          return factory.makeTabBar(rootControllers: [feedNavController, profileNavController])
-      }
 }

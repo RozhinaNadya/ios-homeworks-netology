@@ -13,6 +13,8 @@ class FeedViewController: UIViewController {
     
     let viewFeed = ViewFeed()
     
+    var coordinator: FeedCoordinator?
+    
     init(viewModel: FeedModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -40,14 +42,19 @@ class FeedViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishBuying()
+    }
 
     func onButtonTap() {
-        print("button tapped")
-        let vcPost = PostViewController(.yellow, title: "Новый пост")
-        self.navigationController?.pushViewController(vcPost, animated: true)
+        print("onButtonTap tapped")
+     /*   let vcPost = PostViewController(.yellow, title: "Новый пост")
+        self.navigationController?.pushViewController(vcPost, animated: true)*/
+        self.coordinator?.postSubscription()
     }
     
-    var post = PostViewController.Post(title: "New Post")
+  //  var post = PostViewController.Post(title: "New Post")
 }
 
 extension FeedViewController: FeedViewControllerDelegate {
