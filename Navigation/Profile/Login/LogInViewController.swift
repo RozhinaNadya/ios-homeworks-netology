@@ -11,6 +11,8 @@ class LogInViewController: UIViewController {
     
     private let loginInspector: LoginViewControllerService
     
+    var coordinator: LoginCoordinator?
+    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -48,6 +50,7 @@ class LogInViewController: UIViewController {
         let text = UITextField()
         text.toAutoLayout()
         text.toLogInText()
+        text.indent(size: 10)
         text.placeholder = "Email, phone or nickname"
         return text
     }()
@@ -56,6 +59,7 @@ class LogInViewController: UIViewController {
         let password = UITextField()
         password.toLogInText()
         password.toAutoLayout()
+        password.indent(size: 10)
         password.placeholder = "Password"
         return password
     }()
@@ -91,6 +95,8 @@ class LogInViewController: UIViewController {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+        coordinator?.didFinishBuying()
+
     }
     
     override func viewDidLoad() {
@@ -138,10 +144,9 @@ class LogInViewController: UIViewController {
 #endif
         
         if loginInspector.checkLoginPassword(login: userName, password: userPassword) == true {
-            let modelView = ProfileModel(userName: userName, userService: userService)
-            let profile = ProfileViewController(viewModel: modelView)
-            self.navigationController?.pushViewController(profile, animated: true)
-            
+            self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+            self.coordinator?.profileSubscription(userName: userName, userService: userService)
+            self.navigationController?.tabBarItem.title = TabBarModel().profileTitle
         } else {
             
             let alert = UIAlertController(title: "Не верный логин или пароль", message: "Пожалуйста, проверьте данные и повторите попытку", preferredStyle: .alert)

@@ -8,24 +8,36 @@
 import UIKit
 
 class LoginCoordinator: Coordinator {
+    
+    weak var parentCoordinator: MainCoordinator?
+    
     var navigation: UINavigationController
     
     var childCoordinators: [Coordinator] = []
     
-    var loginFactory: LoginFactory
-    
+    let loginFactory = MyLoginFactory()
+
     func start() {
         navigation.pushViewController(makeLogInController(), animated: true)
     }
-    
-    var onComplete: (() -> Void)?
-    
-    init(navigation: UINavigationController, loginFactory: LoginFactory) {
+        
+    init(navigation: UINavigationController) {
         self.navigation = navigation
-        self.loginFactory = loginFactory
     }
     
     func makeLogInController() -> UIViewController {
         return TypeOfViewControllerFactory.makeViewController(.login(inspector: loginFactory.returnLoginInspector()))()
+    }
+    
+    func profileSubscription(userName: String, userService: UserService) {
+        print("profileSubscription work")
+        let child = ProfileCoordinator(navigation: navigation, userName: userName, userService: userService)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
+    }
+    
+    func didFinishBuying() {
+        parentCoordinator?.childDidFinish(self)
     }
 }

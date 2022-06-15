@@ -22,17 +22,14 @@ class FeedCoordinator: Coordinator {
     func makeFeedController() -> UIViewController {
         return TypeOfViewControllerFactory.makeViewController(.feed)()
     }
-    
-    var onComplete: (() -> Void)?
-    
+        
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }
     
     func postSubscription() {
         print("postSubscription work")
-        guard let navPost = self.makeFeedController().navigationController else {return print("not found navigation")}
-        let child = PostCoordinator(navigation: navPost)
+        let child = PostCoordinator(navigation: navigation)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()

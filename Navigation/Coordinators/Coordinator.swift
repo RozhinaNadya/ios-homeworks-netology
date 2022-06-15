@@ -11,5 +11,4 @@ protocol Coordinator: AnyObject {
     var navigation: UINavigationController { get }
     var childCoordinators: [Coordinator] { get set }
     func start()
-    var onComplete: (() -> Void)? { get set }
 }

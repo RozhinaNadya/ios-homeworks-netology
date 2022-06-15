@@ -16,4 +16,10 @@ extension UITextField {
         self.tintColor = UIColor(named: "AccentColor")
         self.backgroundColor = .systemGray6
     }
+    
+    func indent(size:CGFloat) {
+        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
+        self.leftViewMode = .always
+    }
+    
 }

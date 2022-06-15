@@ -10,6 +10,8 @@ import StorageService
 
 class ProfileViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     var backgroundColor: UIColor = .clear
     
     var profileModel: ProfileModel?
@@ -61,6 +63,7 @@ class ProfileViewController: UIViewController {
         backgroundColor = viewModel.color
         self.title = viewModel.title
         self.userService = viewModel.userService
+        self.userName = viewModel.userName
     }
     
     override func loadView() {
@@ -256,7 +259,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let myPost = posts[indexPath.row]
             cell.authorLabel.text = "\(myPost.author)"
             cell.filterImage(image: (UIImage(named: myPost.image)!))
-            //       cell.postImageView.image = UIImage(named: myPost.image)
             cell.descriptionLabel.text = "\(myPost.description)"
             cell.likeLabel.text = "Likes: \(myPost.like)"
             cell.viewsLabel.text = "Views: \(myPost.views)"
@@ -266,8 +268,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let photosViewController = PhotosCoordinator(viewController: self)
-            photosViewController.start()
+            guard let name = self.userName else {return print("not found userName")}
+            guard let service = self.userService else {return print("not found userService")}
+            
+            coordinator = ProfileCoordinator(navigation: self.navigationController ?? UINavigationController(), userName: name, userService: service)
+            coordinator?.photosSubscription()
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

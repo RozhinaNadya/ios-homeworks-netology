@@ -35,7 +35,8 @@ class ViewFeed: UIView {
     var passwordTextField: UITextField = {
         let password = UITextField()
         password.toAutoLayout()
-        password.placeholder = " Enter password"
+        password.indent(size: 10)
+        password.placeholder = "Enter password"
         password.layer.cornerRadius = 10
         password.layer.borderWidth = 1
         password.layer.borderColor = UIColor.lightGray.cgColor

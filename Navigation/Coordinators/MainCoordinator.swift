@@ -11,11 +11,8 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     
     private var window: UIWindow?
     private let scene: UIWindowScene
-  //  private var tabBar = Checker.shared.rootController
     var feedCoordinator: FeedCoordinator?
     var loginCoordinator: LoginCoordinator?
-
-
     
     var navigation: UINavigationController
     
@@ -25,9 +22,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
         navigation.delegate = self
         initWindow()
     }
-    
-    var onComplete: (() -> Void)?
-    
+        
     init(scene: UIWindowScene) {
         navigation = UINavigationController()
         self.scene = scene
@@ -36,9 +31,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     private func initWindow() {
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        let factory = MyLoginFactory()
-    //    window.rootViewController = Checker.shared.createRootViewController(with: factory)
-        window.rootViewController = createRootViewController(with: factory)
+        window.rootViewController = createRootViewController()
         window.makeKeyAndVisible()
         self.window = window
     }
@@ -67,16 +60,15 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
         }
     }
     
-    func createRootViewController(with loginFactory: LoginFactory) -> UITabBarController {
+    func createRootViewController() -> UITabBarController {
         let factory = AppFactory()
-        
         let tabBarModel = TabBarModel()
         
         feedCoordinator = FeedCoordinator(navigation: navigation)
         let feedNavController = factory.makeNavigationController(controller: feedCoordinator!.makeFeedController(), color: tabBarModel.color, title: tabBarModel.feedTitle)
         feedNavController.tabBarItem = factory.makeTabBarItem(title: tabBarModel.feedTitle, image: tabBarModel.feedImage)
         
-        loginCoordinator = LoginCoordinator(navigation: navigation, loginFactory: loginFactory)
+        loginCoordinator = LoginCoordinator(navigation: navigation)
         let loginNavController = factory.makeNavigationController(controller: (loginCoordinator?.makeLogInController())!, color: tabBarModel.color, title: tabBarModel.logInTitle)
         loginNavController.tabBarItem = factory.makeTabBarItem(title: tabBarModel.logInTitle, image: tabBarModel.profileImage)
         

@@ -8,21 +8,19 @@
 import UIKit
 
 class PhotosCoordinator: Coordinator {
+    
+    weak var parentCoordinator: ProfileCoordinator?
+    
     var navigation: UINavigationController
-    
-    var viewController: UIViewController
-    
+        
     var childCoordinators: [Coordinator] = []
     
    func start() {
         let photosViewController = TypeOfViewControllerFactory.makeViewController(.photos)
-        viewController.navigationController?.pushViewController(photosViewController(), animated: true)
+        navigation.pushViewController(photosViewController(), animated: true)
     }
-  
-    var onComplete: (() -> Void)?
-    
-    init(viewController: UIViewController) {
-        navigation = UINavigationController()
-        self.viewController = viewController
+      
+    init(navigation: UINavigationController) {
+        self.navigation = navigation
     }
 }

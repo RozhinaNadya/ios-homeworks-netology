@@ -16,12 +16,11 @@ class PostCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     func start() {
+        print("vcPost start")
         let vcPost = PostViewController(.yellow, title: "Новый пост")
         navigation.pushViewController(vcPost, animated: true)
     }
-    
-    var onComplete: (() -> Void)?
-    
+        
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }

@@ -22,6 +22,7 @@
 		843CC42E272752C400FB46B0 /* ViewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843CC42D272752C400FB46B0 /* ViewInfo.swift */; };
 		844D835D277210F700513017 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D835C277210F700513017 /* PostTableViewCell.swift */; };
 		8452CB7828574FFC0080C7C6 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */; };
+		8452CB7A2859E0450080C7C6 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452CB792859E0450080C7C6 /* ProfileCoordinator.swift */; };
 		8458415927FD9A1300459AAD /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8458415827FD9A1300459AAD /* StorageService.docc */; };
 		8458415F27FD9A1400459AAD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8458415527FD9A1200459AAD /* StorageService.framework */; };
 		8458416627FD9A1400459AAD /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458416527FD9A1400459AAD /* StorageServiceTests.swift */; };
@@ -123,6 +124,7 @@
 		843CC42D272752C400FB46B0 /* ViewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInfo.swift; sourceTree = "<group>"; };
 		844D835C277210F700513017 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		8452CB792859E0450080C7C6 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		8458415527FD9A1200459AAD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8458415727FD9A1300459AAD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		8458415827FD9A1300459AAD /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -353,8 +355,9 @@
 				84C003FB282AA17700369191 /* Coordinator.swift */,
 				84C003FE282AA36800369191 /* MainCoordinator.swift */,
 				8416386C2847A78200F5873D /* FeedCoordinator.swift */,
-				8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */,
 				8416386E2847AF8300F5873D /* PostCoordinator.swift */,
+				8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */,
+				8452CB792859E0450080C7C6 /* ProfileCoordinator.swift */,
 				84CD954C2836668C00B7C95F /* PhotosCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -686,6 +689,7 @@
 				849331E228007AEC00FE58C0 /* UserService.swift in Sources */,
 				844D835D277210F700513017 /* PostTableViewCell.swift in Sources */,
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
+				8452CB7A2859E0450080C7C6 /* ProfileCoordinator.swift in Sources */,
 				849331E0280075D800FE58C0 /* User.swift in Sources */,
 				84DD26D4280EF28200123322 /* Checker.swift in Sources */,
 				84CD954D2836668C00B7C95F /* PhotosCoordinator.swift in Sources */,
