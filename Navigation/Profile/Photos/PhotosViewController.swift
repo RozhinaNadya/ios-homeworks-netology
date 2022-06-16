@@ -21,6 +21,8 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     private var publisherImages: [UIImage] = []
     
     let imagePublisherFacadeObject = ImagePublisherFacade()
+    
+    let imageProcessor = ImageProcessor()
         
     deinit {
         imagePublisherFacadeObject.rechargeImageLibrary()
@@ -104,7 +106,22 @@ extension PhotosViewController {
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-        images.forEach { publisherImages.append($0) }
-        photosCollectionView.reloadData()
+        let startTime = CFAbsoluteTimeGetCurrent()
+        self.imageProcessor.processImagesOnThread(sourceImages: images, filter: .chrome, qos: .utility, completion: {images in
+            DispatchQueue.main.async {
+                images.forEach {
+                    guard let img = $0 else {return}
+                    self.publisherImages.append(UIImage(cgImage: img))
+                }
+                let finishTime = CFAbsoluteTimeGetCurrent()
+                let time = finishTime - startTime
+                print("time: \(time)")
+                self.photosCollectionView.reloadData()
+                // when filter: .chrome, qos: .utility – time: 26.586019039154053
+                // when filter: .noir, qos: .utility – time: 36.0049329996109
+                // when filter: .chrome, qos: .background – time: 115.93350791931152
+                // when filter: .chrome, qos: .userInitiated – time: 39.15327799320221
+            }
+        })
     }
 }
