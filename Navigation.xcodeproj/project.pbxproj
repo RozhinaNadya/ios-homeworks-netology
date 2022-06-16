@@ -23,6 +23,7 @@
 		844D835D277210F700513017 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D835C277210F700513017 /* PostTableViewCell.swift */; };
 		8452CB7828574FFC0080C7C6 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */; };
 		8452CB7A2859E0450080C7C6 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452CB792859E0450080C7C6 /* ProfileCoordinator.swift */; };
+		8452CB7C285B6C710080C7C6 /* PasswordGuessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452CB7B285B6C700080C7C6 /* PasswordGuessing.swift */; };
 		8458415927FD9A1300459AAD /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8458415827FD9A1300459AAD /* StorageService.docc */; };
 		8458415F27FD9A1400459AAD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8458415527FD9A1200459AAD /* StorageService.framework */; };
 		8458416627FD9A1400459AAD /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458416527FD9A1400459AAD /* StorageServiceTests.swift */; };
@@ -125,6 +126,7 @@
 		844D835C277210F700513017 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		8452CB7728574FFB0080C7C6 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		8452CB792859E0450080C7C6 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		8452CB7B285B6C700080C7C6 /* PasswordGuessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGuessing.swift; sourceTree = "<group>"; };
 		8458415527FD9A1200459AAD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8458415727FD9A1300459AAD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		8458415827FD9A1300459AAD /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				841B7F84271EC95700740CD5 /* SceneDelegate.swift */,
 				84DD26D3280EF28200123322 /* Checker.swift */,
 				84C003EE2824122300369191 /* CustomButton.swift */,
+				8452CB7B285B6C700080C7C6 /* PasswordGuessing.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				84CD954B283665F600B7C95F /* TabBarModel.swift in Sources */,
 				84DD26D2280ECD0700123322 /* TestUserService.swift in Sources */,
 				84C003F52829214B00369191 /* FeedModel.swift in Sources */,
+				8452CB7C285B6C710080C7C6 /* PasswordGuessing.swift in Sources */,
 				84DD26E028104F6A00123322 /* LoginViewControllerService.swift in Sources */,
 				8416386F2847AF8300F5873D /* PostCoordinator.swift in Sources */,
 				84903FD227A13CC600CFE811 /* Extension(UITextField).swift in Sources */,
