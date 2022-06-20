@@ -69,6 +69,17 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    var picUpPasswordButton: CustomButton = {
+        let button = CustomButton(title: "Pick up a password")
+        return button
+    }()
+    
+    private lazy var activityIndecator: UIActivityIndicatorView = {
+        activityIndecator = UIActivityIndicatorView(style: .large)
+        activityIndecator.toAutoLayout()
+        return activityIndecator
+    }()
+    
     init(inspector: LoginViewControllerService) {
         self.loginInspector = inspector
         super.init(nibName: nil, bundle: nil)
@@ -83,6 +94,10 @@ class LogInViewController: UIViewController {
         self.view = view
         logInButton.onTap = {self.logInButtonPress()}
         passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
+        picUpPasswordButton.onTap = {
+            [weak self] in
+            self?.getPassword()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +137,23 @@ class LogInViewController: UIViewController {
         logInScrollView.contentInset.bottom = .zero
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
+    
+    func getPassword() {
+        activityIndecator.startAnimating()
+        let passwordGuessing = PasswordGuessing()
+        passwordGuessing.completionBlock = {
+            [weak self] in
+            DispatchQueue.main.async {
+                self?.passwordText.text = passwordGuessing.expectedPassword
+                self?.passwordText.isSecureTextEntry = false
+                self?.activityIndecator.stopAnimating()
+            }
+        }
+        let operationQueue = OperationQueue()
+        operationQueue.qualityOfService = .userInitiated
+        operationQueue.addOperation(passwordGuessing)
+        
+    }
         
     func goStack() {
         [logInText, passwordText].map {[weak self] in
@@ -160,7 +192,7 @@ class LogInViewController: UIViewController {
     func goLogin() {
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(contentView)
-        self.contentView.addSubviews([iconVk, logInStackView, logInButton])
+        self.contentView.addSubviews([iconVk, logInStackView, logInButton, picUpPasswordButton, activityIndecator])
         let constraintLogIn: [NSLayoutConstraint] = [
             logInScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             logInScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
@@ -189,7 +221,16 @@ class LogInViewController: UIViewController {
             logInButton.trailingAnchor.constraint(equalTo: logInStackView.trailingAnchor),
             logInButton.leadingAnchor.constraint(equalTo: logInStackView.leadingAnchor),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor)
+            
+            picUpPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 50),
+            picUpPasswordButton.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor),
+            picUpPasswordButton.leadingAnchor.constraint(equalTo: logInButton.leadingAnchor),
+            picUpPasswordButton.heightAnchor.constraint(equalToConstant: 50),
+            picUpPasswordButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor),
+            
+            activityIndecator.topAnchor.constraint(equalTo: passwordText.topAnchor),
+            activityIndecator.trailingAnchor.constraint(equalTo: passwordText.trailingAnchor, constant: -5),
+            activityIndecator.bottomAnchor.constraint(equalTo: passwordText.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraintLogIn)
     }

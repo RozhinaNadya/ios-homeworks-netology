@@ -12,8 +12,8 @@ final class Checker {
     static var shared: Checker { Checker() }
     
     //MARK: Данные для входа
-    private let loginChecker = "1"
-    private let pswdChecker = "2"
+    private let loginChecker = "Login"
+    private let pswdChecker = "Pass"
     
     private init() {
     }

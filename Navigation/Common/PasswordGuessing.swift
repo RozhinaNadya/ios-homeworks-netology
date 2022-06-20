@@ -7,9 +7,26 @@
 
 import UIKit
 
-class PasswordGuessing {
+class PasswordGuessing: Operation {
     
-    func bruteForce(passwordToUnlock: String) {
+    var expectedPassword: String?
+    
+    override func main() {
+        if self.isCancelled { return }
+        let passwordToUnlock = generatePassword(length: 4)
+        self.expectedPassword = bruteForce(passwordToUnlock: passwordToUnlock)
+    }
+    
+    func generatePassword(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var s = ""
+        for _ in 0 ..< length {
+            s.append(letters.randomElement()!)
+        }
+        return s
+    }
+    
+    func bruteForce(passwordToUnlock: String) -> String {
         let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
 
         var password: String = ""
@@ -19,6 +36,7 @@ class PasswordGuessing {
         }
         
         print(password)
+        return password
     }
     
     func characterAt(index: Int, _ array: [String]) -> Character {
