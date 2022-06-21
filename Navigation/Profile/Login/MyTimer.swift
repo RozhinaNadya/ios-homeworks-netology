@@ -1,5 +1,5 @@
 //
-//  MyTimer.swift
+//  Timer.swift
 //  Navigation
 //
 //  Created by Надежда on 2022-06-20.

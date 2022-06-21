@@ -33,6 +33,20 @@ class LogInViewController: UIViewController {
         return icon
     }()
     
+    var timerLabel: UILabel = {
+       let label = UILabel()
+        label.toAutoLayout()
+        label.text = "Sign in"
+        return label
+    }()
+    
+    var durationTime = 20
+    
+    var myTimer: MyTimer = {
+        let timer = MyTimer()
+        return timer
+    }()
+    
     var logInStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
@@ -120,6 +134,17 @@ class LogInViewController: UIViewController {
         logInScrollView.keyboardDismissMode = .interactive
         goLogin()
         self.navigationController?.navigationBar.isHidden = true
+        myTimer.timerAction = { self.timerGo()}
+        myTimer.fireTimer()
+    }
+    
+    func timerGo() {
+        if self.durationTime != 0 {
+        self.durationTime -= 1
+            if self.durationTime < 11 {
+        self.timerLabel.text = "Left before data reset: \(self.durationTime) s"
+            }
+        } else {return}
     }
     
     @objc func tapText() {
@@ -192,7 +217,7 @@ class LogInViewController: UIViewController {
     func goLogin() {
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(contentView)
-        self.contentView.addSubviews([iconVk, logInStackView, logInButton, picUpPasswordButton, activityIndecator])
+        self.contentView.addSubviews([iconVk, logInStackView, logInButton, picUpPasswordButton, activityIndecator, timerLabel])
         let constraintLogIn: [NSLayoutConstraint] = [
             logInScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             logInScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
@@ -209,6 +234,11 @@ class LogInViewController: UIViewController {
             iconVk.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             iconVk.heightAnchor.constraint(equalToConstant: 100),
             iconVk.widthAnchor.constraint(equalToConstant: 100),
+            
+            timerLabel.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 30),
+            timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+          //  timerLabel.heightAnchor.constraint(equalToConstant: 50),
+         //   timerLabel.widthAnchor.constraint(equalToConstant: 50),
             
             logInStackView.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 120),
             logInStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
