@@ -1,8 +1,8 @@
 //
-//  Extension.swift
+//  Extension(UIView).swift
 //  Navigation
 //
-//  Created by Надежда on 26.01.2022.
+//  Created by Надежда on 2022-05-06.
 //
 
 import UIKit
@@ -22,16 +22,5 @@ extension UIView {
     
     func addSubviews(_ views: [UIView]) {
         views.forEach{ addSubview($0) }
-    }
-}
-
-extension UITextField {
-    
-    func toLogInText() {
-        self.textColor = .black
-        self.font = .systemFont(ofSize: 16)
-        self.autocapitalizationType = .none
-        self.tintColor = UIColor(named: "AccentColor")
-        self.backgroundColor = .systemGray6
     }
 }

@@ -40,15 +40,12 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         return status
     }()
     
-    lazy var setStatusButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Show status", for: .normal)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 4
-        button.addShadow()
+    lazy var setStatusButton: CustomButton = {
+        let button = CustomButton(title: "Show status")
+        button.onTap = {
+            print(self.statusTextField.text ?? "Waiting for something...")
+            self.statusTextField.resignFirstResponder()
+            self.statusTextField.text = self.statusText}
         return button
     }()
     
@@ -74,12 +71,6 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func buttonPressed(){
-        print(statusTextField.text ?? "Waiting for something...")
-        statusTextField.resignFirstResponder()
-        statusTextField.text = statusText
     }
     
     @objc func statusTextChanged(_ textField: UITextField){
