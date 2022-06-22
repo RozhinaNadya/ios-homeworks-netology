@@ -12,31 +12,21 @@ class PasswordGuessing: Operation {
     var expectedPassword: String?
     
     override func main() {
-        if self.isCancelled { return }
-        let passwordToUnlock = generatePassword(length: 4)
-        self.expectedPassword = bruteForce(passwordToUnlock: passwordToUnlock)
+        guard !isCancelled else { return }
     }
     
-    func generatePassword(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var s = ""
-        for _ in 0 ..< length {
-            s.append(letters.randomElement()!)
-        }
-        return s
-    }
-    
-    func bruteForce(passwordToUnlock: String) -> String {
-        let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
-
+    func bruteForce(login: String) -> String {
+        print("bruteForce is working")
         var password: String = ""
-
-        while password != passwordToUnlock {
-            password = generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
+        let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
+        
+        while LoginInspector().checkLoginPassword(login: login, password: password) == false {
+            password = self.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
+                print(password)
         }
         
-        print(password)
         return password
+        
     }
     
     func characterAt(index: Int, _ array: [String]) -> Character {

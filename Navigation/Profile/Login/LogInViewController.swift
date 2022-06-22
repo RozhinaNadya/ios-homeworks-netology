@@ -13,6 +13,10 @@ class LogInViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
     
+    let passwordGuessing = PasswordGuessing()
+    
+    let passwordOperation = OperationQueue()
+    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -74,6 +78,12 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    var cancelPasswordGuessingButton: CustomButton = {
+        let button = CustomButton(title: "Cancel password guessing")
+        button.isHidden = true
+        return button
+    }()
+    
     private lazy var activityIndecator: UIActivityIndicatorView = {
         activityIndecator = UIActivityIndicatorView(style: .large)
         activityIndecator.toAutoLayout()
@@ -98,6 +108,7 @@ class LogInViewController: UIViewController {
             [weak self] in
             self?.getPassword()
         }
+        cancelPasswordGuessingButton.onTap = {self.cancelPasswordGuessing()}
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +122,7 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
         coordinator?.didFinishBuying()
-
+        
     }
     
     override func viewDidLoad() {
@@ -137,24 +148,34 @@ class LogInViewController: UIViewController {
         logInScrollView.contentInset.bottom = .zero
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
-    
+
     func getPassword() {
-        activityIndecator.startAnimating()
-        let passwordGuessing = PasswordGuessing()
-        passwordGuessing.completionBlock = {
-            [weak self] in
-            DispatchQueue.main.async {
-                self?.passwordText.text = passwordGuessing.expectedPassword
+            activityIndecator.startAnimating()
+
+        self.picUpPasswordButton.isHidden = true
+        cancelPasswordGuessingButton.isHidden = false
+        guard let enteredLogin = self.logInText.text else {return print("no login")}
+        passwordGuessing.completionBlock = { [weak self] in
+            DispatchQueue.global().async {
+
+                self?.passwordText.text = self?.passwordGuessing.bruteForce(login: enteredLogin)
+                        
                 self?.passwordText.isSecureTextEntry = false
                 self?.activityIndecator.stopAnimating()
             }
         }
-        let operationQueue = OperationQueue()
-        operationQueue.qualityOfService = .userInitiated
-        operationQueue.addOperation(passwordGuessing)
+        passwordOperation.addOperation(passwordGuessing)
+        passwordOperation.qualityOfService = .userInitiated
         
     }
-        
+    
+    func cancelPasswordGuessing() {
+        cancelPasswordGuessingButton.isHidden = true
+        picUpPasswordButton.isHidden = false
+        passwordOperation.cancelAllOperations()
+        passwordOperation.progress.cancel()
+    }
+    
     func goStack() {
         [logInText, passwordText].map {[weak self] in
             var text = UITextField()
@@ -192,7 +213,7 @@ class LogInViewController: UIViewController {
     func goLogin() {
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(contentView)
-        self.contentView.addSubviews([iconVk, logInStackView, logInButton, picUpPasswordButton, activityIndecator])
+        self.contentView.addSubviews([iconVk, logInStackView, logInButton, picUpPasswordButton, activityIndecator, cancelPasswordGuessingButton])
         let constraintLogIn: [NSLayoutConstraint] = [
             logInScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             logInScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
@@ -228,9 +249,14 @@ class LogInViewController: UIViewController {
             picUpPasswordButton.heightAnchor.constraint(equalToConstant: 50),
             picUpPasswordButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor),
             
-            activityIndecator.topAnchor.constraint(equalTo: passwordText.topAnchor),
-            activityIndecator.trailingAnchor.constraint(equalTo: passwordText.trailingAnchor, constant: -5),
-            activityIndecator.bottomAnchor.constraint(equalTo: passwordText.bottomAnchor),
+            activityIndecator.centerYAnchor.constraint(equalTo: logInStackView.centerYAnchor),
+            activityIndecator.centerXAnchor.constraint(equalTo: logInStackView.centerXAnchor),
+            
+            cancelPasswordGuessingButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 50),
+            cancelPasswordGuessingButton.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor),
+            cancelPasswordGuessingButton.leadingAnchor.constraint(equalTo: logInButton.leadingAnchor),
+            cancelPasswordGuessingButton.heightAnchor.constraint(equalToConstant: 50),
+            cancelPasswordGuessingButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraintLogIn)
     }
