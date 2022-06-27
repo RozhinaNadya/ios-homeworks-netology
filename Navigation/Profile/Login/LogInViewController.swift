@@ -13,6 +13,12 @@ class LogInViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
     
+    let passwordGuessing = PasswordGuessing()
+    
+    let passwordOperation = OperationQueue()
+    
+    var timerLogin: Timer?
+    
     var logInScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.toAutoLayout()
@@ -34,18 +40,13 @@ class LogInViewController: UIViewController {
     }()
     
     var timerLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.toAutoLayout()
-        label.text = "Sign in"
+        label.textColor = .lightGray
         return label
     }()
     
     var durationTime = 20
-    
-    var myTimer: MyTimer = {
-        let timer = MyTimer()
-        return timer
-    }()
     
     var logInStackView: UIStackView = {
         let stackView = UIStackView()
@@ -125,7 +126,6 @@ class LogInViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
         coordinator?.didFinishBuying()
-
     }
     
     override func viewDidLoad() {
@@ -134,17 +134,36 @@ class LogInViewController: UIViewController {
         logInScrollView.keyboardDismissMode = .interactive
         goLogin()
         self.navigationController?.navigationBar.isHidden = true
-        myTimer.timerAction = { self.timerGo()}
-        myTimer.fireTimer()
+        createTimer()
     }
     
-    func timerGo() {
-        if self.durationTime != 0 {
-        self.durationTime -= 1
-            if self.durationTime < 11 {
-        self.timerLabel.text = "Left before data reset: \(self.durationTime) s"
+    @objc func timerGo() {
+        DispatchQueue.main.async {
+            
+            if self.durationTime != 0 {
+                self.durationTime -= 1
+                if self.durationTime < 11 {
+                    self.timerLabel.text = "Left before data reset: \(self.durationTime) s"
+                }
+            } else {
+                self.logInText.text = ""
+                self.passwordText.text = ""
+                self.timerLabel.text = ""
+                self.durationTime = 20
             }
-        } else {return}
+        }
+    }
+    
+    func createTimer() {
+        if timerLogin == nil {
+            DispatchQueue.global().async {
+                let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(self.timerGo), userInfo: nil, repeats: true)
+                RunLoop.current.add(timer, forMode: .common)
+                RunLoop.current.run()
+                timer.tolerance = 0.1
+                self.timerLogin = timer
+            }
+        }
     }
     
     @objc func tapText() {
@@ -165,21 +184,23 @@ class LogInViewController: UIViewController {
     
     func getPassword() {
         activityIndecator.startAnimating()
-        let passwordGuessing = PasswordGuessing()
-        passwordGuessing.completionBlock = {
-            [weak self] in
-            DispatchQueue.main.async {
-                self?.passwordText.text = passwordGuessing.expectedPassword
+        
+        self.picUpPasswordButton.isHidden = true
+        guard let enteredLogin = self.logInText.text else {return print("no login")}
+        passwordGuessing.completionBlock = { [weak self] in
+            DispatchQueue.global().async {
+                self?.passwordText.text = self?.passwordGuessing.bruteForce(login: enteredLogin)
                 self?.passwordText.isSecureTextEntry = false
                 self?.activityIndecator.stopAnimating()
             }
         }
-        let operationQueue = OperationQueue()
-        operationQueue.qualityOfService = .userInitiated
-        operationQueue.addOperation(passwordGuessing)
+        passwordOperation.addOperation(passwordGuessing)
+        passwordOperation.qualityOfService = .userInitiated
+        self.picUpPasswordButton.isHidden = false
+        
         
     }
-        
+    
     func goStack() {
         [logInText, passwordText].map {[weak self] in
             var text = UITextField()
@@ -235,10 +256,8 @@ class LogInViewController: UIViewController {
             iconVk.heightAnchor.constraint(equalToConstant: 100),
             iconVk.widthAnchor.constraint(equalToConstant: 100),
             
-            timerLabel.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 30),
+            timerLabel.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 50),
             timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-          //  timerLabel.heightAnchor.constraint(equalToConstant: 50),
-         //   timerLabel.widthAnchor.constraint(equalToConstant: 50),
             
             logInStackView.topAnchor.constraint(equalTo: iconVk.bottomAnchor, constant: 120),
             logInStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -258,9 +277,8 @@ class LogInViewController: UIViewController {
             picUpPasswordButton.heightAnchor.constraint(equalToConstant: 50),
             picUpPasswordButton.bottomAnchor.constraint(equalTo: logInScrollView.bottomAnchor),
             
-            activityIndecator.topAnchor.constraint(equalTo: passwordText.topAnchor),
-            activityIndecator.trailingAnchor.constraint(equalTo: passwordText.trailingAnchor, constant: -5),
-            activityIndecator.bottomAnchor.constraint(equalTo: passwordText.bottomAnchor),
+            activityIndecator.centerYAnchor.constraint(equalTo: logInStackView.centerYAnchor),
+            activityIndecator.centerXAnchor.constraint(equalTo: logInStackView.centerXAnchor),
         ]
         NSLayoutConstraint.activate(constraintLogIn)
     }
