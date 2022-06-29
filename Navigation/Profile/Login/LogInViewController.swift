@@ -107,7 +107,7 @@ class LogInViewController: UIViewController {
     override func loadView() {
         let view = UIView()
         self.view = view
-        logInButton.onTap = {self.logInButtonPress()}
+        logInButton.onTap = { self.goToProfile() }
         passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
         picUpPasswordButton.onTap = {
             [weak self] in
@@ -186,7 +186,7 @@ class LogInViewController: UIViewController {
         activityIndecator.startAnimating()
         
         self.picUpPasswordButton.isHidden = true
-        guard let enteredLogin = self.logInText.text else {return print("no login")}
+        guard let enteredLogin = self.logInText.text else {return ApiError().handle(error: .notFound(element: "logInText.text"))}
         passwordGuessing.completionBlock = { [weak self] in
             DispatchQueue.global().async {
                 self?.passwordText.text = self?.passwordGuessing.bruteForce(login: enteredLogin)
@@ -197,8 +197,6 @@ class LogInViewController: UIViewController {
         passwordOperation.addOperation(passwordGuessing)
         passwordOperation.qualityOfService = .userInitiated
         self.picUpPasswordButton.isHidden = false
-        
-        
     }
     
     func goStack() {
@@ -208,11 +206,25 @@ class LogInViewController: UIViewController {
             self?.logInStackView.addArrangedSubview(text)
         }
     }
+    func goToProfile() {
+        guard let userName = logInText.text else {return ApiError().handle(error: .notFound(element: "logInText.text in goToProfile"))}
+        self.logInButtonPress() {
+           result in
+            switch result {
+            case .success(let userService):
+                self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
+                self.coordinator?.profileSubscription(userName: userName, userService: userService)
+                self.navigationController?.tabBarItem.title = TabBarModel().profileTitle
+            case .failure(_):
+                ApiError().handle(error: .wrongPassword(viewController: self))
+            }
+        }
+    }
     
-    func logInButtonPress() {
+    func logInButtonPress(completion: @escaping (Result<UserService, AppError>) -> Void) {
         
-        guard let userName = logInText.text else {return}
-        guard let userPassword = passwordText.text else {return}
+        guard let userName = logInText.text else {return ApiError().handle(error: .loginEmpty(viewController: self))}
+        guard let userPassword = passwordText.text else {return ApiError().handle(error: .passwordEmpty(viewController: self))}
         
 #if DEBUG
         let userService = TestUserService()
@@ -220,19 +232,11 @@ class LogInViewController: UIViewController {
         let user = User(fullName: userName)
         let userService = CurrentUserService(user: user)
 #endif
-        
         if loginInspector.checkLoginPassword(login: userName, password: userPassword) == true {
-            self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
-            self.coordinator?.profileSubscription(userName: userName, userService: userService)
-            self.navigationController?.tabBarItem.title = TabBarModel().profileTitle
-        } else {
-            
-            let alert = UIAlertController(title: "Не верный логин или пароль", message: "Пожалуйста, проверьте данные и повторите попытку", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                NSLog("The \"OK\" alert occured.")
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+            completion(.success(userService))
+                       } else {
+                completion(.failure(.wrongPassword(viewController: self)))
+            }
     }
     
     func goLogin() {

@@ -64,6 +64,7 @@
 		84DD26DE28104BC300123322 /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26DD28104BC300123322 /* MyLoginFactory.swift */; };
 		84DD26E028104F6A00123322 /* LoginViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26DF28104F6A00123322 /* LoginViewControllerService.swift */; };
 		84DD26E8281FF4A700123322 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 84DD26E7281FF4A700123322 /* iOSIntPackage */; };
+		84F949A4286AF4BB002EA3B6 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F949A3286AF4BB002EA3B6 /* ApiError.swift */; };
 		84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFEA8427660C2C00D2C240 /* LogInViewController.swift */; };
 		CCC855908C98825689A8B621 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
@@ -163,6 +164,7 @@
 		84DD26DB2810465C00123322 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		84DD26DD28104BC300123322 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		84DD26DF28104F6A00123322 /* LoginViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerService.swift; sourceTree = "<group>"; };
+		84F949A3286AF4BB002EA3B6 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		84FFEA8427660C2C00D2C240 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		91C486BA4539E2598FE4629B /* Pods_StorageService_StorageServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService_StorageServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +375,7 @@
 				84DD26D3280EF28200123322 /* Checker.swift */,
 				84C003EE2824122300369191 /* CustomButton.swift */,
 				8452CB7B285B6C700080C7C6 /* PasswordGuessing.swift */,
+				84F949A3286AF4BB002EA3B6 /* ApiError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 			files = (
 				8416386D2847A78200F5873D /* FeedCoordinator.swift in Sources */,
 				84DD26DC2810465C00123322 /* LoginFactory.swift in Sources */,
+				84F949A4286AF4BB002EA3B6 /* ApiError.swift in Sources */,
 				84DD26DE28104BC300123322 /* MyLoginFactory.swift in Sources */,
 				84903FDE27A93CA100CFE811 /* DataPhotos.swift in Sources */,
 				849331E528007B7100FE58C0 /* CurrentUserService.swift in Sources */,
