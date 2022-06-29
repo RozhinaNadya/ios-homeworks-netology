@@ -137,6 +137,22 @@ class LogInViewController: UIViewController {
         createTimer()
     }
     
+    @objc func tapText() {
+        passwordText.isSecureTextEntry = true
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            logInScrollView.contentInset.bottom = keyboardSize.height
+            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        logInScrollView.contentInset.bottom = .zero
+        logInScrollView.verticalScrollIndicatorInsets = .zero
+    }
+    
     @objc func timerGo() {
         DispatchQueue.main.async {
             
@@ -166,22 +182,6 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc func tapText() {
-        passwordText.isSecureTextEntry = true
-    }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-            logInScrollView.contentInset.bottom = keyboardSize.height
-            logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        logInScrollView.contentInset.bottom = .zero
-        logInScrollView.verticalScrollIndicatorInsets = .zero
-    }
-    
     func getPassword() {
         activityIndecator.startAnimating()
         
@@ -209,7 +209,7 @@ class LogInViewController: UIViewController {
     func goToProfile() {
         guard let userName = logInText.text else {return ApiError().handle(error: .notFound(element: "logInText.text in goToProfile"))}
         self.logInButtonPress() {
-           result in
+            result in
             switch result {
             case .success(let userService):
                 self.coordinator = LoginCoordinator(navigation: self.navigationController ?? UINavigationController())
@@ -234,9 +234,9 @@ class LogInViewController: UIViewController {
 #endif
         if loginInspector.checkLoginPassword(login: userName, password: userPassword) == true {
             completion(.success(userService))
-                       } else {
-                completion(.failure(.wrongPassword(viewController: self)))
-            }
+        } else {
+            completion(.failure(.wrongPassword(viewController: self)))
+        }
     }
     
     func goLogin() {

@@ -40,6 +40,7 @@ class FeedViewController: UIViewController {
         viewFeed.passwordButton.onTap = {
             self.onButton()
         }
+        self.hideKeyboard()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -57,7 +58,10 @@ class FeedViewController: UIViewController {
 extension FeedViewController: FeedViewControllerDelegate {
     func onButton() {
         print("tap on button")
-        guard let userPassword = viewFeed.passwordTextField.text else {return ApiError().handle(error: .passwordEmpty(viewController: self))}
+        if viewFeed.passwordTextField.text?.isEmpty == true {
+            ApiError().handle(error: .passwordEmpty(viewController: self))
+        }
+        guard let userPassword = viewFeed.passwordTextField.text else {return ApiError().handle(error: .notFound(element: "viewFeed.passwordTextField.text"))}
         viewFeed.checkPasswordLabel.text = userPassword
         viewFeed.checkPasswordLabel.textColor = { userPassword == viewModel.password ? .green : .red}()
     }
