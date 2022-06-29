@@ -65,6 +65,7 @@
 		84DD26E028104F6A00123322 /* LoginViewControllerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD26DF28104F6A00123322 /* LoginViewControllerService.swift */; };
 		84DD26E8281FF4A700123322 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 84DD26E7281FF4A700123322 /* iOSIntPackage */; };
 		84F949A4286AF4BB002EA3B6 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F949A3286AF4BB002EA3B6 /* ApiError.swift */; };
+		84F949A6286C53F2002EA3B6 /* Extension(UIViewController).swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F949A5286C53F2002EA3B6 /* Extension(UIViewController).swift */; };
 		84FFEA8527660C2C00D2C240 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFEA8427660C2C00D2C240 /* LogInViewController.swift */; };
 		CCC855908C98825689A8B621 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
@@ -165,6 +166,7 @@
 		84DD26DD28104BC300123322 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		84DD26DF28104F6A00123322 /* LoginViewControllerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerService.swift; sourceTree = "<group>"; };
 		84F949A3286AF4BB002EA3B6 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		84F949A5286C53F2002EA3B6 /* Extension(UIViewController).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension(UIViewController).swift"; sourceTree = "<group>"; };
 		84FFEA8427660C2C00D2C240 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		91C486BA4539E2598FE4629B /* Pods_StorageService_StorageServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService_StorageServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D373CD1B5811DCB5565F1A /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,6 +340,7 @@
 			children = (
 				84903FD127A13CC600CFE811 /* Extension(UITextField).swift */,
 				84C003F12825291700369191 /* Extension(UIView).swift */,
+				84F949A5286C53F2002EA3B6 /* Extension(UIViewController).swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				849331E228007AEC00FE58C0 /* UserService.swift in Sources */,
 				844D835D277210F700513017 /* PostTableViewCell.swift in Sources */,
 				841B7F85271EC95700740CD5 /* SceneDelegate.swift in Sources */,
+				84F949A6286C53F2002EA3B6 /* Extension(UIViewController).swift in Sources */,
 				8452CB7A2859E0450080C7C6 /* ProfileCoordinator.swift in Sources */,
 				849331E0280075D800FE58C0 /* User.swift in Sources */,
 				84DD26D4280EF28200123322 /* Checker.swift in Sources */,

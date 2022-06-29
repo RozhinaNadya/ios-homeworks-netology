@@ -10,6 +10,8 @@ import SnapKit
 
 class ProfileTableViewCell: UITableViewHeaderFooterView {
     
+    private var statusText: String = "Waiting for something..."
+    
     lazy var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
@@ -35,7 +37,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
-        status.placeholder = "Waiting for something..."
+        status.placeholder = self.statusText
         status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()
@@ -43,9 +45,10 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     lazy var setStatusButton: CustomButton = {
         let button = CustomButton(title: "Show status")
         button.onTap = {
-            print(self.statusTextField.text ?? "Waiting for something...")
             self.statusTextField.resignFirstResponder()
-            self.statusTextField.text = self.statusText}
+            self.statusTextField.text = self.statusText
+            self.myText.isHidden = true
+        }
         return button
     }()
     
@@ -60,9 +63,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         text.layer.cornerRadius = 12
         return text
     }()
-    
-    private var statusText: String = "Waiting for something..."
-    
+        
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         backgroundColor = .lightGray
@@ -74,6 +75,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
     }
     
     @objc func statusTextChanged(_ textField: UITextField){
+        self.myText.isHidden = false
         setStatusButton.setTitle("Set status", for: .normal)
         myText.text = statusTextField.text
         contentView.addSubview(myText)
@@ -84,7 +86,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
             myText.widthAnchor.constraint(equalToConstant: 175)
         ]
         NSLayoutConstraint.activate(constrMyText)
-        statusText = myText.text ?? "Waiting for something..."
+        guard let newStatus = myText.text else {return ApiError().handle(error: .notFound(element: "myText.text"))}
+        statusText = newStatus
     }
     
     func configureLayout() {

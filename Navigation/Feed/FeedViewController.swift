@@ -57,7 +57,7 @@ class FeedViewController: UIViewController {
 extension FeedViewController: FeedViewControllerDelegate {
     func onButton() {
         print("tap on button")
-        guard let userPassword = viewFeed.passwordTextField.text else {return}
+        guard let userPassword = viewFeed.passwordTextField.text else {return ApiError().handle(error: .passwordEmpty(viewController: self))}
         viewFeed.checkPasswordLabel.text = userPassword
         viewFeed.checkPasswordLabel.textColor = { userPassword == viewModel.password ? .green : .red}()
     }

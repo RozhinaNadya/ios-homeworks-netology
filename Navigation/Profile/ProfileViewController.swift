@@ -87,6 +87,7 @@ class ProfileViewController: UIViewController {
         exitIcon.addGestureRecognizer(gestureExit)
         exitIcon.isUserInteractionEnabled = true
         handlerDebigReleaseColor()
+        self.hideKeyboard()
     }
     
     override func viewWillLayoutSubviews() {
