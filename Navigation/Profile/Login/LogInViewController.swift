@@ -182,10 +182,10 @@ class LogInViewController: UIViewController {
         }
     }
     
-    func getPassword() throws {
+    func getPassword() {
         activityIndecator.startAnimating()
         self.picUpPasswordButton.isHidden = true
-        guard let enteredLogin = self.logInText.text else {throw AppError.notFound(element: "logInText.text")}
+        guard let enteredLogin = self.logInText.text else {preconditionFailure("logInText.text not found")}
         passwordGuessing.completionBlock = { [weak self] in
             DispatchQueue.global().async {
                 self?.passwordText.text = self?.passwordGuessing.bruteForce(login: enteredLogin)
