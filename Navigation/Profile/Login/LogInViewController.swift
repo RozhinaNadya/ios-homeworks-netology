@@ -107,11 +107,11 @@ class LogInViewController: UIViewController {
     override func loadView() {
         let view = UIView()
         self.view = view
-        logInButton.onTap = { self.goToProfile() }
+        logInButton.onTap = { try? self.goToProfile() }
         passwordText.addTarget(self, action: #selector(tapText), for: .allEvents)
         picUpPasswordButton.onTap = {
             [weak self] in
-            self?.getPassword()
+            try? self?.getPassword()
         }
     }
     
@@ -182,11 +182,10 @@ class LogInViewController: UIViewController {
         }
     }
     
-    func getPassword() {
+    func getPassword() throws {
         activityIndecator.startAnimating()
-        
         self.picUpPasswordButton.isHidden = true
-        guard let enteredLogin = self.logInText.text else {return ApiError().handle(error: .notFound(element: "logInText.text"))}
+        guard let enteredLogin = self.logInText.text else {throw AppError.notFound(element: "logInText.text")}
         passwordGuessing.completionBlock = { [weak self] in
             DispatchQueue.global().async {
                 self?.passwordText.text = self?.passwordGuessing.bruteForce(login: enteredLogin)
@@ -206,8 +205,8 @@ class LogInViewController: UIViewController {
             self?.logInStackView.addArrangedSubview(text)
         }
     }
-    func goToProfile() {
-        guard let userName = logInText.text else {return ApiError().handle(error: .notFound(element: "logInText.text in goToProfile"))}
+    func goToProfile() throws {
+        guard let userName = logInText.text else {throw AppError.notFound(element: "logInText.text in goToProfile")}
         self.logInButtonPress() {
             result in
             switch result {
