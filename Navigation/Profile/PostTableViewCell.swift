@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -83,6 +84,13 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.heightAnchor.constraint(equalToConstant: 50)
         ]
         NSLayoutConstraint.activate(constrPost)
+    }
+    
+    func filterImage(image: UIImage) {
+        let filter = ImageProcessor()
+        DispatchQueue.main.async {
+            filter.processImage(sourceImage: image, filter: ColorFilter.allCases.randomElement()!, completion: { [weak self] image in self?.postImageView.image = image})
+        }
     }
     
     override func prepareForReuse() {

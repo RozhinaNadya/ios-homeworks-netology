@@ -6,10 +6,18 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     var backgroundColor: UIColor = .clear
+    
+    var profileModel: ProfileModel?
+    
+    var userService: UserService?
+    var userName: String?
     
     let tableView = UITableView.init(frame: .zero, style: .plain)
     
@@ -50,10 +58,12 @@ class ProfileViewController: UIViewController {
     
     var posts: [Post]!
     
-    init(_ color: UIColor, title: String = "Title") {
+    init(viewModel: ProfileModel) {
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
+        backgroundColor = viewModel.color
+        self.title = viewModel.title
+        self.userService = viewModel.userService
+        self.userName = viewModel.userName
     }
     
     override func loadView() {
@@ -76,6 +86,8 @@ class ProfileViewController: UIViewController {
         let gestureExit = UITapGestureRecognizer(target: self, action: #selector(handleExitTapGesture))
         exitIcon.addGestureRecognizer(gestureExit)
         exitIcon.isUserInteractionEnabled = true
+        handlerDebigReleaseColor()
+        self.hideKeyboard()
     }
     
     override func viewWillLayoutSubviews() {
@@ -155,6 +167,16 @@ class ProfileViewController: UIViewController {
         )
     }
     
+    func handlerDebigReleaseColor() {
+#if DEBUG
+        self.view.backgroundColor = UIColor(named: "debugColor")
+        tableView.backgroundColor = UIColor(named: "debugColor")
+#else
+        self.view.backgroundColor = UIColor(named: "releaseColor")
+        tableView.backgroundColor = UIColor(named: "releaseColor")
+#endif
+    }
+    
     func configureLayoutHeaderView() {
         self.view.addSubviews([tableView, sizeAvatarImageView, exitIcon])
         tableView.addSubview(backView)
@@ -206,7 +228,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
             headerCell.avatarImageView.addGestureRecognizer(gesture)
             headerCell.avatarImageView.isUserInteractionEnabled = true
+//#if DEBUG
+            let user = userService?.giveUser(name: userName ?? "Not found")
+            headerCell.fullNameLabel.text = user?.fullName ?? "Not found"
+            headerCell.avatarImageView.image = UIImage(named: user?.avatarImageName ?? "not_found.png")
+            headerCell.statusTextField.text = user?.status
+//#endif
             return headerCell
+            
         } else {
             return nil
         }
@@ -230,7 +259,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             formatter.numberStyle = .currency
             let myPost = posts[indexPath.row]
             cell.authorLabel.text = "\(myPost.author)"
-            cell.postImageView.image = UIImage(named: myPost.image)
+            cell.filterImage(image: (UIImage(named: myPost.image)!))
             cell.descriptionLabel.text = "\(myPost.description)"
             cell.likeLabel.text = "Likes: \(myPost.like)"
             cell.viewsLabel.text = "Views: \(myPost.views)"
@@ -239,9 +268,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photosViewController = PhotosViewController(.white, title: "Photo Gallery")
         if indexPath.section == 0 {
-            navigationController?.pushViewController(photosViewController, animated: true)
+            guard let name = self.userName else {return print("not found userName")}
+            guard let service = self.userService else {return print("not found userService")}
+            
+            coordinator = ProfileCoordinator(navigation: self.navigationController ?? UINavigationController(), userName: name, userService: service)
+            coordinator?.photosSubscription()
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

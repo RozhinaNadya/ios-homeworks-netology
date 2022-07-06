@@ -9,24 +9,52 @@ import UIKit
 
 class ViewFeed: UIView {
     
-    var buttonPost1: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Создать пост №1", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
+    weak var delegate: FeedViewControllerDelegate?
+    
+    var buttonPost1: CustomButton = {
+        let button = CustomButton(title: "Create post №1")
         return button
     }()
     
-    var buttonPost2: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Создать пост №2", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
+    var buttonPost2: CustomButton = {
+        let button = CustomButton(title: "Create post №2")
         return button
+    }()
+    
+    var feedStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.toAutoLayout()
+        stackView.axis = .vertical
+        stackView.spacing = 1
+        stackView.addShadow()
+        stackView.backgroundColor = .clear
+        stackView.addShadow()
+        return stackView
+    }()
+    
+    var passwordTextField: UITextField = {
+        let password = UITextField()
+        password.toAutoLayout()
+        password.indent(size: 10)
+        password.placeholder = "Enter password"
+        password.layer.cornerRadius = 10
+        password.layer.borderWidth = 1
+        password.layer.borderColor = UIColor.lightGray.cgColor
+        return password
+    }()
+    
+    var passwordButton: CustomButton = {
+        let button = CustomButton(title: "OK")
+        button.onTap = {
+            
+        }
+        return button
+    }()
+    
+    var checkPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.toAutoLayout()
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -35,39 +63,9 @@ class ViewFeed: UIView {
         goStack()
     }
     
-    func configureLayoutButtonPost() {
-        
-        addSubview(feedStackView)
-        
-        let constrButton : [NSLayoutConstraint] = [
-            buttonPost1.heightAnchor.constraint(equalToConstant: 50),
-            buttonPost2.heightAnchor.constraint(equalToConstant: 50),
-            feedStackView.topAnchor.constraint(equalTo: topAnchor, constant: 300),
-            feedStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            feedStackView.widthAnchor.constraint(equalToConstant: 300),
-        ]
-        NSLayoutConstraint.activate(constrButton)
-        setNeedsLayout()
-        layoutIfNeeded()
+    private func buttonTapped() {
+        delegate?.onButton()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var feedStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.toAutoLayout()
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        stackView.layer.cornerRadius = 4
-        stackView.addShadow()
-        stackView.backgroundColor = .white
-        stackView.layer.borderColor = UIColor.white.cgColor
-        stackView.layer.borderWidth = 1
-        stackView.addShadow()
-        return stackView
-    }()
     
     func goStack(){
         [buttonPost1, buttonPost2]
@@ -76,5 +74,37 @@ class ViewFeed: UIView {
                 button = $0
                 self?.feedStackView.addArrangedSubview(button)
             }
+    }
+    
+    func configureLayoutButtonPost() {
+        
+        addSubviews([feedStackView, passwordTextField, passwordButton, checkPasswordLabel])
+        
+        NSLayoutConstraint.activate([
+            buttonPost1.heightAnchor.constraint(equalToConstant: 50),
+            buttonPost2.heightAnchor.constraint(equalToConstant: 50),
+            
+            feedStackView.topAnchor.constraint(equalTo: topAnchor, constant: 300),
+            feedStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            feedStackView.widthAnchor.constraint(equalToConstant: 300),
+            
+            passwordTextField.topAnchor.constraint(equalTo: feedStackView.bottomAnchor, constant: 50),
+            passwordTextField.leadingAnchor.constraint(equalTo: feedStackView.leadingAnchor),
+            passwordTextField.trailingAnchor.constraint(equalTo: feedStackView.trailingAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            passwordButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+            passwordButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
+            passwordButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
+            passwordButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            checkPasswordLabel.topAnchor.constraint(equalTo: passwordButton.bottomAnchor, constant: 10),
+            checkPasswordLabel.heightAnchor.constraint(equalToConstant: 50),
+            checkPasswordLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

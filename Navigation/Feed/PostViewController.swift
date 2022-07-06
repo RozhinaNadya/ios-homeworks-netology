@@ -9,6 +9,12 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    weak var coordinator: PostCoordinator?
+    
+    struct Post {
+        var title: String
+    }
+    
     var backgroundColor: UIColor = .clear
     
     var postView: UIView = {
@@ -36,16 +42,12 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(clickedButton))
-        
-        view.addSubview(postView)
-        
-        let constrArrayPost: [NSLayoutConstraint] = [
-            postView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            postView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            postView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            postView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
-        ]
-        NSLayoutConstraint.activate(constrArrayPost)
+        configureLayoutPost()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishBuying()
     }
     
     @objc func clickedButton() {
@@ -53,7 +55,14 @@ class PostViewController: UIViewController {
         present(vcInfo, animated: true)
     }
     
-    struct Post {
-        var title: String
+    func configureLayoutPost() {
+        view.addSubview(postView)
+        let constrArrayPost: [NSLayoutConstraint] = [
+            postView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            postView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            postView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            postView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        ]
+        NSLayoutConstraint.activate(constrArrayPost)
     }
 }

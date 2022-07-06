@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileTableViewCell: UITableViewHeaderFooterView {
     
-    var fullNameLabel: UILabel = {
+    private var statusText: String = "Waiting for something..."
+    
+    lazy var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -18,7 +21,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         return label
     }()
     
-    var avatarImageView: UIImageView = {
+    lazy var avatarImageView: UIImageView = {
         let imageName = "catImage.png"
         let avatarImage = UIImage(named: imageName)
         let avatarView = UIImageView(image: avatarImage)
@@ -29,29 +32,27 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         return avatarView
     }()
     
-    var statusTextField: UITextField = {
+    lazy var statusTextField: UITextField = {
         let status = UITextField()
         status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
-        status.placeholder = "Waiting for something..."
+        status.placeholder = self.statusText
         status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()
     
-    var setStatusButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Show status", for: .normal)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 4
-        button.addShadow()
+    lazy var setStatusButton: CustomButton = {
+        let button = CustomButton(title: "Show status")
+        button.onTap = {
+            self.statusTextField.resignFirstResponder()
+            self.statusTextField.text = self.statusText
+            self.myText.isHidden = true
+        }
         return button
     }()
     
-    var myText: UITextField = {
+    lazy var myText: UITextField = {
         let text = UITextField()
         text.toAutoLayout()
         text.font = .systemFont(ofSize: 15, weight: .regular)
@@ -62,9 +63,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         text.layer.cornerRadius = 12
         return text
     }()
-    
-    private var statusText: String = "Waiting for something..."
-    
+        
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         backgroundColor = .lightGray
@@ -75,13 +74,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func buttonPressed(){
-        print(statusTextField.text ?? "Waiting for something...")
-        statusTextField.resignFirstResponder()
-        statusTextField.text = statusText
-    }
-    
     @objc func statusTextChanged(_ textField: UITextField){
+        self.myText.isHidden = false
         setStatusButton.setTitle("Set status", for: .normal)
         myText.text = statusTextField.text
         contentView.addSubview(myText)
@@ -92,35 +86,35 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
             myText.widthAnchor.constraint(equalToConstant: 175)
         ]
         NSLayoutConstraint.activate(constrMyText)
-        statusText = myText.text ?? "Waiting for something..."
+        guard let newStatus = myText.text else {return ApiError().handle(error: .notFound(element: "myText.text"))}
+        statusText = newStatus
     }
     
     func configureLayout() {
         avatarImageView.layer.cornerRadius = 50
         contentView.addSubviews([avatarImageView, fullNameLabel, statusTextField, setStatusButton])
-        let constrArray: [NSLayoutConstraint] = [
-            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
-            
-            fullNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 132),
-            fullNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
-            fullNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            fullNameLabel.heightAnchor.constraint(equalToConstant: 40),
-            fullNameLabel.widthAnchor.constraint(equalToConstant: 175),
-            
-            statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.widthAnchor.constraint(equalToConstant: 175),
-            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
-            
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
-            setStatusButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-        ]
-        NSLayoutConstraint.activate(constrArray)
+        avatarImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(27)
+            $0.leading.equalToSuperview().inset(16)
+            $0.height.width.equalTo(100)
+        }
+        fullNameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(132)
+            $0.top.equalToSuperview().inset(27)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(40)
+            $0.width.equalTo(175)
+        }
+        statusTextField.snp.makeConstraints {
+            $0.leading.equalTo(fullNameLabel)
+            $0.bottom.equalTo(setStatusButton).inset(84)
+            $0.height.equalTo(40)
+            $0.width.equalTo(175)
+        }
+        setStatusButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().inset(16)
+        }
     }
 }

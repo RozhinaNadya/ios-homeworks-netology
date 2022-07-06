@@ -24,15 +24,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-class TabBar: UITabBarController {
-    init(viewControllers: [UINavigationController]){
-        super.init(nibName: nil, bundle: nil)
-        self.viewControllers = viewControllers
-        self.tabBar.backgroundColor = .white
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 

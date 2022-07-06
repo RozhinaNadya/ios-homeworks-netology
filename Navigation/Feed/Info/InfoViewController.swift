@@ -14,16 +14,18 @@ class InfoViewController: UIViewController {
     
     override func loadView() {
         let view = ViewInfo()
-        view.buttonInfo.addTarget(self, action: #selector(ButtonInfo), for: .touchUpInside)
         self.view = view
         view.backgroundColor = backgroundColor
+        view.buttonInfo.onTap = {
+            self.ButtonInfo()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    @objc func ButtonInfo() {
+    func ButtonInfo() {
         let alert = UIAlertController(title: "Справка", message: "Здесь можно добавить новый пост. Пожалуйста, пишите грамотно и по делу", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
