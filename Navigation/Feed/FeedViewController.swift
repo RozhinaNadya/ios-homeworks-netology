@@ -9,12 +9,15 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var backgroundColor: UIColor = .clear
+    private let viewModel: FeedModel
     
-    init(_ color: UIColor, title: String = "Title") {
+    let viewFeed = ViewFeed()
+    
+    var coordinator: FeedCoordinator?
+    
+    init(viewModel: FeedModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        backgroundColor = color
-        self.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -22,23 +25,44 @@ class FeedViewController: UIViewController {
     }
     
     override func loadView() {
-        let view = ViewFeed()
-        view.buttonPost1.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
-        view.buttonPost2.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
-        self.view = view
-        view.backgroundColor = backgroundColor
+        self.view = viewFeed
+        viewFeed.buttonPost1.onTap = {
+            self.onButtonTap()
+        }
+        viewFeed.buttonPost2.onTap = {
+            self.onButtonTap()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewFeed.delegate = self
+        viewFeed.passwordButton.onTap = {
+            self.onButton()
+        }
+        self.hideKeyboard()
     }
     
-    @objc
-    func onButtonTap(){
-        print("button tapped")
-        let vcPost = PostViewController(.yellow, title: "Новый пост")
-        self.navigationController?.pushViewController(vcPost, animated: true)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishBuying()
     }
-    
-    var post = PostViewController.Post(title: "New Post")
+
+    func onButtonTap() {
+        print("onButtonTap tapped")
+        self.coordinator = FeedCoordinator(navigation: self.navigationController ?? UINavigationController())
+        self.coordinator?.postSubscription()
+    }
+}
+
+extension FeedViewController: FeedViewControllerDelegate {
+    func onButton() {
+        print("tap on button")
+        if viewFeed.passwordTextField.text?.isEmpty == true {
+            ApiError().handle(error: .passwordEmpty(viewController: self))
+        }
+        guard let userPassword = viewFeed.passwordTextField.text else {return ApiError().handle(error: .notFound(element: "viewFeed.passwordTextField.text"))}
+        viewFeed.checkPasswordLabel.text = userPassword
+        viewFeed.checkPasswordLabel.textColor = { userPassword == viewModel.password ? .green : .red}()
+    }
 }

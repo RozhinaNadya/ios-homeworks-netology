@@ -10,6 +10,8 @@ import SnapKit
 
 class ProfileTableViewCell: UITableViewHeaderFooterView {
     
+    private var statusText: String = "Waiting for something..."
+    
     lazy var fullNameLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
@@ -35,20 +37,18 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         status.toAutoLayout()
         status.font = .systemFont(ofSize: 14, weight: .regular)
         status.textColor = .gray
-        status.placeholder = "Waiting for something..."
+        status.placeholder = self.statusText
         status.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return status
     }()
     
-    lazy var setStatusButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Show status", for: .normal)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 4
-        button.addShadow()
+    lazy var setStatusButton: CustomButton = {
+        let button = CustomButton(title: "Show status")
+        button.onTap = {
+            self.statusTextField.resignFirstResponder()
+            self.statusTextField.text = self.statusText
+            self.myText.isHidden = true
+        }
         return button
     }()
     
@@ -63,9 +63,7 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         text.layer.cornerRadius = 12
         return text
     }()
-    
-    private var statusText: String = "Waiting for something..."
-    
+        
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         backgroundColor = .lightGray
@@ -76,13 +74,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func buttonPressed(){
-        print(statusTextField.text ?? "Waiting for something...")
-        statusTextField.resignFirstResponder()
-        statusTextField.text = statusText
-    }
-    
     @objc func statusTextChanged(_ textField: UITextField){
+        self.myText.isHidden = false
         setStatusButton.setTitle("Set status", for: .normal)
         myText.text = statusTextField.text
         contentView.addSubview(myText)
@@ -93,7 +86,8 @@ class ProfileTableViewCell: UITableViewHeaderFooterView {
             myText.widthAnchor.constraint(equalToConstant: 175)
         ]
         NSLayoutConstraint.activate(constrMyText)
-        statusText = myText.text ?? "Waiting for something..."
+        guard let newStatus = myText.text else {return ApiError().handle(error: .notFound(element: "myText.text"))}
+        statusText = newStatus
     }
     
     func configureLayout() {

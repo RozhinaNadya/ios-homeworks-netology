@@ -9,14 +9,9 @@ import UIKit
 
 class ViewInfo: UIView {
     
-    var buttonInfo: UIButton = {
-        let buttonInfo = UIButton()
-        buttonInfo.translatesAutoresizingMaskIntoConstraints = false
-        buttonInfo.setTitle("Подробне", for: .normal)
-        buttonInfo.backgroundColor = .systemBlue
-        buttonInfo.layer.cornerRadius = 4
-        buttonInfo.addShadow()
-        return buttonInfo
+    var buttonInfo: CustomButton = {
+        let button = CustomButton(title: "Подробне")
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -27,7 +22,7 @@ class ViewInfo: UIView {
     
     func configureLayoutButtonInfo() {
         let constrInfo: [NSLayoutConstraint] = [
-            buttonInfo.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 200),
+            buttonInfo.centerYAnchor.constraint(equalTo: centerYAnchor),
             buttonInfo.centerXAnchor.constraint(equalTo: centerXAnchor),
             buttonInfo.heightAnchor.constraint(equalToConstant: 50),
             buttonInfo.widthAnchor.constraint(equalToConstant: 200)
