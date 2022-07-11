@@ -7,8 +7,8 @@
 
 import UIKit
 
-enum AppConfiguration {
-    case people(urlString: String)
-    case starships(urlString: String)
-    case planets(urlString: String)
+enum AppConfiguration: CaseIterable {
+    case people
+    case starships
+    case planets
 }
