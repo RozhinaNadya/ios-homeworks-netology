@@ -21,6 +21,8 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     func start() {
         navigation.delegate = self
         initWindow()
+        let appConfiguration: AppConfiguration = AppConfiguration.allCases.randomElement()!
+        NetworkService().request(of: appConfiguration)
     }
         
     init(scene: UIWindowScene) {
