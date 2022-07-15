@@ -9,6 +9,8 @@ import UIKit
 
 class ViewInfo: UIView {
     
+    var orbitalPeriod: String?
+    
     var buttonInfo: CustomButton = {
         let button = CustomButton(title: "Подробне")
         return button
@@ -16,6 +18,14 @@ class ViewInfo: UIView {
     
     var requestLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.toAutoLayout()
+        return label
+    }()
+    
+    var tatooineLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
         label.toAutoLayout()
         return label
     }()
@@ -25,11 +35,12 @@ class ViewInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayoutButtonInfo()
-        fetchData(urlString: "https://jsonplaceholder.typicode.com/todos/10")
+        fetchData()
+        fetchPlanetWithDeccoder()
     }
     
-    private func fetchData(urlString: String) {
-        guard let url = URL(string: urlString) else {return}
+    private func fetchData() {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/10") else {return}
         self.networkService.request(url: url) {
             result in
             switch result {
@@ -52,8 +63,27 @@ class ViewInfo: UIView {
         }
     }
     
+    private func fetchPlanetWithDeccoder() {
+        guard let url = URL(string: "https://swapi.dev/api/planets/1") else {return}
+        self.networkService.request(url: url) {
+            [weak self] result in
+            switch result {
+            case .success(let data):
+                do {
+                let planet = try JSONDecoder().decode(Planet.self, from: data)
+                print("SUCCESS fetchPlanetWithDeccoder", dump(planet))
+                        self?.tatooineLabel.text = "The period of revolution of the planet Tatooine around its star: \(planet.orbital_period)"
+                } catch let error {
+                    print("ERROR", error)
+                }
+            case .failure(let error):
+                print("FAILURE", error)
+            }
+        }
+    }
+    
     func configureLayoutButtonInfo() {
-        addSubviews([buttonInfo, requestLabel])
+        addSubviews([buttonInfo, requestLabel, tatooineLabel])
         let constrInfo: [NSLayoutConstraint] = [
             buttonInfo.centerYAnchor.constraint(equalTo: centerYAnchor),
             buttonInfo.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -63,6 +93,10 @@ class ViewInfo: UIView {
             requestLabel.topAnchor.constraint(equalTo: buttonInfo.bottomAnchor, constant: 20),
             requestLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             requestLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            tatooineLabel.topAnchor.constraint(equalTo: requestLabel.bottomAnchor, constant: 20),
+            tatooineLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            tatooineLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
 
         ]
         NSLayoutConstraint.activate(constrInfo)

@@ -45,6 +45,7 @@
 		849C20BE287C22DB009C89D7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20BD287C22DB009C89D7 /* NetworkService.swift */; };
 		849C20C0287C2983009C89D7 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20BF287C2983009C89D7 /* AppConfiguration.swift */; };
 		849C212E288066F8009C89D7 /* NetworkServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C212D288066F8009C89D7 /* NetworkServiceInfo.swift */; };
+		849C213028816C4C009C89D7 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C212F28816C4C009C89D7 /* Planet.swift */; };
 		84A9B35B2798334A00353093 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9B35A2798334A00353093 /* PhotosTableViewCell.swift */; };
 		84A9B35D2798399700353093 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9B35C2798399700353093 /* PhotosViewController.swift */; };
 		84A9B36027983A6900353093 /* ArrayPhotos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */; };
@@ -150,6 +151,7 @@
 		849C20BD287C22DB009C89D7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		849C20BF287C2983009C89D7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		849C212D288066F8009C89D7 /* NetworkServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceInfo.swift; sourceTree = "<group>"; };
+		849C212F28816C4C009C89D7 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		84A9B35A2798334A00353093 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		84A9B35C2798399700353093 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		84A9B35F27983A6900353093 /* ArrayPhotos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ArrayPhotos.xcassets; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				843CC42B27274CF200FB46B0 /* InfoViewController.swift */,
 				843CC42D272752C400FB46B0 /* ViewInfo.swift */,
 				849C212D288066F8009C89D7 /* NetworkServiceInfo.swift */,
+				849C212F28816C4C009C89D7 /* Planet.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -702,6 +705,7 @@
 				841337A72720675D0016EDB7 /* FeedViewController.swift in Sources */,
 				848F7D8527FDA613004E2330 /* PostViewController.swift in Sources */,
 				84DD26D8280F01B400123322 /* LoginInspector.swift in Sources */,
+				849C213028816C4C009C89D7 /* Planet.swift in Sources */,
 				8452CB7828574FFC0080C7C6 /* LoginCoordinator.swift in Sources */,
 				841B7F83271EC95700740CD5 /* AppDelegate.swift in Sources */,
 				84C00406282BDCA100369191 /* ProfileModel.swift in Sources */,
